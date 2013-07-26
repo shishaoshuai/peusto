@@ -5,44 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+	
 		<link href="css/datetimepicker.css" rel="stylesheet" media="screen">
-		<link rel="stylesheet" href="css/jquery-ui/jquery.ui.all.css">
-		<link rel="stylesheet" href="css/demos.css">
-		
-		<script src="js/jquery-1.10.2.min.js"></script>
-		<script src="js/jquery.ui.core.js"></script>
-		<script src="js/jquery.ui.widget.js"></script>
-		<script src="js/jquery.ui.tabs.js"></script>
-		
-		<script>
-			$(function() {
-				$( "#tabs" ).tabs();
-			});
-		</script>
-		
-		<script language=javascript>
-			function addRow() {
-				if(document.all.startTime.value == "" ){ 
-					alert("请先输入开始时间！");
-				} else{
-					var day = "星期八";
-					var startTime = document.getElementById("startTime");
-					var endTime = document.getElementById("endTime");
-					var table1 = document.getElementById("table1");
-					var mytr=table1.insertRow(-1);
-					var mytd=mytr.insertCell();
-					mytd.innerHTML="<img src=\"http://bbs.game874.com/images/tool/houhui.gif\" style=\"cursor:hand\" title = \"删除\" onclick=\"javaScript:document.all.myTable.deleteRow(event.srcElement.parentElement.parentElement.rowIndex);\">";
-					mytd=mytr.insertCell();
-					mytd.innerText=endTime.value;
-					mytd=mytr.insertCell();
-					mytd.innerText=startTime.value;
-					mytd=mytr.insertCell();
-					mytd.innerText=day;
-					mytd=mytr.insertCell();
-					mytd.innerText=table1.rows.length-1;
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse">
@@ -73,100 +37,46 @@
 					</ul>
 				</div>				
 				<div class="span10">
-					<div id="tabs">
-						<ul>
-							<li><a href="#tabs-1">高效工作时间</a></li>
-							<li><a href="#tabs-2">每天固定安排</a></li>
-							<li><a href="#tabs-3">每周固定安排</a></li>
-						</ul>
-						<div id="tabs-1">
-						
-						
-						
-						
-						
-						
-						
-						
-						
-					<table class="table table-hover" id="table1">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>星期</th>
-								<th>开始时间</th>
-								<th>截止时间</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>制作用户首页</td>
-									<td>个人事业</td>
-									<td>6小时后</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>制作维护关注域页面</td>
-									<td>个人事业</td>
-									<td>10小时</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>制作目标管理维护页面</td>
-									<td>个人事业</td>
-									<td>16小时</td>
-									<td></td>
-								</tr>
-						  </tbody>
-					</table>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						<form id="form1" method="post">
-							<div class="control-group">
+
+
+				
+					<form class="form-horizontal">
+						<fieldset>
+						<legend>个人偏好设置</legend>
+						<div class="control-group">
+							<label class="control-label" for="task">高效工作时间</label>
 							<div class="controls">
-								&nbsp;从<input class="input-mini" type="text" id="startTime" placeholder="开始时间">
-								到<input class="input-mini" type="text" id="endTime" placeholder="结束时间">
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> 星期一
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> 星期二
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> 星期三
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> 星期四
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> 星期五
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox3" value="option3"> 星期六
-								</label>
-								<label class="checkbox inline">
-								  <input type="checkbox" id="inlineCheckbox3" value="option3"> 星期日
-								</label>
-								&nbsp;&nbsp;
-								
-								<button class="btn btn-small btn-primary" type="button" onclick="javaScript:addRow();">新增</button>
-								</div>
+							&nbsp;从<input class="input-mini" type="startTime" placeholder="开始时间">
+							到<input class="input-mini" type="endTime" placeholder="结束时间">
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> 星期一
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> 星期二
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> 星期三
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> 星期四
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> 星期五
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox3" value="option3"> 星期六
+							</label>
+							<label class="checkbox inline">
+							  <input type="checkbox" id="inlineCheckbox3" value="option3"> 星期日
+							</label>
+							&nbsp;&nbsp;
+							<button class="btn btn-small btn-primary" type="button">删除</button>
+							<button class="btn btn-small btn-primary" type="button">增加</button>
 							</div>
-						</form>
-						</div>
-						<div id="tabs-2">
+						</div>						 
+						<div class="control-group">
+							<label class="control-label" for="dtp_input1">固定安排</label>
+							
 							<div class="controls">每天
 								<input class="input-mini" type="startTime" placeholder="开始时间">&nbsp;到&nbsp;
 								<input class="input-mini" type="endTime" placeholder="结束时间">
@@ -189,9 +99,8 @@
 								<button class="btn btn-small btn-primary" type="button">删除</button>
 								<button class="btn btn-small btn-primary" type="button">增加</button>
 							</div>
-	</div>
-	<div id="tabs-3">
-		<div class="control-group">
+						</div>		
+						<div class="control-group">
 							<label class="control-label" for="dtp_input1"></label>
 							
 							<div class="controls">每周&nbsp;
@@ -239,9 +148,14 @@
 								<button class="btn btn-small btn-primary" type="button">删除</button>
 								<button class="btn btn-small btn-primary" type="button">增加</button>
 							</div>
+						</div>							
+						<div class="control-group">
+							<div class="controls" text-align="center">
+								<button type="submit" class="btn btn-primary">创建</button>
+							</div>
 						</div>
-	</div>
-</div>
+						</fieldset>
+					</form>
 
 				</div>							
 			</div>
@@ -251,9 +165,12 @@
 			<p class="text-center">&copy; Peusto Co. Ltd 2013</p>
 		</footer>
 
-		
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery-ui-1.10.2.custom.min.js"></script>
 		<script src="js/bootstrap.js"></script>
-					
+		<script src="js/docs.js"></script>
+		<script src="js/demo.js"></script>
+			
 	
 		<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
