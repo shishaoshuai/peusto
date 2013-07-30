@@ -30,7 +30,8 @@
 					var table1 = document.getElementById("table1");
 					var mytr=table1.insertRow(-1);
 					var mytd=mytr.insertCell();
-					mytd.innerHTML="<img src=\"http://bbs.game874.com/images/tool/houhui.gif\" style=\"cursor:hand\" title = \"É¾³ý\" onclick=\"javaScript:document.all.myTable.deleteRow(event.srcElement.parentElement.parentElement.rowIndex);\">";
+					
+					mytd.innerHTML="<i class=\"icon-remove\" title = \"É¾³ý\" onclick=\"javaScript:document.all.table1.deleteRow(event.srcElement.parentElement.parentElement.rowIndex);\">";
 					mytd=mytr.insertCell();
 					mytd.innerText=endTime.value;
 					mytd=mytr.insertCell();

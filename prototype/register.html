@@ -3,9 +3,18 @@
 	<head>
 		<title>时间管理->注册</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/bootstrap.js"></script>
+		<script Charset="UTF-8" src="js/jqBootstrapValidation.js"></script>
+		<script>
+			$(function () 
+				{ 
+					$("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); 
+				} 
+			);
+		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse">
@@ -28,14 +37,14 @@
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">用&nbsp;户&nbsp;名</label>
 				<div class="controls">
-					<input type="text" id="userName" placeholder="请输入用户名">
+					<input type="text" id="userName" minlength="3" placeholder="请输入用户名">
 					<span class="help-inline">请选择您经常使用的用户名</span>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">电子邮件</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" placeholder="请输入您常用的电子邮件地址">
+					<input type="email" id="inputEmail" placeholder="请输入您常用的电子邮件地址">
 					<span class="help-inline">请输入您常用的电子邮件地址</span>
 				</div>
 			</div>
@@ -47,16 +56,19 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputPassword">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+				<label class="control-label" for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
 				<div class="controls">
-					<input type="password" id="inputPassword" placeholder="请输入密码">
+					<input type="password" id="password" name="password" minlength="6" placeholder="请输入密码">
 					<span class="help-inline">密码应大于6位，包含字母、数字、特殊符号的组合</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputPassword">密码确认</label>
+				<label class="control-label" for="password_again">密码确认</label>
 				<div class="controls">
-					<input type="password" id="inputPassword2" placeholder="请确认您刚刚输入的密码">
+					<input type="password" id="password_again"  minlength="6"  
+						data-validation-match-match="password" name="password_again"
+						data-validation-match-message="与密码不一致"
+						placeholder="请确认您刚刚输入的密码">
 					<span class="help-inline">密码应大于6位，包含字母、数字、特殊符号的组合</span>
 				</div>
 			</div>
