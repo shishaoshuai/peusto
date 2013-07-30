@@ -6,8 +6,33 @@
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<link href="css/datetimepicker.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="css/jquery-ui/jquery.ui.all.css">
+
+
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/bootstrap.js"></script>
+		<script src="js/jquery.ui.core.js"></script>
+		<script src="js/jquery.ui.widget.js"></script>
+		<script src="js/jquery.ui.tabs.js"></script>
+		<script src="js/jquery.mousewheel.js"></script>
+		<script src="js/jquery.ui.button.js"></script>
+		<script src="js/jquery.ui.spinner.js"></script>
+		<script>
+			$(function() {
+				var spinner_hour = $( "#duration_hour" ).spinner({
+					min: 0,
+					max: 500,
+					step: 1,
+					start: 0
+				});
+				var spinner_minute = $( "#duration_minute" ).spinner({
+					min: 0,
+					max: 60,
+					step: 5,
+					start: 0
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse">
@@ -45,17 +70,17 @@
 						<fieldset>
 						<legend>任务管理</legend>
 						<div class="control-group">
-							<label class="control-label" for="task">任务</label>
+							<label class="control-label" for="task">任务名称</label>
 							<div class="controls">
-								<input type="text" class="input-block-level" id="task" placeholder="请输入待完成的任务"></input>
-								<span class="help-inline">任务要简明、清晰，不超过100个汉字</span>
+								<input type="text" class="input-block-level" stype="display:block" id="task" placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"></input>
 							</div> 
 						</div>			
 						<div class="control-group">
 							<label class="control-label" for="duration">预计耗时</label>
 							<div class="controls">
-								<input type="text" class="input-block-level" id="duration" placeholder="请输入待完成的任务"></input>
-								<span class="help-inline">任务要简明、清晰，不超过100个汉字</span>
+								<input id="duration_hour"  class="input-oneword" name="value">小时
+								<input id="duration_minute"  class="input-oneword" name="value">分钟
+								<span class="help-inline">本任务预计花费的时间</span>
 							</div> 
 						</div>			
 						<div class="control-group">
@@ -83,7 +108,7 @@
 						
 						<div class="control-group">
 							<label class="control-label">
-								<input type="checkbox">&nbsp;约会</input>
+								<input type="checkbox">定时任务</input>
 							</label>
 							<div class="controls date form_appointTime"  align="left" data-date-format="yyyy年MMdd日 - hh:ii" data-link-field="dtp_input1">
 								<input size="12" type="text" value="" readonly>
