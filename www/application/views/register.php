@@ -24,6 +24,7 @@
 					<li><a href="#">帮助</a></li>
 					<li><a href="#">关于</a></li>
 				</ul>
+
 				<form class="navbar-form pull-right" action="home.html">
 					<input class="input-large" type="text" placeholder="用户名/电子邮件/手机">
 					<input class="input-small" type="password" placeholder="密码">
@@ -33,18 +34,22 @@
 		</div>
 		<div class="container">
 			<h4>用户注册信息</h4>
-			<form class="form-horizontal" method="post" action="user/register">
+            <?php
+                $attributes = array('class' => 'form-horizontal');
+                echo form_open('user/create');
+            ?>
+
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">用&nbsp;户&nbsp;名</label>
+				<label class="control-label" for="name">用&nbsp;户&nbsp;名</label>
 				<div class="controls">
-					<input type="text" id="userName" minlength="3" placeholder="请输入用户名" required>
+					<input type="text" id="name" name="name" minlength="3" placeholder="请输入用户名" required>
 					<span class="help-inline">请选择您经常使用的用户名</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">电子邮件</label>
+				<label class="control-label" for="email">电子邮件</label>
 				<div class="controls">
-					<input type="email" id="inputEmail" placeholder="请输入您常用的电子邮件地址" required>
+					<input type="email" id="email" name="email" placeholder="请输入您常用的电子邮件地址" required>
 					<span class="help-inline">请输入您常用的电子邮件地址</span>
 				</div>
 			</div>
@@ -62,14 +67,14 @@
 					<input type="password" id="password_again"  minlength="6"  
 						data-validation-match-match="password" name="password_again"
 						data-validation-match-message="与密码不一致"
-						placeholder="请确认您刚刚输入的密码" required>
+						placeholder="请确认您刚刚输入的密码">
 					<span class="help-inline">密码应大于6位，包含字母、数字、特殊符号的组合</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">手&nbsp;&nbsp;&nbsp;&nbsp;机</label>
+				<label class="control-label" for="mobile">手&nbsp;&nbsp;&nbsp;&nbsp;机</label>
 				<div class="controls">
-					<input type="text" id="mobile" placeholder="请输入您的手机号">
+					<input type="text" id="mobile" name="mobile" placeholder="请输入您的手机号">
 					<span class="help-inline">请输入您的手机号</span>
 				</div>
 			</div>

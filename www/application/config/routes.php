@@ -42,7 +42,7 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 $route['register'] = 'user/register';
-$route['user/register'] = 'user/create';
+$route['user/create'] = 'user/create';
 
 
 /* End of file routes.php */
