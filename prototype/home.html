@@ -74,7 +74,7 @@
 						<div class="control-group">
 							<label class="control-label" for="task">任务名称</label>
 							<div class="controls">
-								<input type="text" class="input-block-level" id="task" placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"></input>
+								<input type="text" class="input-block-level" id="task" placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字" required></input>
 								<span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
 							</div> 
 						</div>			
@@ -96,7 +96,7 @@
 							<input type="hidden" id="dtp_input1" value="" />
 						</div>						
 						<div class="control-group">
-							<label class="control-label" for="target">所对应的目标</label>
+							<label class="control-label" for="target">所属目标</label>
 							<div class="controls">
 								<select>
 									<option>无</option>
@@ -105,10 +105,22 @@
 									<option>管理分析类数据标准落地</option>
 									<option>行业主题挖掘分析</option>
 								</select>
-								<span class="help-inline">请输入该任务所属的关注域</span>
+								<span class="help-inline">请输入该任务所属的目标</span>
 							</div>
 						</div>						
-						
+						<div class="control-group">
+							<label class="control-label" for="target">所属关注域</label>
+							<div class="controls">
+								<select>
+									<option>无</option>
+									<option>生活</option>
+									<option>工作</option>
+									<option>事业</option>
+									<option>个人健康</option>
+								</select>
+								<span class="help-inline">请输入该任务所属的关注域</span>
+							</div>
+						</div>			
 						<div class="control-group">
 							<label class="control-label">
 								<input type="checkbox">定时任务</input>
