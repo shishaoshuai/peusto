@@ -13,7 +13,7 @@
 		<link href="<?php echo asset_url();?>/css/bootstrap.css" rel="stylesheet" media="screen">
 		<link href="<?php echo asset_url();?>/css/docs.css" rel="stylesheet" media="screen">
 	</head>
-	<body>
+	<body onload="document.forms[0].elements[0].focus()">
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<ul class="nav">
@@ -25,7 +25,7 @@
                     $attributes = array('class' => 'navbar-form pull-right');
                     echo form_open('user/login',$attributes);
                 ?>
-					<input class="input-large" name="name" type="text" placeholder="用户名/电子邮件/手机号">
+					用户名：<input class="input-large" name="name" type="text" placeholder="用户名/电子邮件/手机号">
 					<input class="input-small" name="password" type="password" placeholder="密码">
 					<button class="btn btn-primary" type="submit">登录</button>
 					<button class="btn btn-danger" type="button" onclick="window.location.href='register'" >注册</button>

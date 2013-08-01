@@ -10,7 +10,7 @@
         ?>
 
 	</head>
-	<body>
+	<body onload="document.forms[0].elements[0].focus（）">
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
@@ -19,7 +19,7 @@
 					<li><a href="#">关于</a></li>
 				</ul>
 				<ul class="nav nav-pills pull-right">
-					<li><a href="#"><?php echo $name; ?>正在使用Peusto</a></li>
+					<li><a href="#"><?php echo $name; ?></a>正在使用Peusto</li>
 					<li><a href="home/logout">退出</a></li>
 					<li><a href="#">修改密码</a></li>
 				</ul>

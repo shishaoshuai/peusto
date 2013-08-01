@@ -6,22 +6,21 @@
 						<fieldset>
 						<legend>关注域管理</legend>
 						<div class="control-group">
-							<label class="control-label" for="interestAreaName">关注域名称</label>
+							<label class="control-label" for="name">关注域名称</label>
 							<div class="controls">
-								<input type="text" id="interestAreaName" placeholder="请输入关注域名称" />
+								<input type="text" id="name" placeholder="请输入关注域名称" required />
 								<span class="help-inline">关注域要简明扼要，不超过10个汉字</span>
 							</div> 
 						</div>						 
 						
 						<div class="control-group">
-							<label class="control-label" for="priority">优先级</label>
+							<label class="control-label" for="display_order">显示顺序</label>
 							<div class="controls">
-								<select id="priority">
-								  <option>高</option>
-								  <option>中</option>
-								  <option>低</option>
-								</select>
-								<span class="help-inline">优先级高的将显示在前面</span>
+                                <input type="text" id="display_order" placeholder="只能输入正整数"
+                                    data-validation-regex-regex="^[0-9]*[1-9][0-9]*$"
+                                    data-validation-regex-message="只能输入正整数  "
+                                />
+								<span class="help-inline">数字小的显示在前面</span>
 							</div>
 						</div>
 						<div class="control-group">
