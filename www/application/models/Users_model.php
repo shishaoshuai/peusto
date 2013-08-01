@@ -9,7 +9,7 @@
 
 class Users_model extends CI_Model {
     public function __construct() {
-        $this->load->database();
+        $this->load->helper('security');
     }
 
     public function create()    {
@@ -21,13 +21,29 @@ class Users_model extends CI_Model {
     public function set_user() {
         $this->load->helper('url');
 
+        $password =  $this->input->post('password');
+        $md5_password = do_hash($password, 'md5');
+
         $data = array(
             'name' => $this->input->post('name'),
-            'password' => $this->input->post('password'),
+            'password' => $md5_password,
             'email' => $this->input->post('email'),
             'mobile' => $this->input->post('mobile')
         );
-
         return $this->db->insert('users', $data);
+    }
+
+    public function login($username, $password) {
+        $this -> db -> select('idusers, name, password');
+        $this -> db -> from('users');
+        $this -> db -> where('name', $username);
+        $this -> db -> where('password', do_hash($password, 'md5'));
+        $this -> db -> limit(1);
+        $query = $this -> db -> get();
+        if($query -> num_rows() == 1) {
+            return $query->result();
+        } else {
+            return false;
+        }
     }
 }

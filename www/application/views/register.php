@@ -36,7 +36,7 @@
 			<h4>用户注册信息</h4>
             <?php
                 $attributes = array('class' => 'form-horizontal');
-                echo form_open('user/create');
+                echo form_open('user/create',$attributes);
             ?>
 
 			<div class="control-group">
