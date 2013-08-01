@@ -31,7 +31,7 @@ class User extends CI_Controller {
         if($this->form_validation->run() == FALSE) {
              $this->load->view('welcome_message');
        } else {
-            redirect('/ddd', 'refresh');
+            redirect('/home', 'refresh');
         }
     }
 

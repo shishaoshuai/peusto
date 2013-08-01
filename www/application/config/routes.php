@@ -45,5 +45,8 @@ $route['register'] = 'user/register';
 $route['user/create'] = 'user/create';
 $route['user/login'] = 'user/login';
 
+$route['home'] = 'home';
+$route['home/logout'] = 'home/logout';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
