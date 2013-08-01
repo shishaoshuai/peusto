@@ -13,6 +13,7 @@ class Target extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $data['name'] = $session_data['name'];
+            $data['active_nav_item'] = 'target';
             $this->load->view('templates/header',$data);
             $this->load->view('target_view', $data);
             $this->load->view('templates/footer',$data);

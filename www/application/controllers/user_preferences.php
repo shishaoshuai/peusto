@@ -13,6 +13,8 @@ class User_preferences extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $data['name'] = $session_data['name'];
+            $data['active_nav_item'] = 'user_preferences';
+
             $this->load->view('templates/header',$data);
             $this->load->view('user_preferences_view', $data);
             $this->load->view('templates/footer',$data);

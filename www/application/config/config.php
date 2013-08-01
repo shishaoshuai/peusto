@@ -358,6 +358,10 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+
+$config['header_css'] = array('bootstrap.css');
+$config['header_js']  = array('bootstrap.js','jquery-1.10.2.min.js');
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
 

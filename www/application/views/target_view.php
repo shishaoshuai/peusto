@@ -1,72 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>***的管理首页</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-		<link href="css/datetimepicker.css" rel="stylesheet" media="screen">
 
-		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>		
-		<script Charset="UTF-8" src="js/jqBootstrapValidation.js"></script>
-		<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-		<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-		<script type="text/javascript">
-			$('.form_finishTime').datetimepicker({
-				language:  'zh-CN',
-				weekStart: 1,
-				todayBtn:  1,
-				autoclose: 1,
-				todayHighlight: 1,
-				startView: 2,
-				forceParse: 0,
-				showMeridian: 1
-			});
-
-			
-			$('.form_appointTime').datetimepicker({
-				language:  'zh-CN',
-				weekStart: 1,
-				todayBtn:  1,
-				autoclose: 1,
-				todayHighlight: 1,
-				startView: 2,
-				forceParse: 0,
-				showMeridian: 1
-			});
-		</script>
-		
-	</head>
-	<body>
-		<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				<ul class="nav">
-					<li class="active"><a href="home.html">首页</a></li>
-					<li><a href="#">帮助</a></li>
-					<li><a href="#">关于</a></li>
-				</ul>
-				<ul class="nav nav-pills pull-right">
-					<li><a href="#">师少帅正在使用Peusto</a></li>
-					<li><a href="index.html">退出</a></li>
-					<li><a href="#">修改密码</a></li>
-				</ul>
-			</div>
-		</div>
-		
-		<div class="container-fluid">
-			<div class="row-fluid">
-			
-				<div class="span2">
-				<!--Sidebar content-->
-				<ul class="nav nav-pills nav-stacked">
-					<li><a href="home.html">待办任务</a></li>
-					<li class="active"><a href="targetMgmt.html">目标管理</a></li>
-					<li><a href="interestAreaMgmt.html">关注域管理</a></li>
-					<li><a href="timeRecord.html">时间使用情况记录</a></li>
-					<li><a href="preferences.html">个人偏好设置</a></li>
-				</ul>
-				</div>
 				
 				<div class="span6">
 				
@@ -157,9 +89,3 @@
 			</div>
 		</div>
 
-		<footer>
-			<p class="text-center">&copy; Peusto Co. Ltd 2013</p>
-		</footer>
-
-	</body>
-</html>

@@ -12,7 +12,10 @@ class Interest_area extends CI_Controller {
         if($this->session->userdata('logged_in'))
         {
             $session_data = $this->session->userdata('logged_in');
+
             $data['name'] = $session_data['name'];
+            $data['active_nav_item'] = 'interest_area';
+
             $this->load->view('templates/header',$data);
             $this->load->view('interest_area_view', $data);
             $this->load->view('templates/footer',$data);

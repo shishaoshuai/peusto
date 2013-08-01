@@ -13,6 +13,8 @@ class Time_record extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $data['name'] = $session_data['name'];
+            $data['active_nav_item'] = 'time_record';
+
             $this->load->view('templates/header',$data);
             $this->load->view('time_record_view', $data);
             $this->load->view('templates/footer',$data);
