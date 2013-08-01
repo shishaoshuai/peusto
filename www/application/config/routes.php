@@ -48,5 +48,10 @@ $route['user/login'] = 'user/login';
 $route['home'] = 'home';
 $route['home/logout'] = 'home/logout';
 
+$route['interest_area'] = 'interest_area';
+$route['target'] = 'target';
+$route['time_record'] = 'time_record';
+$route['user_preferences'] = 'user_preferences';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

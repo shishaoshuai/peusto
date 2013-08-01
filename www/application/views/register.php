@@ -67,7 +67,7 @@
 					<input type="password" id="password_again"  minlength="6"  
 						data-validation-match-match="password" name="password_again"
 						data-validation-match-message="与密码不一致"
-						placeholder="请确认您刚刚输入的密码">
+						placeholder="请确认您的密码">
 					<span class="help-inline">密码应大于6位，包含字母、数字、特殊符号的组合</span>
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<label class="checkbox">
-					<input type="checkbox"> 我已阅读并同意相关条款
+					<input type="checkbox"> 我已阅读并同意<a href="#">相关条款</a>
 					</label>
 					<button type="submit" class="btn btn-primary">注册</button>
 				</div>
