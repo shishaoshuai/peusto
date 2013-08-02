@@ -22,6 +22,7 @@ class Home extends CI_Controller
                 'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
                 'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
                 'home.js'));
+            $this->load->helper('form');
 
             $this->load->view('templates/header', $data);
             $this->load->view('home_view', $data);

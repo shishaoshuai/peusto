@@ -14,11 +14,16 @@ class Target extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $data['username'] = $session_data['username'];
-            $data['active_nav_item'] = 'target';
-            $data['interest_area_list']=$this->get_dropdown_list();
+
+            $this->load->model('user_interest_area_model');
+            $data['interest_area_list']=$this->user_interest_area_model->get_dropdown_list($session_data['idusers']);
+
             $data['targets'] = $this->target_model->get_targets();
 
             $this->load->helper('form');
+
+            $data['active_nav_item'] = 'target';
+
             $this->load->view('templates/header',$data);
             $this->load->view('target_view', $data);
             $this->load->view('templates/footer',$data);

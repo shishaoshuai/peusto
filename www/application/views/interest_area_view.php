@@ -5,30 +5,30 @@
     ?>
 
     <fieldset>
-        <legend>¹Ø×¢Óò¹ÜÀí</legend>
+        <legend>å…³æ³¨åŸŸç®¡ç†</legend>
         <div class="control-group">
-            <label class="control-label" for="interest_area_name">¹Ø×¢ÓòÃû³Æ</label>
+            <label class="control-label" for="user_interest_area_name">å…³æ³¨åŸŸåç§°</label>
 
             <div class="controls">
-                <input type="text" id="interest_area_name" name="interest_area_name" placeholder="ÇëÊäÈë¹Ø×¢ÓòÃû³Æ" required/>
-                <span class="help-inline">¹Ø×¢ÓòÒª¼òÃ÷¶óÒª£¬²»³¬¹ý10¸öºº×Ö</span>
+                <input type="text" id="user_interest_area_name" name="user_interest_area_name" placeholder="è¯·è¾“å…¥å…³æ³¨åŸŸåç§°" required/>
+                <span class="help-inline">å…³æ³¨åŸŸè¦ç®€æ˜Žæ‰¼è¦ï¼Œä¸è¶…è¿‡10ä¸ªæ±‰å­—</span>
             </div>
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="display_order">ÏÔÊ¾Ë³Ðò</label>
+            <label class="control-label" for="display_order">æ˜¾ç¤ºé¡ºåº</label>
 
             <div class="controls">
-                <input type="text" id="display_order" name="display_order" placeholder="Ö»ÄÜÊäÈëÕýÕûÊý"
+                <input type="text" id="display_order" name="display_order" placeholder="åªèƒ½è¾“å…¥æ­£æ•´æ•°"
                        data-validation-regex-regex="^[0-9]*[1-9][0-9]*$"
-                       data-validation-regex-message="Ö»ÄÜÊäÈëÕýÕûÊý  "
+                       data-validation-regex-message="åªèƒ½è¾“å…¥æ­£æ•´æ•°  "
                     />
-                <span class="help-inline">Êý×ÖÐ¡µÄÏÔÊ¾ÔÚÇ°Ãæ</span>
+                <span class="help-inline">æ•°å­—å°çš„æ˜¾ç¤ºåœ¨å‰é¢</span>
             </div>
         </div>
         <div class="control-group">
             <div class="controls" text-align="center">
-                <button type="submit" class="btn btn-primary">´´½¨</button>
+                <button type="submit" class="btn btn-primary">åˆ›å»º</button>
             </div>
         </div>
     </fieldset>
@@ -41,7 +41,7 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>¹Ø×¢Óò</th>
+                <th>å…³æ³¨åŸŸ</th>
             </tr>
         </thead>
 
@@ -53,7 +53,7 @@
         ?>
             <tr>
                 <td><?php echo $i ?></td>
-                <td><?php echo $interest_area_item['interest_area_name'] ?></td>
+                <td><?php echo $interest_area_item['user_interest_area_name'] ?></td>
             </tr>
         <?php endforeach ?>
 

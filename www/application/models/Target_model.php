@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Tris
- * Date: 13-8-1
- * Time: 上午5:35
- * To change this template use File | Settings | File Templates.
- */
 
 class Target_model extends CI_Model
 {
@@ -32,14 +25,10 @@ class Target_model extends CI_Model
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
+        $sql = "SELECT idtarget,target_name,case priority when 1 then \"高\" when "
+            ." 2 then \"中\" when 3 then \"低\" end as priority FROM target WHERE owner = ? order by priority asc";
 
-        $this->db->select('idtarget,target_name,priority');
-        $this->db->from('target');
-        $this->db->where('owner',$owner);
-        $this->db->order_by('priority asc');
-
-        $query = $this->db->get();
-
+        $query = $this->db->query($sql, $owner);
         return $query->result_array();
     }
 

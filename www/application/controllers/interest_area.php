@@ -5,7 +5,7 @@ class Interest_area extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('interest_area_model');
+        $this->load->model('user_interest_area_model');
     }
 
     function index()
@@ -19,7 +19,7 @@ class Interest_area extends CI_Controller {
             $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'interest_area';
 
-            $data['interest_areas'] = $this->interest_area_model->get_interest_areas();
+            $data['interest_areas'] = $this->user_interest_area_model->get_interest_areas($session_data['idusers']);
 
             $this->load->view('templates/header',$data);
             $this->load->view('interest_area_view', $data);
@@ -37,15 +37,18 @@ class Interest_area extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('interest_area_name', '关注域名称', 'required');
+        $this->form_validation->set_rules('user_interest_area_name', '关注域名称', 'required');
         $this->form_validation->set_rules('display_order', '显示顺序', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             redirect('/');
         } else {
-            $this->interest_area_model->set_interest_area();
+
 
             $session_data = $this->session->userdata('logged_in');
+            $owner = $session_data['idusers'];
+
+            $this->user_interest_area_model->set_interest_area($owner);
 
             $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'interest_area';

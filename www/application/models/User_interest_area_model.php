@@ -26,7 +26,7 @@ class User_interest_area_model extends CI_Model
     }
 
     public function get_interest_areas($owner) {
-        $this->db->select('id_user_interest_area,user_interest_area_name,display_order');
+        $this->db->select('iduser_interest_area,user_interest_area_name,display_order');
         $this->db->from('user_interest_area');
         $this->db->where('owner',$owner);
         $this->db->order_by('display_order asc, iduser_interest_area desc');
@@ -42,13 +42,13 @@ class User_interest_area_model extends CI_Model
 
         $data = array(
             'owner' =>$owner,
-            'iser_interest_area_name' => $this->input->post('user_interest_area_name'),
+            'user_interest_area_name' => $this->input->post('user_interest_area_name'),
             'display_order' => $this->input->post('display_order')
         );
         return $this->db->insert('user_interest_area', $data);
     }
 
-    public function get_dropdwon_list($owner) {
+    public function get_dropdown_list($owner) {
         $this->db->select('iduser_interest_area, user_interest_area_name');
         $this->db->where('owner', $owner);
         $this->db->order_by('display_order', "asc");

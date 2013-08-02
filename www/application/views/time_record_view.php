@@ -15,7 +15,7 @@
 					selectable: true,
 					selectHelper: true,
 					select: function(start, end, allDay) {
-						var title = prompt('ÈÎÎñÃû³Æ:');
+						var title = prompt('ä»»åŠ¡åç§°:');
 						if (title) {
 							calendar.fullCalendar('renderEvent',
 								{

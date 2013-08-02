@@ -12,7 +12,7 @@ $(function() {
 					start: 0
 				});
 				 $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
-				 $('.form_finishTime').datetimepicker({
+				 $('.due_time').datetimepicker({
 					language:  'zh-CN',
 					weekStart: 1,
 					todayBtn:  1,
@@ -24,7 +24,7 @@ $(function() {
 				});
 
 				
-				$('.form_appointTime').datetimepicker({
+				$('.start_time').datetimepicker({
 					language:  'zh-CN',
 					weekStart: 1,
 					todayBtn:  1,

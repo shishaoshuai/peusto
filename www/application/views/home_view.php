@@ -1,114 +1,134 @@
+<div class="span6">
+    <?php
+    $attributes = array('class' => 'form-horizontal');
+    echo form_open('task/create', $attributes);
+    ?>
+    <fieldset>
+        <legend>ä»»åŠ¡ç®¡ç†</legend>
+        <div class="control-group">
+            <label class="control-label" for="task_name">ä»»åŠ¡åç§°</label>
 
-				<div class="span6">
-				
-					<form class="form-horizontal">
-						<fieldset>
-						<legend>ÈÎÎñ¹ÜÀí</legend>
-						<div class="control-group">
-							<label class="control-label" for="task">ÈÎÎñÃû³Æ</label>
-							<div class="controls">
-								<input type="text" class="input-block-level" id="task" placeholder="ÇëÊäÈë´ýÍê³ÉµÄÈÎÎñ£¬Òª¼òÃ÷¡¢ÇåÎú£¬²»³¬¹ý100¸öºº×Ö" required></input>
-								<span class="help-inline">ÎÒÃÇÍ¨³£»á½«Ò»¸öÄ¿±ê·Ö½âÎª¶à¸öÈÎÎñ£¬Í¨³££¬ÈÎÎñ·Ö½âÓ¦¾¡¿ÉÄÜÏ¸»¯£¬ÈÎÎñÍ¨³£ÔÚ5·ÖÖÓµ½2¸öÐ¡Ê±ÄÚ¿ÉÍê³É¡£</span>
-							</div> 
-						</div>			
-						<div class="control-group">
-							<label class="control-label" for="duration">Ô¤¼ÆºÄÊ±</label>
-							<div class="controls">
-								<input id="duration_hour"  class="input-oneword" name="value">Ð¡Ê±
-								<input id="duration_minute"  class="input-oneword" name="value">·ÖÖÓ
-								<span class="help-inline">±¾ÈÎÎñÔ¤¼Æ»¨·ÑµÄÊ±¼ä</span>
-							</div> 
-						</div>			
-						<div class="control-group">
-							<label class="control-label" for="dtp_input1">Íê³ÉÊ±¼ä</label>
-							<div class="controls date form_finishTime"  align="left" data-date-format="yyyyÄêMMddÈÕ - hh:ii" data-link-field="dtp_input1">
-								<input size="12" type="text" value="" readonly>
-								<span class="add-on"><i class="icon-remove"></i></span>
-								<span class="add-on"><i class="icon-th"></i></span>
-							</div>
-							<input type="hidden" id="dtp_input1" value="" />
-						</div>						
-						<div class="control-group">
-							<label class="control-label" for="target">ËùÊôÄ¿±ê</label>
-							<div class="controls">
-								<select>
-									<option>ÎÞ</option>
-									<option>½¨ÉèÊ±¼ä¹ÜÀíÍøÕ¾</option>
-									<option>¼á³ÖÃ¿ÖÜ¶ÍÁ¶Á½´Î</option>
-									<option>¹ÜÀí·ÖÎöÀàÊý¾Ý±ê×¼ÂäµØ</option>
-									<option>ÐÐÒµÖ÷ÌâÍÚ¾ò·ÖÎö</option>
-								</select>
-								<span class="help-inline">ÇëÊäÈë¸ÃÈÎÎñËùÊôµÄÄ¿±ê</span>
-							</div>
-						</div>						
-						<div class="control-group">
-							<label class="control-label" for="target">ËùÊô¹Ø×¢Óò</label>
-							<div class="controls">
-								<select>
-									<option>ÎÞ</option>
-									<option>Éú»î</option>
-									<option>¹¤×÷</option>
-									<option>ÊÂÒµ</option>
-									<option>¸öÈË½¡¿µ</option>
-								</select>
-								<span class="help-inline">ÇëÊäÈë¸ÃÈÎÎñËùÊôµÄ¹Ø×¢Óò</span>
-							</div>
-						</div>			
-						<div class="control-group">
-							<label class="control-label">
-								<input type="checkbox">¶¨Ê±ÈÎÎñ</input>
-							</label>
-							<div class="controls date form_appointTime"  align="left" data-date-format="yyyyÄêMMddÈÕ - hh:ii" data-link-field="dtp_input1">
-								<input size="12" type="text" value="" readonly>
-								<span class="add-on"><i class="icon-remove"></i></span>
-								<span class="add-on"><i class="icon-th"></i></span>
-							</div>
-							<input type="hidden" id="dtp_input2" value="" />
-						</div>	
+            <div class="controls">
+                <input type="text" class="input-block-level" id="task_name" name="task_name" placeholder="è¯·è¾“å…¥å¾…å®Œæˆçš„ä»»åŠ¡ï¼Œè¦ç®€æ˜Žã€æ¸…æ™°ï¼Œä¸è¶…è¿‡100ä¸ªæ±‰å­—"
+                       required></input>
+                <span class="help-inline">æˆ‘ä»¬é€šå¸¸ä¼šå°†ä¸€ä¸ªç›®æ ‡åˆ†è§£ä¸ºå¤šä¸ªä»»åŠ¡ï¼Œé€šå¸¸ï¼Œä»»åŠ¡åˆ†è§£åº”å°½å¯èƒ½ç»†åŒ–ï¼Œä»»åŠ¡é€šå¸¸åœ¨5åˆ†é’Ÿåˆ°2ä¸ªå°æ—¶å†…å¯å®Œæˆã€‚</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="expected_duration">é¢„è®¡è€—æ—¶</label>
 
-						<div class="control-group">
-							<div class="controls" text-align="center">
-								<button type="submit" class="btn btn-primary">´´½¨</button>
-							</div>
-						</div>
-						</fieldset>
-					</form>
-				</div>
-				
-				<div class="span4">
-				
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>ÈÎÎñÃû³Æ</th>
-								<th>¹Ø×¢Óò</th>
-								<th>½ØÖ¹Ê±¼ä</th>
+            <div class="controls">
+                <input id="duration_hour" class="input-oneword" name="value" value="0">å°æ—¶
+                <input id="duration_minute" class="input-oneword" name="value" value="30">åˆ†é’Ÿ
+                <span class="help-inline">æœ¬ä»»åŠ¡é¢„è®¡èŠ±è´¹çš„æ—¶é—´</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="due_time">å®Œæˆæ—¶é—´</label>
 
-							</tr>
-						</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>ÖÆ×÷ÓÃ»§Ê×Ò³</td>
-									<td>¸öÈËÊÂÒµ</td>
-									<td>6Ð¡Ê±ºó</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>ÖÆ×÷Î¬»¤¹Ø×¢ÓòÒ³Ãæ</td>
-									<td>¸öÈËÊÂÒµ</td>
-									<td>10Ð¡Ê±</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>ÖÆ×÷Ä¿±ê¹ÜÀíÎ¬»¤Ò³Ãæ</td>
-									<td>¸öÈËÊÂÒµ</td>
-									<td>16Ð¡Ê±</td>
-								</tr>
-						  </tbody>
-					</table>
-				</div>
-				
-			</div>
-		</div>
+            <div class="controls date due_time" align="left" data-date-format="yyyyå¹´MMddæ—¥ - hh:ii"
+                 data-link-field="due_time">
+                <input size="12" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="due_time" value=""/>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="target">æ‰€å±žç›®æ ‡</label>
+
+            <div class="controls">
+                <select name="task">
+                    <option>æ— </option>
+                    <option>å»ºè®¾æ—¶é—´ç®¡ç†ç½‘ç«™</option>
+                    <option>åšæŒæ¯å‘¨é”»ç‚¼ä¸¤æ¬¡</option>
+                    <option>ç®¡ç†åˆ†æžç±»æ•°æ®æ ‡å‡†è½åœ°</option>
+                    <option>è¡Œä¸šä¸»é¢˜æŒ–æŽ˜åˆ†æž</option>
+                </select>
+                <span class="help-inline">è¯·è¾“å…¥è¯¥ä»»åŠ¡æ‰€å±žçš„ç›®æ ‡</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="target">æ‰€å±žå…³æ³¨åŸŸ</label>
+
+            <div class="controls">
+                <select name="interest_area">
+                    <option>æ— </option>
+                    <option>ç”Ÿæ´»</option>
+                    <option>å·¥ä½œ</option>
+                    <option>äº‹ä¸š</option>
+                    <option>ä¸ªäººå¥åº·</option>
+                </select>
+                <span class="help-inline">è¯·è¾“å…¥è¯¥ä»»åŠ¡æ‰€å±žçš„å…³æ³¨åŸŸ</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="start_time">
+                å¼€å§‹æ—¶é—´
+            </label>
+
+            <div class="controls date start_time" align="left" data-date-format="yyyyå¹´MMddæ—¥ - hh:ii"
+                 data-link-field="start_time">
+                <input size="12" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="start_time" value=""/>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="is_appointment">å®šæ—¶ä»»åŠ¡</label>
+
+            <div class="controls">
+                <input type="checkbox" name="is_appointment" value="1"/>
+                <span class="help-inline">å®šæ—¶ä»»åŠ¡ä¸€èˆ¬æŒ‡çº¦å®šçš„ä¼šè®®ï¼Œé¢„çº¦çš„å®‰æŽ’ç­‰</span>
+            </div>
+        </div>
+
+
+
+        <div class="control-group">
+            <div class="controls" text-align="center">
+                <button type="submit" class="btn btn-primary">åˆ›å»º</button>
+            </div>
+        </div>
+    </fieldset>
+    </form>
+</div>
+
+<div class="span4">
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ä»»åŠ¡åç§°</th>
+            <th>å…³æ³¨åŸŸ</th>
+            <th>æˆªæ­¢æ—¶é—´</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>åˆ¶ä½œç”¨æˆ·é¦–é¡µ</td>
+            <td>ä¸ªäººäº‹ä¸š</td>
+            <td>6å°æ—¶åŽ</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>åˆ¶ä½œç»´æŠ¤å…³æ³¨åŸŸé¡µé¢</td>
+            <td>ä¸ªäººäº‹ä¸š</td>
+            <td>10å°æ—¶</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>åˆ¶ä½œç›®æ ‡ç®¡ç†ç»´æŠ¤é¡µé¢</td>
+            <td>ä¸ªäººäº‹ä¸š</td>
+            <td>16å°æ—¶</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</div>

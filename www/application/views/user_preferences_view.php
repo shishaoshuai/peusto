@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>***µÄ¹ÜÀíÊ×Ò³</title>
+		<title>***çš„ç®¡ç†é¦–é¡µ</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -22,16 +22,16 @@
 		<script language=javascript>
 			function addRow() {
 				if(document.all.startTime.value == "" ){ 
-					alert("ÇëÏÈÊäÈë¿ªÊ¼Ê±¼ä£¡");
+					alert("è¯·å…ˆè¾“å…¥å¼€å§‹æ—¶é—´ï¼");
 				} else{
-					var day = "ÐÇÆÚ¾Å"; 
+					var day = "æ˜ŸæœŸä¹"; 
 					var startTime = document.getElementById("startTime");
 					var endTime = document.getElementById("endTime");
 					var table1 = document.getElementById("table1");
 					var mytr=table1.insertRow(-1);
 					var mytd=mytr.insertCell();
 					
-					mytd.innerHTML="<i class=\"icon-remove\" title = \"É¾³ý\" onclick=\"javaScript:document.all.table1.deleteRow(event.srcElement.parentElement.parentElement.rowIndex);\">";
+					mytd.innerHTML="<i class=\"icon-remove\" title = \"åˆ é™¤\" onclick=\"javaScript:document.all.table1.deleteRow(event.srcElement.parentElement.parentElement.rowIndex);\">";
 					mytd=mytr.insertCell();
 					mytd.innerText=endTime.value;
 					mytd=mytr.insertCell();
@@ -48,14 +48,14 @@
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
-					<li class="active"><a href="home.html">Ê×Ò³</a></li>
-					<li><a href="#">°ïÖú</a></li>
-					<li><a href="#">¹ØÓÚ</a></li>
+					<li class="active"><a href="home.html">é¦–é¡µ</a></li>
+					<li><a href="#">å¸®åŠ©</a></li>
+					<li><a href="#">å…³äºŽ</a></li>
 				</ul>
 				<ul class="nav nav-pills pull-right">
-					<li><a href="#">Ê¦ÉÙË§ÕýÔÚÊ¹ÓÃPeusto</a></li>
-					<li><a href="index.html">ÍË³ö</a></li>
-					<li><a href="#">ÐÞ¸ÄÃÜÂë</a></li>
+					<li><a href="#">å¸ˆå°‘å¸…æ­£åœ¨ä½¿ç”¨Peusto</a></li>
+					<li><a href="index.html">é€€å‡º</a></li>
+					<li><a href="#">ä¿®æ”¹å¯†ç </a></li>
 				</ul>
 			</div>
 		</div>
@@ -65,51 +65,51 @@
 				<div class="span2">
 					<!--Sidebar content-->
 					<ul class="nav nav-pills nav-stacked">
-						<li><a href="home.html">´ý°ìÈÎÎñ</a></li>
-						<li><a href="targetMgmt.html">Ä¿±ê¹ÜÀí</a></li>
-						<li><a href="interestAreaMgmt.html">¹Ø×¢Óò¹ÜÀí</a></li>
-						<li><a href="timeRecord.html">Ê±¼äÊ¹ÓÃÇé¿ö¼ÇÂ¼</a></li>
-						<li class="active"><a href="preferences.html">¸öÈËÆ«ºÃÉèÖÃ</a></li>
+						<li><a href="home.html">å¾…åŠžä»»åŠ¡</a></li>
+						<li><a href="targetMgmt.html">ç›®æ ‡ç®¡ç†</a></li>
+						<li><a href="interestAreaMgmt.html">å…³æ³¨åŸŸç®¡ç†</a></li>
+						<li><a href="timeRecord.html">æ—¶é—´ä½¿ç”¨æƒ…å†µè®°å½•</a></li>
+						<li class="active"><a href="preferences.html">ä¸ªäººåå¥½è®¾ç½®</a></li>
 					</ul>
 				</div>				
 				<div class="span10">
 					<div id="tabs">
 						<ul>
-							<li><a href="#tabs-1">¸ßÐ§¹¤×÷Ê±¼ä</a></li>
-							<li><a href="#tabs-2">Ã¿Ìì¹Ì¶¨°²ÅÅ</a></li>
-							<li><a href="#tabs-3">Ã¿ÖÜ¹Ì¶¨°²ÅÅ</a></li>
+							<li><a href="#tabs-1">é«˜æ•ˆå·¥ä½œæ—¶é—´</a></li>
+							<li><a href="#tabs-2">æ¯å¤©å›ºå®šå®‰æŽ’</a></li>
+							<li><a href="#tabs-3">æ¯å‘¨å›ºå®šå®‰æŽ’</a></li>
 						</ul>
 						<div id="tabs-1">							
 							<table class="table table-hover" id="table1">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>ÐÇÆÚ</th>
-										<th>¿ªÊ¼Ê±¼ä</th>
-										<th>½ØÖ¹Ê±¼ä</th>
-										<th>²Ù×÷</th>
+										<th>æ˜ŸæœŸ</th>
+										<th>å¼€å§‹æ—¶é—´</th>
+										<th>æˆªæ­¢æ—¶é—´</th>
+										<th>æ“ä½œ</th>
 									</tr>
 								</thead>
 									<tbody>
 										<tr>
 											<td>1</td>
-											<td>ÖÆ×÷ÓÃ»§Ê×Ò³</td>
-											<td>¸öÈËÊÂÒµ</td>
-											<td>6Ð¡Ê±ºó</td>
+											<td>åˆ¶ä½œç”¨æˆ·é¦–é¡µ</td>
+											<td>ä¸ªäººäº‹ä¸š</td>
+											<td>6å°æ—¶åŽ</td>
 											<td></td>
 										</tr>
 										<tr>
 											<td>2</td>
-											<td>ÖÆ×÷Î¬»¤¹Ø×¢ÓòÒ³Ãæ</td>
-											<td>¸öÈËÊÂÒµ</td>
-											<td>10Ð¡Ê±</td>
+											<td>åˆ¶ä½œç»´æŠ¤å…³æ³¨åŸŸé¡µé¢</td>
+											<td>ä¸ªäººäº‹ä¸š</td>
+											<td>10å°æ—¶</td>
 											<td></td>
 										</tr>
 										<tr>
 											<td>3</td>
-											<td>ÖÆ×÷Ä¿±ê¹ÜÀíÎ¬»¤Ò³Ãæ</td>
-											<td>¸öÈËÊÂÒµ</td>
-											<td>16Ð¡Ê±</td>
+											<td>åˆ¶ä½œç›®æ ‡ç®¡ç†ç»´æŠ¤é¡µé¢</td>
+											<td>ä¸ªäººäº‹ä¸š</td>
+											<td>16å°æ—¶</td>
 											<td></td>
 										</tr>
 								  </tbody>
@@ -118,32 +118,32 @@
 						<form id="form1" method="post">
 							<div class="control-group">
 								<div class="controls">
-									&nbsp;´Ó<input class="input-mini" type="text" id="startTime" placeholder="¿ªÊ¼Ê±¼ä">
-									µ½<input class="input-mini" type="text" id="endTime" placeholder="½áÊøÊ±¼ä">
+									&nbsp;ä»Ž<input class="input-mini" type="text" id="startTime" placeholder="å¼€å§‹æ—¶é—´">
+									åˆ°<input class="input-mini" type="text" id="endTime" placeholder="ç»“æŸæ—¶é—´">
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> ÐÇÆÚÒ»
+									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> æ˜ŸæœŸä¸€
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> ÐÇÆÚ¶þ
+									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> æ˜ŸæœŸäºŒ
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> ÐÇÆÚÈý
+									  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> æ˜ŸæœŸä¸‰
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox4" value="option1" checked> ÐÇÆÚËÄ
+									  <input type="checkbox" id="inlineCheckbox4" value="option1" checked> æ˜ŸæœŸå››
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox5" value="option2" checked> ÐÇÆÚÎå
+									  <input type="checkbox" id="inlineCheckbox5" value="option2" checked> æ˜ŸæœŸäº”
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox6" value="option3"> ÐÇÆÚÁù
+									  <input type="checkbox" id="inlineCheckbox6" value="option3"> æ˜ŸæœŸå…­
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox7" value="option3"> ÐÇÆÚÈÕ
+									  <input type="checkbox" id="inlineCheckbox7" value="option3"> æ˜ŸæœŸæ—¥
 									</label>
 									&nbsp;&nbsp;
 									
-									<button class="btn btn-small btn-primary" type="button" onclick="javaScript:addRow();">ÐÂÔö</button>
+									<button class="btn btn-small btn-primary" type="button" onclick="javaScript:addRow();">æ–°å¢ž</button>
 								</div>
 							</div>
 						</form>
@@ -151,27 +151,27 @@
 						
 						<div id="tabs-2">
 							<form id="form2" method="post">
-							<div class="controls">Ã¿Ìì
-								<input class="input-mini" type="startTime" placeholder="¿ªÊ¼Ê±¼ä">&nbsp;µ½&nbsp;
-								<input class="input-mini" type="endTime" placeholder="½áÊøÊ±¼ä">
-								<input class="input-large" type="action" placeholder="ÇëÊäÈë¹Ì¶¨ÈÎÎñ">
-								<select class="span2" placeholder="¹Ø×¢Óò">
-								  <option>¼ÒÍ¥</option>
-								  <option>¹¤×÷</option>
-								  <option>¸öÈË½¡¿µ</option>
-								  <option>¸öÈËÊÂÒµ</option>
-								  <option>ÓéÀÖ</option>
+							<div class="controls">æ¯å¤©
+								<input class="input-mini" type="startTime" placeholder="å¼€å§‹æ—¶é—´">&nbsp;åˆ°&nbsp;
+								<input class="input-mini" type="endTime" placeholder="ç»“æŸæ—¶é—´">
+								<input class="input-large" type="action" placeholder="è¯·è¾“å…¥å›ºå®šä»»åŠ¡">
+								<select class="span2" placeholder="å…³æ³¨åŸŸ">
+								  <option>å®¶åº­</option>
+								  <option>å·¥ä½œ</option>
+								  <option>ä¸ªäººå¥åº·</option>
+								  <option>ä¸ªäººäº‹ä¸š</option>
+								  <option>å¨±ä¹</option>
 								</select>
-								<select class="span2" placeholder="Ëù¶ÔÓ¦Ä¿±ê">
-									<option>ÎÞ</option>
-									<option>½¨ÉèÊ±¼ä¹ÜÀíÍøÕ¾</option>
-									<option>¼á³ÖÃ¿ÖÜ¶ÍÁ¶Á½´Î</option>
-									<option>¹ÜÀí·ÖÎöÀàÊý¾Ý±ê×¼ÂäµØ</option>
-									<option>ÐÐÒµÖ÷ÌâÍÚ¾ò·ÖÎö</option>
+								<select class="span2" placeholder="æ‰€å¯¹åº”ç›®æ ‡">
+									<option>æ— </option>
+									<option>å»ºè®¾æ—¶é—´ç®¡ç†ç½‘ç«™</option>
+									<option>åšæŒæ¯å‘¨é”»ç‚¼ä¸¤æ¬¡</option>
+									<option>ç®¡ç†åˆ†æžç±»æ•°æ®æ ‡å‡†è½åœ°</option>
+									<option>è¡Œä¸šä¸»é¢˜æŒ–æŽ˜åˆ†æž</option>
 								</select>
 								&nbsp;&nbsp;
-								<button class="btn btn-small btn-primary" type="button">É¾³ý</button>
-								<button class="btn btn-small btn-primary" type="button">Ôö¼Ó</button>
+								<button class="btn btn-small btn-primary" type="button">åˆ é™¤</button>
+								<button class="btn btn-small btn-primary" type="button">å¢žåŠ </button>
 							</div>
 							</form>
 						</div>
@@ -179,50 +179,50 @@
 							<form id="form3" method="post">
 							<div class="control-group">
 							<label class="control-label" for="dtp_input1"></label>					
-								<div class="controls">Ã¿ÖÜ&nbsp;
+								<div class="controls">æ¯å‘¨&nbsp;
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> ÐÇÆÚÒ»
+									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> æ˜ŸæœŸä¸€
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> ÐÇÆÚ¶þ
+									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> æ˜ŸæœŸäºŒ
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> ÐÇÆÚÈý
+									  <input type="checkbox" id="inlineCheckbox3" value="option3" checked> æ˜ŸæœŸä¸‰
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> ÐÇÆÚËÄ
+									  <input type="checkbox" id="inlineCheckbox1" value="option1" checked> æ˜ŸæœŸå››
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> ÐÇÆÚÎå
+									  <input type="checkbox" id="inlineCheckbox2" value="option2" checked> æ˜ŸæœŸäº”
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox3" value="option3"> ÐÇÆÚÁù
+									  <input type="checkbox" id="inlineCheckbox3" value="option3"> æ˜ŸæœŸå…­
 									</label>
 									<label class="checkbox inline">
-									  <input type="checkbox" id="inlineCheckbox3" value="option3"> ÐÇÆÚÈÕ
+									  <input type="checkbox" id="inlineCheckbox3" value="option3"> æ˜ŸæœŸæ—¥
 									</label>
 									<br/>
-									&nbsp;´Ó&nbsp;<input class="input-mini" type="startTime" placeholder="¿ªÊ¼Ê±¼ä">&nbsp;µ½&nbsp;
-									<input class="input-mini" type="endTime" placeholder="½áÊøÊ±¼ä">
-									<input class="input-large" type="action" placeholder="ÇëÊäÈë¹Ì¶¨ÈÎÎñ">
-									<select class="span2" placeholder="¹Ø×¢Óò">
-									  <option>¼ÒÍ¥</option>
-									  <option>¹¤×÷</option>
-									  <option>¸öÈË½¡¿µ</option>
-									  <option>¸öÈËÊÂÒµ</option>
-									  <option>ÓéÀÖ</option>
+									&nbsp;ä»Ž&nbsp;<input class="input-mini" type="startTime" placeholder="å¼€å§‹æ—¶é—´">&nbsp;åˆ°&nbsp;
+									<input class="input-mini" type="endTime" placeholder="ç»“æŸæ—¶é—´">
+									<input class="input-large" type="action" placeholder="è¯·è¾“å…¥å›ºå®šä»»åŠ¡">
+									<select class="span2" placeholder="å…³æ³¨åŸŸ">
+									  <option>å®¶åº­</option>
+									  <option>å·¥ä½œ</option>
+									  <option>ä¸ªäººå¥åº·</option>
+									  <option>ä¸ªäººäº‹ä¸š</option>
+									  <option>å¨±ä¹</option>
 									</select>
-									<select class="span2" placeholder="Ëù¶ÔÓ¦Ä¿±ê">
-										<option>ÎÞ</option>
-										<option>½¨ÉèÊ±¼ä¹ÜÀíÍøÕ¾</option>
-										<option>¼á³ÖÃ¿ÖÜ¶ÍÁ¶Á½´Î</option>
-										<option>¹ÜÀí·ÖÎöÀàÊý¾Ý±ê×¼ÂäµØ</option>
-										<option>ÐÐÒµÖ÷ÌâÍÚ¾ò·ÖÎö</option>
+									<select class="span2" placeholder="æ‰€å¯¹åº”ç›®æ ‡">
+										<option>æ— </option>
+										<option>å»ºè®¾æ—¶é—´ç®¡ç†ç½‘ç«™</option>
+										<option>åšæŒæ¯å‘¨é”»ç‚¼ä¸¤æ¬¡</option>
+										<option>ç®¡ç†åˆ†æžç±»æ•°æ®æ ‡å‡†è½åœ°</option>
+										<option>è¡Œä¸šä¸»é¢˜æŒ–æŽ˜åˆ†æž</option>
 									</select>
 									
 									&nbsp;&nbsp;
-									<button class="btn btn-small btn-primary" type="button">É¾³ý</button>
-									<button class="btn btn-small btn-primary" type="button">Ôö¼Ó</button>
+									<button class="btn btn-small btn-primary" type="button">åˆ é™¤</button>
+									<button class="btn btn-small btn-primary" type="button">å¢žåŠ </button>
 								</div>
 							</div>
 							</form>

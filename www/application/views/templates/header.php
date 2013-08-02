@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $username; ?>µÄ¹ÜÀíÊ×Ò³</title>
+        <Meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
+
+        <title><?php echo $username; ?>çš„ç®¡ç†é¦–é¡µ</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="content-type" content="text/html; charset=gb2312">
 
 
         <?php
@@ -11,18 +12,18 @@
         ?>
 
 	</head>
-	<body onload="document.forms[0].elements[0].focus£¨£©">
+	<body onload="document.forms[0].elements[0].focusï¼ˆï¼‰">
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
-					<li class="active"><a href="home.html">Ê×Ò³</a></li>
-					<li><a href="#">°ïÖú</a></li>
-					<li><a href="#">¹ØÓÚ</a></li>
+					<li class="active"><a href="home.html">é¦–é¡µ</a></li>
+					<li><a href="#">å¸®åŠ©</a></li>
+					<li><a href="#">å…³äºŽ</a></li>
 				</ul>
 				<ul class="nav nav-pills pull-right">
-					<li><a href="#"><?php echo $username; ?></a>ÕýÔÚÊ¹ÓÃPeusto</li>
-					<li><a href="home/logout">ÍË³ö</a></li>
-					<li><a href="#">ÐÞ¸ÄÃÜÂë</a></li>
+					<li><a href="#">æ¬¢è¿Ž<?php echo $username; ?></a></li>
+					<li><a href="home/logout">é€€å‡º</a></li>
+					<li><a href="#">ä¿®æ”¹å¯†ç </a></li>
 				</ul>
 			</div>
 		</div>
@@ -33,10 +34,10 @@
 				<div class="span2">
 				<!--Sidebar content-->
 				<ul class="nav nav-pills nav-stacked">
-					<li <?php echo $active_nav_item=='home' ?  "class=\"active\"":""; ?>><a href="home">´ý°ìÈÎÎñ</a></li>
-					<li <?php echo $active_nav_item=='target' ?  "class=\"active\"":""; ?>><a href="target">Ä¿±ê¹ÜÀí</a></li>
-					<li <?php echo $active_nav_item=='interest_area' ?  "class=\"active\"":""; ?>><a href="interest_area">¹Ø×¢Óò¹ÜÀí</a></li>
-					<li <?php echo $active_nav_item=='time_record' ?  "class=\"active\"":""; ?>><a href="time_record">Ê±¼äÊ¹ÓÃÇé¿ö¼ÇÂ¼</a></li>
-					<li <?php echo $active_nav_item=='user_preferences' ?  "class=\"active\"":""; ?>><a href="user_preferences">¸öÈËÆ«ºÃÉèÖÃ</a></li>
+					<li <?php echo $active_nav_item=='home' ?  "class=\"active\"":""; ?>><a href="home">å¾…åŠžä»»åŠ¡</a></li>
+					<li <?php echo $active_nav_item=='target' ?  "class=\"active\"":""; ?>><a href="target">ç›®æ ‡ç®¡ç†</a></li>
+					<li <?php echo $active_nav_item=='interest_area' ?  "class=\"active\"":""; ?>><a href="interest_area">å…³æ³¨åŸŸç®¡ç†</a></li>
+					<li <?php echo $active_nav_item=='time_record' ?  "class=\"active\"":""; ?>><a href="time_record">æ—¶é—´ä½¿ç”¨æƒ…å†µè®°å½•</a></li>
+					<li <?php echo $active_nav_item=='user_preferences' ?  "class=\"active\"":""; ?>><a href="user_preferences">ä¸ªäººåå¥½è®¾ç½®</a></li>
 				</ul>
 				</div>

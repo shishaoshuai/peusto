@@ -6,16 +6,16 @@
                     echo form_open('target/create', $attributes);
                     ?>
 						<fieldset>
-						<legend>Ä¿±ê¹ÜÀí</legend>
+						<legend>ç›®æ ‡ç®¡ç†</legend>
 						<div class="control-group">
-							<label class="control-label" for="target_name">Ä¿±êÃû³Æ</label>
+							<label class="control-label" for="target_name">ç›®æ ‡åç§°</label>
 							<div class="controls">
-								<input type="text" id="target_name" name="target_name" placeholder="ÇëÊäÈëÄ¿±êÃû³Æ" />
-								<span class="help-inline">Ä¿±êÒª¼òÃ÷¶óÒª£¬²»³¬¹ý30¸öºº×Ö</span>
+								<input type="text" id="target_name" name="target_name" placeholder="è¯·è¾“å…¥ç›®æ ‡åç§°" />
+								<span class="help-inline">ç›®æ ‡è¦ç®€æ˜Žæ‰¼è¦ï¼Œä¸è¶…è¿‡30ä¸ªæ±‰å­—</span>
 							</div> 
 						</div>						 
 						<div class="control-group">
-							<label class="control-label" for="interest_area">ËùÁ¥ÊôµÄ¹Ø×¢Óò</label>
+							<label class="control-label" for="interest_area">æ‰€éš¶å±žçš„å…³æ³¨åŸŸ</label>
 							<div class="controls">
                                 <select  id="interest_area" name="interest_area">
                                     <?php
@@ -23,24 +23,24 @@
                                         echo "<option value='". $interest_area_item['iduser_interest_area'] ."'>". $interest_area_item['user_interest_area_name'] ."</option>";
                                     ?>
                                 </select>
-								<span class="help-inline">ÇëÊäÈë¸ÃÈÎÎñËùÊôµÄ¹Ø×¢Óò</span>
+								<span class="help-inline">è¯·è¾“å…¥è¯¥ä»»åŠ¡æ‰€å±žçš„å…³æ³¨åŸŸ</span>
 							</div>
 						</div>
 						
 						<div class="control-group">
-							<label class="control-label" for="priority">ÓÅÏÈ¼¶</label>
+							<label class="control-label" for="priority">ä¼˜å…ˆçº§</label>
 							<div class="controls">
 								<select id="priority" name="priority">
-								  <option value="1">¸ß</option>
-								  <option value="2">ÖÐ</option>
-								  <option value="3">µÍ</option>
+								  <option value="1">é«˜</option>
+								  <option value="2">ä¸­</option>
+								  <option value="3">ä½Ž</option>
 								</select>
-								<span class="help-inline">ÓÅÏÈ¼¶¸ßµÄ½«ÏÔÊ¾ÔÚÇ°Ãæ</span>
+								<span class="help-inline">ä¼˜å…ˆçº§é«˜çš„å°†æ˜¾ç¤ºåœ¨å‰é¢</span>
 							</div>
 						</div>
 						<div class="control-group">
 							<div class="controls" text-align="center">
-								<button type="submit" class="btn btn-primary">´´½¨</button>
+								<button type="submit" class="btn btn-primary">åˆ›å»º</button>
 							</div>
 						</div>
 						</fieldset>
@@ -53,8 +53,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>¹Ø×¢Óò</th>
-								<th>ÓÅÏÈ¼¶</th>
+								<th>ç›®æ ‡</th>
+								<th>ä¼˜å…ˆçº§</th>
 							</tr>
 						</thead>
 							<tbody>
@@ -66,6 +66,7 @@
                                 <tr>
                                     <td><?php echo $i ?></td>
                                     <td><?php echo $target_item['target_name'] ?></td>
+                                    <td><?php echo $target_item['priority'] ?></td>
                                 </tr>
                             <?php endforeach ?>
 						  </tbody>
