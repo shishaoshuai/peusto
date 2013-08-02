@@ -26,7 +26,7 @@ class User extends CI_Controller {
 
     public function login() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('username', 'username', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_login');
         if($this->form_validation->run() == FALSE) {
              $this->load->view('welcome_message');
@@ -36,14 +36,15 @@ class User extends CI_Controller {
     }
 
     function check_login($password) {
-        $name = $this->input->post('name');
-        $result = $this->users_model->login($name, $password);
+        $username = $this->input->post('username');
+        $result = $this->users_model->login($username, $password);
         if($result) {
             $sess_array = array();
             foreach($result as $row) {
                 $sess_array = array(
                     'idusers' => $row->idusers,
-                    'name' => $row->name
+                    'username' => $row->username,
+                    'email' => $row->email
                 );
                 $this->session->set_userdata('logged_in', $sess_array);
             }

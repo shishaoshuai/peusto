@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $name; ?>的管理首页</title>
+		<title><?php echo $username; ?>的管理首页</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="content-type" content="text/html; charset=gb2312">
 
 
         <?php
@@ -19,7 +20,7 @@
 					<li><a href="#">关于</a></li>
 				</ul>
 				<ul class="nav nav-pills pull-right">
-					<li><a href="#"><?php echo $name; ?></a>正在使用Peusto</li>
+					<li><a href="#"><?php echo $username; ?></a>正在使用Peusto</li>
 					<li><a href="home/logout">退出</a></li>
 					<li><a href="#">修改密码</a></li>
 				</ul>

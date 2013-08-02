@@ -15,13 +15,12 @@
 						<div class="control-group">
 							<label class="control-label" for="interestArea">所隶属的关注域</label>
 							<div class="controls">
-								<select id="interestArea">
-								  <option>家庭</option>
-								  <option>工作</option>
-								  <option>个人健康</option>
-								  <option>个人事业</option>
-								  <option>娱乐</option>
-								</select>
+                                <select  id="interest_area" name="interest_area">
+                                    <?php
+                                    foreach($interest_area_list as $interest_area_item)
+                                        echo "<option value='". $interest_area_item['idinterest_area'] ."'>". $interest_area_item['interest_area_name'] ."</option>";
+                                    ?>
+                                </select>
 								<span class="help-inline">请输入该任务所属的关注域</span>
 							</div>
 						</div>

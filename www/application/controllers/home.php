@@ -14,7 +14,7 @@ class Home extends CI_Controller
         if ($this->session->userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
 
-            $data['name'] = $session_data['name'];
+            $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'home';
 
             add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));

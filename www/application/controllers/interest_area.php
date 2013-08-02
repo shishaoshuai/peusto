@@ -5,16 +5,21 @@ class Interest_area extends CI_Controller {
     function __construct()
     {
         parent::__construct();
+        $this->load->model('interest_area_model');
     }
 
     function index()
     {
         if($this->session->userdata('logged_in'))
         {
+            $this->load->helper('form');
+
             $session_data = $this->session->userdata('logged_in');
 
-            $data['name'] = $session_data['name'];
+            $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'interest_area';
+
+            $data['interest_areas'] = $this->interest_area_model->get_interest_areas();
 
             $this->load->view('templates/header',$data);
             $this->load->view('interest_area_view', $data);
@@ -24,6 +29,28 @@ class Interest_area extends CI_Controller {
         {
             //If no session, redirect to login page
             redirect('/', 'refresh');
+        }
+    }
+
+    public function create()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('interest_area_name', '关注域名称', 'required');
+        $this->form_validation->set_rules('display_order', '显示顺序', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            redirect('/');
+        } else {
+            $this->interest_area_model->set_interest_area();
+
+            $session_data = $this->session->userdata('logged_in');
+
+            $data['username'] = $session_data['username'];
+            $data['active_nav_item'] = 'interest_area';
+
+            redirect('interest_area');
         }
     }
 }

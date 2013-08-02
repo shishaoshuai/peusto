@@ -40,9 +40,9 @@
             ?>
 
 			<div class="control-group">
-				<label class="control-label" for="name">用&nbsp;户&nbsp;名</label>
+				<label class="control-label" for="username">用&nbsp;户&nbsp;名</label>
 				<div class="controls">
-					<input type="text" id="name" name="name" minlength="3" placeholder="请输入用户名" required>
+					<input type="text" id="username" name="username" minlength="3" placeholder="请输入用户名" required>
 					<span class="help-inline">请选择您经常使用的用户名</span>
 				</div>
 			</div>

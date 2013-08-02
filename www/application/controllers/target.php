@@ -12,8 +12,10 @@ class Target extends CI_Controller {
         if($this->session->userdata('logged_in'))
         {
             $session_data = $this->session->userdata('logged_in');
-            $data['name'] = $session_data['name'];
+            $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'target';
+            $data['interest_area_list']=$this->get_dropdown_list();
+
             $this->load->view('templates/header',$data);
             $this->load->view('target_view', $data);
             $this->load->view('templates/footer',$data);
@@ -23,5 +25,10 @@ class Target extends CI_Controller {
             //If no session, redirect to login page
             redirect('/', 'refresh');
         }
+    }
+
+    function get_dropdown_list() {
+        $this->load->model('interest_area_model');
+        return $this->interest_area_model->get_dropdwon_list();
     }
 }

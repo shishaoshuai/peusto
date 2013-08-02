@@ -25,7 +25,7 @@ class Users_model extends CI_Model {
         $md5_password = do_hash($password, 'md5');
 
         $data = array(
-            'name' => $this->input->post('name'),
+            'username' => $this->input->post('username'),
             'password' => $md5_password,
             'email' => $this->input->post('email'),
             'mobile' => $this->input->post('mobile')
@@ -34,9 +34,9 @@ class Users_model extends CI_Model {
     }
 
     public function login($username, $password) {
-        $this -> db -> select('idusers, name, password');
+        $this -> db -> select('idusers, username, email, password');
         $this -> db -> from('users');
-        $this -> db -> where('name', $username);
+        $this -> db -> where('username', $username);
         $this -> db -> where('password', do_hash($password, 'md5'));
         $this -> db -> limit(1);
         $query = $this -> db -> get();
