@@ -5,6 +5,7 @@ class Target extends CI_Controller {
     function __construct()
     {
         parent::__construct();
+        $this->load->model('target_model');
     }
 
     function index()
@@ -15,7 +16,9 @@ class Target extends CI_Controller {
             $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'target';
             $data['interest_area_list']=$this->get_dropdown_list();
+            $data['targets'] = $this->target_model->get_targets();
 
+            $this->load->helper('form');
             $this->load->view('templates/header',$data);
             $this->load->view('target_view', $data);
             $this->load->view('templates/footer',$data);
@@ -27,8 +30,22 @@ class Target extends CI_Controller {
         }
     }
 
-    function get_dropdown_list() {
-        $this->load->model('interest_area_model');
-        return $this->interest_area_model->get_dropdwon_list();
+    public function create()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('target_name', '目标名称', 'required');
+        $this->form_validation->set_rules('priority', '优先级', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            redirect('/');
+        } else {
+            $this->target_model->set_target();
+
+            $data['active_nav_item'] = 'interest_area';
+
+            redirect('target');
+        }
     }
 }

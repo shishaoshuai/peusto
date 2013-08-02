@@ -51,6 +51,7 @@ $route['home/logout'] = 'home/logout';
 $route['interest_area'] = 'interest_area';
 $route['interest_area/create'] = 'interest_area/create';
 $route['target'] = 'target';
+$route['target/create'] = 'target/create';
 $route['time_record'] = 'time_record';
 $route['user_preferences'] = 'user_preferences';
 
