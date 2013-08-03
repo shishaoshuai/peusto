@@ -14,6 +14,9 @@ class Home extends CI_Controller
         if ($this->session->userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
 
+            $this->load->model('user_interest_area_model');
+            $data['interest_area_list']=$this->user_interest_area_model->get_dropdown_list($session_data['idusers']);
+
             $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'home';
 

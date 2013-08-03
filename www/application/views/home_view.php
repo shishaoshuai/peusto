@@ -34,34 +34,34 @@
             </div>
             <input type="hidden" id="due_time" value=""/>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="target">所属目标</label>
 
-            <div class="controls">
-                <select name="task">
-                    <option>无</option>
-                    <option>建设时间管理网站</option>
-                    <option>坚持每周锻炼两次</option>
-                    <option>管理分析类数据标准落地</option>
-                    <option>行业主题挖掘分析</option>
-                </select>
-                <span class="help-inline">请输入该任务所属的目标</span>
-            </div>
-        </div>
         <div class="control-group">
             <label class="control-label" for="target">所属关注域</label>
 
             <div class="controls">
-                <select name="interest_area">
-                    <option>无</option>
-                    <option>生活</option>
-                    <option>工作</option>
-                    <option>事业</option>
-                    <option>个人健康</option>
+                <select id="interest_area" name="interest_area">
+                    <?php
+                    foreach($interest_area_list as $interest_area_item)
+                        echo "<option value='". $interest_area_item['iduser_interest_area'] ."'>". $interest_area_item['user_interest_area_name'] ."</option>";
+                    ?>
                 </select>
                 <span class="help-inline">请输入该任务所属的关注域</span>
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label" for="target">所属目标</label>
+
+            <div class="controls">
+                <select id="task" name="task">
+                    <?php
+                    foreach($target_list as $target_item)
+                        echo "<option value='". $target_item['idtargets'] ."'>". $target_item['target_name'] ."</option>";
+                    ?>
+                </select>
+                <span class="help-inline">请输入该任务所属的目标</span>
+            </div>
+        </div>
+
         <div class="control-group">
             <label class="control-label" for="start_time">
                 开始时间

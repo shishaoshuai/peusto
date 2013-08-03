@@ -58,6 +58,5 @@ class User_interest_area_model extends CI_Model
             $result = $query->result_array();
             return $result;
         }
-
     }
 }

@@ -32,4 +32,16 @@ class Target_model extends CI_Model
         return $query->result_array();
     }
 
+    public function get_dropdown_list($owner) {
+        $this->db->select('idtargets, target_name');
+        $this->db->where('owner', $owner);
+        $this->db->order_by('display_order', "asc");
+        $query = $this->db->get('target');
+        if($query)
+        {
+            $result = $query->result_array();
+            return $result;
+        }
+    }
+
 }
