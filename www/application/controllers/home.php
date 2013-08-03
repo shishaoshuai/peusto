@@ -18,13 +18,14 @@ class Home extends CI_Controller
             $data['interest_area_list']=$this->user_interest_area_model->get_dropdown_list($session_data['idusers']);
 
             $data['username'] = $session_data['username'];
+            $data['idusers'] = $session_data['idusers'];
             $data['active_nav_item'] = 'home';
 
             add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
             add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
                 'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
                 'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
-                'home.js'));
+                'jquery.jcombo.js','home.js'));
             $this->load->helper('form');
 
             $this->load->view('templates/header', $data);

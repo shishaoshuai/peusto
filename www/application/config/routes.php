@@ -54,6 +54,7 @@ $route['target'] = 'target';
 $route['target/create'] = 'target/create';
 $route['time_record'] = 'time_record';
 $route['user_preferences'] = 'user_preferences';
-
+$route['get_user_interest_areas'] = 'ajax/get_interest_areas';
+$route['get_targets/(:any)'] = 'ajax/get_targets/$1';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

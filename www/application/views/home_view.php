@@ -3,13 +3,20 @@
     $attributes = array('class' => 'form-horizontal');
     echo form_open('task/create', $attributes);
     ?>
+    <script type="text/javascript">
+        $(function() {
+             $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value : '<?php echo "15" ?>' } );
+             $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" } );
+        });
+    </script>
     <fieldset>
         <legend>任务管理</legend>
         <div class="control-group">
             <label class="control-label" for="task_name">任务名称</label>
 
             <div class="controls">
-                <input type="text" class="input-block-level" id="task_name" name="task_name" placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"
+                <input type="text" class="input-block-level" id="task_name" name="task_name"
+                       placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"
                        required></input>
                 <span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
             </div>
@@ -40,10 +47,7 @@
 
             <div class="controls">
                 <select id="interest_area" name="interest_area">
-                    <?php
-                    foreach($interest_area_list as $interest_area_item)
-                        echo "<option value='". $interest_area_item['iduser_interest_area'] ."'>". $interest_area_item['user_interest_area_name'] ."</option>";
-                    ?>
+
                 </select>
                 <span class="help-inline">请输入该任务所属的关注域</span>
             </div>
@@ -52,11 +56,8 @@
             <label class="control-label" for="target">所属目标</label>
 
             <div class="controls">
-                <select id="task" name="task">
-                    <?php
-                    foreach($target_list as $target_item)
-                        echo "<option value='". $target_item['idtargets'] ."'>". $target_item['target_name'] ."</option>";
-                    ?>
+                <select id="target" name="target">
+
                 </select>
                 <span class="help-inline">请输入该任务所属的目标</span>
             </div>
@@ -83,7 +84,6 @@
                 <span class="help-inline">定时任务一般指约定的会议，预约的安排等</span>
             </div>
         </div>
-
 
 
         <div class="control-group">

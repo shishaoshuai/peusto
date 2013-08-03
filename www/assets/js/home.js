@@ -34,5 +34,6 @@ $(function() {
 					forceParse: 0,
 					showMeridian: 1
 				});
+
 			});
 			

@@ -18,7 +18,7 @@ class Target extends CI_Controller {
             $this->load->model('user_interest_area_model');
             $data['interest_area_list']=$this->user_interest_area_model->get_dropdown_list($session_data['idusers']);
 
-            $data['targets'] = $this->target_model->get_targets();
+            $data['targets'] = $this->target_model->get_all_targets_by_interest_area();
 
             $this->load->helper('form');
 

@@ -48,29 +48,31 @@
 				</div>
 				
 				<div class="span4">
-				
+				<?php
+                    while(list($key, $target_group) =each($targets)) {
+                ?>
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>目标</th>
-								<th>优先级</th>
+								<th colspan="3"><?php echo $key ?></th>
+
 							</tr>
 						</thead>
 							<tbody>
                             <?php
                             $i =0;
-                            foreach ($targets as $target_item):
+                            foreach ($target_group as $target_item):
                                 $i++;
                                 ?>
                                 <tr>
                                     <td><?php echo $i ?></td>
                                     <td><?php echo $target_item['target_name'] ?></td>
-                                    <td><?php echo $target_item['priority'] ?></td>
+                                    <td><?php echo $target_item['priority'] ?>优先级</td>
                                 </tr>
                             <?php endforeach ?>
 						  </tbody>
 					</table>
+                <?php } ?>
 				</div>
 				
 			</div>
