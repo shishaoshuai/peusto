@@ -6,7 +6,7 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
+        $this->load->model('task_model');
     }
 
     function index()
@@ -20,6 +20,7 @@ class Home extends CI_Controller
             $data['username'] = $session_data['username'];
             $data['idusers'] = $session_data['idusers'];
             $data['active_nav_item'] = 'home';
+            $data['tasks'] = $this->task_model->get_all_tasks_by_interest_area();
 
             add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
             add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
@@ -34,6 +35,24 @@ class Home extends CI_Controller
         } else {
             //If no session, redirect to login page
             redirect('/', 'refresh');
+        }
+    }
+
+    public function create() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('task_name', '任务名称', 'required');
+        $this->form_validation->set_rules('interest_area', '所属关注域', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            redirect('/');
+        } else {
+            $this->task_model->set_task();
+
+            $data['active_nav_item'] = 'task';
+
+            redirect('home');
         }
     }
 

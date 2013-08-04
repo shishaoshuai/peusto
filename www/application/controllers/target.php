@@ -44,7 +44,7 @@ class Target extends CI_Controller {
         $this->form_validation->set_rules('priority', '优先级', 'required');
 
         if ($this->form_validation->run() === FALSE) {
-            redirect('/');
+            $this -> index();
         } else {
             $this->target_model->set_target();
 

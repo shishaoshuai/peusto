@@ -1,7 +1,7 @@
 <div class="span6">
     <?php
     $attributes = array('class' => 'form-horizontal');
-    echo form_open('task/create', $attributes);
+    echo form_open('home/create', $attributes);
     ?>
     <script type="text/javascript">
         $(function() {
@@ -22,11 +22,24 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="start_time">
+                开始时间
+            </label>
+
+            <div class="controls date start_time" align="left" data-date-format="yyyy年MMdd日 - hh:ii"
+                 data-link-field="start_time">
+                <input size="12" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="start_time" name="start_time" value=""/>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="expected_duration">预计耗时</label>
 
             <div class="controls">
-                <input id="duration_hour" class="input-oneword" name="value" value="0">小时
-                <input id="duration_minute" class="input-oneword" name="value" value="30">分钟
+                <input id="duration_hour" name="duration_hour" class="input-oneword" name="value" value="0">小时
+                <input id="duration_minute" name="duration_minute" class="input-oneword" name="value" value="30">分钟
                 <span class="help-inline">本任务预计花费的时间</span>
             </div>
         </div>
@@ -39,7 +52,7 @@
                 <span class="add-on"><i class="icon-remove"></i></span>
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
-            <input type="hidden" id="due_time" value=""/>
+            <input type="hidden" id="due_time" name="due_time" value=""/>
         </div>
 
         <div class="control-group">
@@ -63,19 +76,7 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="start_time">
-                开始时间
-            </label>
 
-            <div class="controls date start_time" align="left" data-date-format="yyyy年MMdd日 - hh:ii"
-                 data-link-field="start_time">
-                <input size="12" type="text" value="" readonly>
-                <span class="add-on"><i class="icon-remove"></i></span>
-                <span class="add-on"><i class="icon-th"></i></span>
-            </div>
-            <input type="hidden" id="start_time" value=""/>
-        </div>
         <div class="control-group">
             <label class="control-label" for="is_appointment">定时任务</label>
 
@@ -96,38 +97,31 @@
 </div>
 
 <div class="span4">
+    <?php
+    while(list($key, $task_group) =each($tasks)) {
+        ?>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th colspan="3"><?php echo $key ?></th>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>任务名称</th>
-            <th>关注域</th>
-            <th>截止时间</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>制作用户首页</td>
-            <td>个人事业</td>
-            <td>6小时后</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>制作维护关注域页面</td>
-            <td>个人事业</td>
-            <td>10小时</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>制作目标管理维护页面</td>
-            <td>个人事业</td>
-            <td>16小时</td>
-        </tr>
-        </tbody>
-    </table>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $i =0;
+            foreach ($task_group as $task_item):
+                $i++;
+                ?>
+                <tr>
+                    <td><?php echo $i ?></td>
+                    <td><?php echo $task_item['task_name'] ?></td>
+                    <td><?php echo $task_item['target_name'] ?></td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+    <?php } ?>
 </div>
 
 </div>

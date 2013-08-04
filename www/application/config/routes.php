@@ -47,9 +47,14 @@ $route['user/login'] = 'user/login';
 
 $route['home'] = 'home';
 $route['home/logout'] = 'home/logout';
+$route['home/create'] = 'home/create';
 
 $route['interest_area'] = 'interest_area';
 $route['interest_area/create'] = 'interest_area/create';
+$route['interest_area/modify/(:any)'] = 'interest_area/modify/$1';
+$route['interest_area/update'] = 'interest_area/update';
+
+
 $route['target'] = 'target';
 $route['target/create'] = 'target/create';
 $route['time_record'] = 'time_record';
