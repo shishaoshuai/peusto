@@ -42,8 +42,25 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 $route['register'] = 'user/register';
-$route['user/register'] = 'user/create';
+$route['user/create'] = 'user/create';
+$route['user/login'] = 'user/login';
+
+$route['home'] = 'home';
+$route['home/logout'] = 'home/logout';
+$route['home/create'] = 'home/create';
+
+$route['interest_area'] = 'interest_area';
+$route['interest_area/create'] = 'interest_area/create';
+$route['interest_area/modify/(:any)'] = 'interest_area/modify/$1';
+$route['interest_area/delete/(:any)'] = 'interest_area/delete_ia/$1';
+$route['interest_area/update'] = 'interest_area/update';
 
 
+$route['target'] = 'target';
+$route['target/create'] = 'target/create';
+$route['time_record'] = 'time_record';
+$route['user_preferences'] = 'user_preferences';
+$route['get_user_interest_areas'] = 'ajax/get_interest_areas';
+$route['get_targets/(:any)'] = 'ajax/get_targets/$1';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

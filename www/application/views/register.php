@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Ê±¼ä¹ÜÀí->×¢²á</title>
+		<title>æ—¶é—´ç®¡ç†->æ³¨å†Œ</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="<?php echo asset_url();?>/css/bootstrap.css" rel="stylesheet" media="screen">
 		<script src="<?php echo asset_url();?>/js/jquery-1.10.2.min.js"></script>
 		<script src="<?php echo asset_url();?>/js/bootstrap.js"></script>
@@ -20,65 +20,70 @@
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
-					<li class="active"><a href="#">Ê×Ò³</a></li>
-					<li><a href="#">°ïÖú</a></li>
-					<li><a href="#">¹ØÓÚ</a></li>
+					<li class="active"><a href="#">é¦–é¡µ</a></li>
+					<li><a href="#">å¸®åŠ©</a></li>
+					<li><a href="#">å…³äºŽ</a></li>
 				</ul>
+
 				<form class="navbar-form pull-right" action="home.html">
-					<input class="input-large" type="text" placeholder="ÓÃ»§Ãû/µç×ÓÓÊ¼þ/ÊÖ»ú">
-					<input class="input-small" type="password" placeholder="ÃÜÂë">
-					<button class="btn btn-primary" type="submit" >µÇÂ¼</button>
+					<input class="input-large" type="text" placeholder="ç”¨æˆ·å/ç”µå­é‚®ä»¶/æ‰‹æœº">
+					<input class="input-small" type="password" placeholder="å¯†ç ">
+					<button class="btn btn-primary" type="submit" >ç™»å½•</button>
 				</form>
 			</div>
 		</div>
 		<div class="container">
-			<h4>ÓÃ»§×¢²áÐÅÏ¢</h4>
-			<form class="form-horizontal" method="post" action="user/register">
+			<h4>ç”¨æˆ·æ³¨å†Œä¿¡æ¯</h4>
+            <?php
+                $attributes = array('class' => 'form-horizontal');
+                echo form_open('user/create',$attributes);
+            ?>
+
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">ÓÃ&nbsp;»§&nbsp;Ãû</label>
+				<label class="control-label" for="username">ç”¨&nbsp;æˆ·&nbsp;å</label>
 				<div class="controls">
-					<input type="text" id="userName" minlength="3" placeholder="ÇëÊäÈëÓÃ»§Ãû" required>
-					<span class="help-inline">ÇëÑ¡ÔñÄú¾­³£Ê¹ÓÃµÄÓÃ»§Ãû</span>
+					<input type="text" id="username" name="username" minlength="3" placeholder="è¯·è¾“å…¥ç”¨æˆ·å" required>
+					<span class="help-inline">è¯·é€‰æ‹©æ‚¨ç»å¸¸ä½¿ç”¨çš„ç”¨æˆ·å</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">µç×ÓÓÊ¼þ</label>
+				<label class="control-label" for="email">ç”µå­é‚®ä»¶</label>
 				<div class="controls">
-					<input type="email" id="inputEmail" placeholder="ÇëÊäÈëÄú³£ÓÃµÄµç×ÓÓÊ¼þµØÖ·" required>
-					<span class="help-inline">ÇëÊäÈëÄú³£ÓÃµÄµç×ÓÓÊ¼þµØÖ·</span>
+					<input type="email" id="email" name="email" placeholder="è¯·è¾“å…¥æ‚¨å¸¸ç”¨çš„ç”µå­é‚®ä»¶åœ°å€" required>
+					<span class="help-inline">è¯·è¾“å…¥æ‚¨å¸¸ç”¨çš„ç”µå­é‚®ä»¶åœ°å€</span>
 				</div>
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="password" required>ÃÜ&nbsp;&nbsp;&nbsp;&nbsp;Âë</label>
+				<label class="control-label" for="password" required>å¯†&nbsp;&nbsp;&nbsp;&nbsp;ç </label>
 				<div class="controls">
-					<input type="password" id="password" name="password" minlength="6" placeholder="ÇëÊäÈëÃÜÂë" required>
-					<span class="help-inline">ÃÜÂëÓ¦´óÓÚ6Î»£¬°üº¬×ÖÄ¸¡¢Êý×Ö¡¢ÌØÊâ·ûºÅµÄ×éºÏ</span>
+					<input type="password" id="password" name="password" minlength="6" placeholder="è¯·è¾“å…¥å¯†ç " required>
+					<span class="help-inline">å¯†ç åº”å¤§äºŽ6ä½ï¼ŒåŒ…å«å­—æ¯ã€æ•°å­—ã€ç‰¹æ®Šç¬¦å·çš„ç»„åˆ</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="password_again">ÃÜÂëÈ·ÈÏ</label>
+				<label class="control-label" for="password_again">å¯†ç ç¡®è®¤</label>
 				<div class="controls">
-					<input type="password" id="password_again"  minlength="6"  
+					<input type="password" id="password_again"
 						data-validation-match-match="password" name="password_again"
-						data-validation-match-message="ÓëÃÜÂë²»Ò»ÖÂ"
-						placeholder="ÇëÈ·ÈÏÄú¸Õ¸ÕÊäÈëµÄÃÜÂë" required>
-					<span class="help-inline">ÃÜÂëÓ¦´óÓÚ6Î»£¬°üº¬×ÖÄ¸¡¢Êý×Ö¡¢ÌØÊâ·ûºÅµÄ×éºÏ</span>
+						data-validation-match-message="ä¸Žå¯†ç ä¸ä¸€è‡´"
+						placeholder="è¯·ç¡®è®¤æ‚¨çš„å¯†ç ">
+					<span class="help-inline">å¯†ç åº”å¤§äºŽ6ä½ï¼ŒåŒ…å«å­—æ¯ã€æ•°å­—ã€ç‰¹æ®Šç¬¦å·çš„ç»„åˆ</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">ÊÖ&nbsp;&nbsp;&nbsp;&nbsp;»ú</label>
+				<label class="control-label" for="mobile">æ‰‹&nbsp;&nbsp;&nbsp;&nbsp;æœº</label>
 				<div class="controls">
-					<input type="text" id="mobile" placeholder="ÇëÊäÈëÄúµÄÊÖ»úºÅ">
-					<span class="help-inline">ÇëÊäÈëÄúµÄÊÖ»úºÅ</span>
+					<input type="text" id="mobile" name="mobile" placeholder="è¯·è¾“å…¥æ‚¨çš„æ‰‹æœºå·">
+					<span class="help-inline">è¯·è¾“å…¥æ‚¨çš„æ‰‹æœºå·</span>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
 					<label class="checkbox">
-					<input type="checkbox"> ÎÒÒÑÔÄ¶Á²¢Í¬ÒâÏà¹ØÌõ¿î
+					<input type="checkbox"> æˆ‘å·²é˜…è¯»å¹¶åŒæ„<a href="#">ç›¸å…³æ¡æ¬¾</a>
 					</label>
-					<button type="submit" class="btn btn-primary">×¢²á</button>
+					<button type="submit" class="btn btn-primary">æ³¨å†Œ</button>
 				</div>
 			</div>
 			</form>
