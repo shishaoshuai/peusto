@@ -12,6 +12,8 @@
     <meta name="robots" content="index,follow">
     <script src="<?php echo asset_url(); ?>/js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo asset_url(); ?>/js/bootstrap.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/jqBootstrapValidation.js"></script>
+
     <link href="<?php echo asset_url(); ?>css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="<?php echo asset_url(); ?>css/docs.css" rel="stylesheet" media="screen">
 </head>

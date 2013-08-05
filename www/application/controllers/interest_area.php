@@ -103,4 +103,9 @@ class Interest_area extends CI_Controller {
             redirect('interest_area');
         }
     }
+
+    public function delete_ia($iduser_interest_area) {
+        $this->user_interest_area_model->delete_ia($iduser_interest_area);
+        $this->index();
+    }
 }

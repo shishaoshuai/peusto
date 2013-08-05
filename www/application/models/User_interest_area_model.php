@@ -82,4 +82,8 @@ class User_interest_area_model extends CI_Model
             return $result;
         }
     }
+
+    public function delete_ia($iduser_interest_area) {
+        $this->db->delete('user_interest_area', array('iduser_interest_area' => $iduser_interest_area));
+    }
 }

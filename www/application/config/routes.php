@@ -52,6 +52,7 @@ $route['home/create'] = 'home/create';
 $route['interest_area'] = 'interest_area';
 $route['interest_area/create'] = 'interest_area/create';
 $route['interest_area/modify/(:any)'] = 'interest_area/modify/$1';
+$route['interest_area/delete/(:any)'] = 'interest_area/delete_ia/$1';
 $route['interest_area/update'] = 'interest_area/update';
 
 

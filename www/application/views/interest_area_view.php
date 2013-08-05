@@ -13,8 +13,10 @@
             <div class="controls">
                 <input type="text" id="user_interest_area_name" name="user_interest_area_name"
                        placeholder="请输入关注域名称"
-                       value="<?php echo isset($user_interest_area_name) ?$user_interest_area_name:'' ?>" required/>
-                <span class="help-inline">关注域要简明扼要，不超过10个汉字</span>
+                       value="<?php echo isset($user_interest_area_name) ?$user_interest_area_name:'' ?>"
+                       minlength="2" maxlength="10"
+                       required/>
+                <span class="help-inline">不少于2个汉字，且不超过10个汉字</span>
             </div>
         </div>
 
@@ -22,13 +24,13 @@
             <label class="control-label" for="display_order">显示顺序</label>
 
             <div class="controls">
-                <input type="text" id="display_order" name="display_order"
-                       placeholder="只能输入正整数"
+                <input type="number" id="display_order" name="display_order"
+                       data-validation-number-message="只能输入正整数"
+                       placeholder="只能输入正整数" min="1"
                        value="<?php echo isset($display_order) ?$display_order:'' ?>"
-                       data-validation-regex-regex="^[0-9]*[1-9][0-9]*$"
-                       data-validation-regex-message="只能输入正整数  "
+
                     />
-                <span class="help-inline">数字小的显示在前面</span>
+                <span class="help-inline">正整数，数字越小，显示顺序越靠前</span>
             </div>
         </div>
         <div class="control-group">
@@ -47,7 +49,7 @@
             <tr>
                 <th>#</th>
                 <th>关注域</th>
-                <th>操作</th>
+                <th colspan="2">操作</th>
             </tr>
         </thead>
 
@@ -62,6 +64,9 @@
                 <td><?php echo $interest_area_item['user_interest_area_name'] ?></td>
                 <td>
                     <a href="<?php echo site_url('interest_area/modify/'.$interest_area_item['iduser_interest_area']) ?>">更新</a>
+                </td>
+                <td>
+                    <a href="<?php echo site_url('interest_area/delete/'.$interest_area_item['iduser_interest_area']) ?>">删除</a>
                 </td>
             </tr>
         <?php endforeach ?>
