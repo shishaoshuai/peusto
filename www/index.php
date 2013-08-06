@@ -87,7 +87,7 @@ if (defined('ENVIRONMENT'))
  * routing in a specific front controller that shares a common CI installation.
  *
  * IMPORTANT:  If you set the routing here, NO OTHER controller will be
- * callable. In essence, this preference limits your application to ONE
+ * callable. In essence, this user_preferences limits your application to ONE
  * specific controller.  Leave the function name blank if you need
  * to call functions dynamically via the URI.
  *

@@ -45,9 +45,9 @@ var defaults = {
 	
 	// time formats
 	titleFormat: {
-		month: 'yyyyÄêMMMM',
-		week: "yyyyÄêMMMdÈÕ{ '&#8212;'[MMM] dÈÕ}",
-		day: 'yyyyÄêMMMdÈÕdddd'
+		month: 'yyyyå¹´MMMM',
+		week: "yyyyå¹´MMMdæ—¥{ '&#8212;'[MMM] dæ—¥}",
+		day: 'yyyyå¹´MMMdæ—¥dddd'
 	},
 	columnFormat: {
 		month: 'ddd',
@@ -61,19 +61,19 @@ var defaults = {
 	// locale
 	isRTL: false,
 	firstDay: 1,
-	monthNames: ['1ÔÂ','2ÔÂ','3ÔÂ','4ÔÂ','5ÔÂ','6ÔÂ','7ÔÂ','8ÔÂ','9ÔÂ','10ÔÂ','11ÔÂ','12ÔÂ'],
-	monthNamesShort: ['1ÔÂ','2ÔÂ','3ÔÂ','4ÔÂ','5ÔÂ','6ÔÂ','7ÔÂ','8ÔÂ','9ÔÂ','10ÔÂ','11ÔÂ','12ÔÂ'],
-	dayNames: ['ĞÇÆÚÈÕ','ĞÇÆÚÒ»','ĞÇÆÚ¶ş','ĞÇÆÚÈı','ĞÇÆÚËÄ','ĞÇÆÚÎå','ĞÇÆÚÁù'],
-	dayNamesShort: ['ÈÕ','Ò»','¶ş','Èı','ËÄ','Îå','Áù'],
+	monthNames: ['1æœˆ','2æœˆ','3æœˆ','4æœˆ','5æœˆ','6æœˆ','7æœˆ','8æœˆ','9æœˆ','10æœˆ','11æœˆ','12æœˆ'],
+	monthNamesShort: ['1æœˆ','2æœˆ','3æœˆ','4æœˆ','5æœˆ','6æœˆ','7æœˆ','8æœˆ','9æœˆ','10æœˆ','11æœˆ','12æœˆ'],
+	dayNames: ['æ˜ŸæœŸä¸€','æ˜ŸæœŸäºŒ','æ˜ŸæœŸä¸‰','æ˜ŸæœŸå››','æ˜ŸæœŸäº”','æ˜ŸæœŸå…­','æ˜ŸæœŸæ—¥'],
+	dayNamesShort: ['å‘¨ä¸€','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››','å‘¨äº”','å‘¨å…­','å‘¨æ—¥'],
 	buttonText: {
 		prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
 		next: "<span class='fc-text-arrow'>&rsaquo;</span>",
 		prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
 		nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-		today: '½ñÌì',
-		month: 'ÔÂ',
-		week: 'ÖÜ',
-		day: 'ÈÕ'
+		today: 'ä»Šå¤©',
+		month: 'æœˆ',
+		week: 'å‘¨',
+		day: 'æ—¥'
 	},
 	
 	// jquery-ui theming
@@ -5324,7 +5324,7 @@ function DayEventRenderer() {
 	// and sort into subrows.
 	function buildSegmentSubrows(segments) {
 
-		// Give preference to elements with certain criteria, so they have
+		// Give user_preferences to elements with certain criteria, so they have
 		// a chance to be closer to the top.
 		segments.sort(segmentCompare);
 
