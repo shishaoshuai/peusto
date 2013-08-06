@@ -362,6 +362,18 @@ $config['proxy_ips'] = '';
 $config['header_css'] = array('bootstrap.css');
 $config['header_js']  = array('bootstrap.js','jquery-1.10.2.min.js','jqBootstrapValidation.js');
 
+
+/*
+ * 定义用户设置的默认选项，这些选项将用于用户个人设置的初始化
+ */
+//工作时间定义开始,
+$config['work_time'] = array('morning_start'=>'8:30','morning_end'=>'11:30',
+    'afternoon_start'=>'13:00','afternoon_end'=>'17:30');
+//工作时间定义结束
+
+//默认关注域
+$config['interest_area'] = array('工作'=>'1','个人事业'=>'2','家庭'=>'3','个人健康'=>'4','社会交往'=>'5','其他'=>'6');
+//默认关注域结束
 /* End of file config.php */
 /* Location: ./application/config/config.php */
 
