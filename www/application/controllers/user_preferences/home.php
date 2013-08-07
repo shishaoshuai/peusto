@@ -13,7 +13,13 @@ class Home extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $data['username'] = $session_data['username'];
+
             $data['active_nav_item'] = 'user_preferences';
+
+            $this->load->model('user_preferences/user_target_type_model');
+            $owner = $session_data['idusers'];
+            $data['user_target_types'] = $this->user_target_type_model->get_target_types($owner);
+
             $this->load->helper('form');
             add_css(array( 'jquery-ui/jquery.ui.all.css'));
 

@@ -15,12 +15,13 @@ class User_interest_area_model extends CI_Model
     }
 
     public function initialize($owner){
-        $this->load->model('interest_area_model');
-        $user_interest_area = $this->interest_area_model->get_interest_areas();
-        foreach($user_interest_area as $user_interest_area_item) {
+        $ci = & get_instance();
+        $item_tbi = $ci->config->item('interest_area');
+
+        foreach($item_tbi as $user_interest_area_name=>$display_order) {
             $data = array('owner'=> $owner,
-                'user_interest_area_name'=>$user_interest_area_item['interest_area_name'],
-                'display_order'=>$user_interest_area_item['display_order']);
+                'user_interest_area_name'=>$user_interest_area_name,
+                'display_order'=>$display_order);
             $this->db->insert('user_interest_area', $data);
         }
     }

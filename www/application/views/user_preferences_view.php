@@ -188,6 +188,26 @@
                 </div>
             </form>
         </div>
+
+        <div id='tabs-4'>
+            <?php
+            $attributes = array('class' => 'form-horizontal');
+            echo form_open('target/create', $attributes);
+            ?>
+            <fieldset>
+                <legend>目标管理</legend>
+
+                <div class="control-group">
+                    <label class="control-label" for="user_target_type">您想管理的目标</label>
+                    <div class="controls">
+                            <?php
+                            foreach($user_target_types as $user_target_type_item)
+                                echo "<input type='checkbox' value='". $user_target_type_item['iduser_target_type'] ."'>". $user_target_type_item['user_target_type_name'] ."</option>";
+                            ?>
+                        <span class="help-inline">请输入该任务所属的关注域</span>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 </div>

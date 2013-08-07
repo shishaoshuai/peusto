@@ -58,5 +58,7 @@ class Users_model extends CI_Model
         $this->user_interest_area_model->initialize($owner);
         $this->load->model('user_work_time_model');
         $this->user_work_time_model->initialize($owner);
+        $this->load->model('user_preferences/user_target_type_model');
+        $this->user_target_type_model->initialize($owner);
     }
 }
