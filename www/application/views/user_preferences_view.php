@@ -7,9 +7,9 @@
     $(document).ready(function () {
         $('form input:checkbox').click(function () {
             if ($(this).is(':checked')) {
-                $.post('http://localhost/add_target_type/'+$(this).val());
+                $.post('http://localhost/add_target_type/' + $(this).val());
             } else {
-                $.post('http://localhost/delete_target_type/'+$(this).val());
+                $.post('http://localhost/delete_target_type/' + $(this).val());
             }
         });
     });
@@ -218,7 +218,9 @@
                             $checked = "";
                             if ($target_type_item_index == current($user_target_types[$user_target_type_item_index])) {
                                 $checked = " checked='true'";
-                                $user_target_type_item_index++;
+                                if ($user_target_type_item_index < count($user_target_types) - 1) {
+                                    $user_target_type_item_index++;
+                                }
                             }
                             echo $checked . ">";
                             echo $target_types[$target_type_item_index];
