@@ -62,5 +62,9 @@ $route['time_record'] = 'time_record';
 $route['user_preferences'] = 'user_preferences/home';
 $route['get_user_interest_areas'] = 'ajax/get_interest_areas';
 $route['get_targets/(:any)'] = 'ajax/get_targets/$1';
+$route['add_target_type/(:any)'] ='ajax/add_target_type/$1';
+$route['delete_target_type/(:any)'] ='ajax/delete_target_type/$1';
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

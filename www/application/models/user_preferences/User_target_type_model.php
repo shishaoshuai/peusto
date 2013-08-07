@@ -11,9 +11,10 @@ class User_target_type_model extends CI_Model
     {
         $ci = & get_instance();
         $array_tbi = $ci->config->item('target_type');
-        foreach($array_tbi as $target_type_item)
+        $array_tbi_size = count($array_tbi);
+        for($i=0; $i<$array_tbi_size;$i++)
         {
-            $this->db->insert('user_target_type', array('owner'=>$owner,"user_target_type_name" => $target_type_item));
+            $this->db->insert('user_target_type', array('owner'=>$owner,"target_type_id" => $i));
         }
     }
 
@@ -31,17 +32,23 @@ class User_target_type_model extends CI_Model
     }
 
     public function get_target_types($owner) {
-        $this->db->select('iduser_target_type,user_target_type_name');
+        $this->db->select('target_type_id');
         $this->db->from('user_target_type');
         $this->db->where('owner',$owner);
+        $this->db->order_by('target_type_id asc');
 
         $query = $this->db->get();
 
         return $query->result_array();
     }
 
-    public function delete_user_target_type($iduser_target_type)
+    public function add_user_target_type($owner, $target_type_id)
     {
-        $this->db->delete('user_target_type', array('iduser_target_type' => $iduser_target_type));
+        $this->db->insert('user_target_type', array('target_type_id' => $target_type_id,'owner'=>$owner));
+    }
+
+    public function delete_user_target_type($owner, $target_type_id)
+    {
+        $this->db->delete('user_target_type', array('target_type_id' => $target_type_id,'owner'=>$owner));
     }
 }

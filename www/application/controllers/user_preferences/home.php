@@ -19,6 +19,8 @@ class Home extends CI_Controller {
             $this->load->model('user_preferences/user_target_type_model');
             $owner = $session_data['idusers'];
             $data['user_target_types'] = $this->user_target_type_model->get_target_types($owner);
+            $ci = & get_instance();
+            $data['target_types'] = $ci->config->item('target_type');
 
             $this->load->helper('form');
             add_css(array( 'jquery-ui/jquery.ui.all.css'));

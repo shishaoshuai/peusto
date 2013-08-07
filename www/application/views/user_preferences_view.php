@@ -1,6 +1,17 @@
 <script>
-    $(function() {
-        $( "#tabs" ).tabs();
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form input:checkbox').click(function () {
+            if ($(this).is(':checked')) {
+                $.post('http://localhost/add_target_type/'+$(this).val());
+            } else {
+                $.post('http://localhost/delete_target_type/'+$(this).val());
+            }
+        });
     });
 </script>
 <script language=javascript>
@@ -195,19 +206,30 @@
             echo form_open('target/create', $attributes);
             ?>
             <fieldset>
-                <legend>目标管理</legend>
+                <legend>您想管理的目标</legend>
 
                 <div class="control-group">
-                    <label class="control-label" for="user_target_type">您想管理的目标</label>
                     <div class="controls">
-                            <?php
-                            foreach($user_target_types as $user_target_type_item)
-                                echo "<input type='checkbox' value='". $user_target_type_item['iduser_target_type'] ."'>". $user_target_type_item['user_target_type_name'] ."</option>";
-                            ?>
-                        <span class="help-inline">请输入该任务所属的关注域</span>
+                        <?php
+                        $target_type_item_index = 0;
+                        $user_target_type_item_index = 0;
+                        foreach ($target_types as $target_type_item) {
+                            echo "<input type='checkbox' class='target_type_checkbox' value='" . $target_type_item_index . "'";
+                            $checked = "";
+                            if ($target_type_item_index == current($user_target_types[$user_target_type_item_index])) {
+                                $checked = " checked='true'";
+                                $user_target_type_item_index++;
+                            }
+                            echo $checked . ">";
+                            echo $target_types[$target_type_item_index];
+                            $target_type_item_index++;
+                        }
+                        ?>
                     </div>
                 </div>
-            </div>
+            </fieldset>
+            </form>
+        </div>
     </div>
 </div>
 </div>

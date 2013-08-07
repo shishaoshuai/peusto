@@ -1,6 +1,6 @@
 --
 -- MySQL 5.5.8
--- Wed, 07 Aug 2013 00:45:49 +0000
+-- Wed, 07 Aug 2013 08:11:10 +0000
 --
 
 CREATE DATABASE `peusto` DEFAULT CHARSET utf8;
@@ -110,42 +110,33 @@ CREATE TABLE `user_interest_area` (
    `create_time` timestamp not null default CURRENT_TIMESTAMP,
    PRIMARY KEY (`iduser_interest_area`),
    KEY `FK_user_interest_area_ref_users_idx` (`owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=65;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=77;
 
 INSERT INTO `user_interest_area` (`iduser_interest_area`, `owner`, `user_interest_area_name`, `display_order`, `create_time`) VALUES 
-('59', '29', '工作', '1', '2013-08-07 08:42:36'),
-('60', '29', '个人事业', '2', '2013-08-07 08:42:36'),
-('61', '29', '家庭', '3', '2013-08-07 08:42:36'),
-('62', '29', '个人健康', '4', '2013-08-07 08:42:36'),
-('63', '29', '社会交往', '5', '2013-08-07 08:42:36'),
-('64', '29', '其他', '6', '2013-08-07 08:42:36');
+('71', '31', '工作', '1', '2013-08-07 13:50:17'),
+('72', '31', '个人事业', '2', '2013-08-07 13:50:17'),
+('73', '31', '家庭', '3', '2013-08-07 13:50:17'),
+('74', '31', '个人健康', '4', '2013-08-07 13:50:17'),
+('75', '31', '社会交往', '5', '2013-08-07 13:50:17'),
+('76', '31', '其他', '6', '2013-08-07 13:50:17');
 
 CREATE TABLE `user_target_type` (
    `iduser_target_type` int(11) not null auto_increment,
-   `user_target_type_name` varchar(30),
+   `target_type_id` tinyint(4),
    `owner` int(11),
    PRIMARY KEY (`iduser_target_type`),
    KEY `fk_user_target_type_ref_target_type_idx` (`owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=18;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=58;
 
-INSERT INTO `user_target_type` (`iduser_target_type`, `user_target_type_name`, `owner`) VALUES 
-('1', '日目标', '29'),
-('2', '周目标', '29'),
-('3', '月目标', '29'),
-('4', '季目标', '29'),
-('5', '半年目标', '29'),
-('6', '年度目标', '29'),
-('7', '2年目标', '29'),
-('8', '3年目标', '29'),
-('9', '4年目标', '29'),
-('10', '5年目标', '29'),
-('11', '6年目标', '29'),
-('12', '7年目标', '29'),
-('13', '8年目标', '29'),
-('14', '9年目标', '29'),
-('15', '10年目标', '29'),
-('16', '15年目标', '29'),
-('17', '20年目标', '29');
+INSERT INTO `user_target_type` (`iduser_target_type`, `target_type_id`, `owner`) VALUES 
+('42', '7', '31'),
+('44', '9', '31'),
+('51', '16', '31'),
+('53', '1', '31'),
+('54', '2', '31'),
+('55', '5', '31'),
+('56', '14', '31'),
+('57', '15', '31');
 
 CREATE TABLE `user_work_time` (
    `iduser_work_time` int(11) not null auto_increment,
@@ -156,10 +147,10 @@ CREATE TABLE `user_work_time` (
    `owner` int(11),
    PRIMARY KEY (`iduser_work_time`),
    KEY `fk_user_work_time_ref_users_idx` (`owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=6;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8;
 
 INSERT INTO `user_work_time` (`iduser_work_time`, `morning_start_time`, `morning_end_time`, `afternoon_start_time`, `afternoon_end_time`, `owner`) VALUES 
-('5', '8:30', '11:30', '13:00', '17:30', '29');
+('7', '8:30', '11:30', '13:00', '17:30', '31');
 
 CREATE TABLE `users` (
    `idusers` int(11) not null auto_increment,
@@ -170,8 +161,7 @@ CREATE TABLE `users` (
    `register_time` timestamp not null default CURRENT_TIMESTAMP,
    PRIMARY KEY (`idusers`),
    UNIQUE KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=30;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=32;
 
 INSERT INTO `users` (`idusers`, `username`, `password`, `email`, `mobile`, `register_time`) VALUES 
-('28', 'sss', 'af15d5fdacd5fdfea300e88a8e253e82', 'sss@sss.net', '', '2013-08-07 08:41:35'),
-('29', 'aaa', 'af15d5fdacd5fdfea300e88a8e253e82', 'sss@sss.net', '', '2013-08-07 08:42:36');
+('31', 'sss', 'af15d5fdacd5fdfea300e88a8e253e82', 'sss@sss.net', '', '2013-08-07 13:50:17');
