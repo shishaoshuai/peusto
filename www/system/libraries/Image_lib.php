@@ -842,7 +842,7 @@ class CI_Image_lib {
 	 * Image Watermark
 	 *
 	 * This is a wrapper function that chooses the type
-	 * of watermarking based on the specified preference.
+	 * of watermarking based on the specified user_preferences.
 	 *
 	 * @access	public
 	 * @param	string

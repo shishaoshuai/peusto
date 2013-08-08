@@ -21,8 +21,7 @@ class User extends CI_Controller {
 	public function create() {
         if( $this->users_model->set_user()) {
             $owner = $this->db->insert_id();
-            $this->load->model('user_interest_area_model');
-            $this->user_interest_area_model->initialize($owner);
+            $this->users_model->initialize($owner);
         }
 
         $this->load->helper('url');

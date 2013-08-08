@@ -17,7 +17,8 @@ class Target_model extends CI_Model
             'owner' =>$owner,
             'interest_area'=> $this->input->post('interest_area'),
             'target_name' => $this->input->post('target_name'),
-            'priority' => $this->input->post('priority')
+            'priority' => $this->input->post('priority'),
+            'target_type' => $this->input->post('target_type')
         );
         return $this->db->insert('target', $data);
     }
@@ -25,8 +26,9 @@ class Target_model extends CI_Model
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtarget,target_name,case priority when 1 then \"高\" when "
-            ." 2 then \"中\" when 3 then \"低\" end as priority FROM target WHERE owner = ? order by priority asc";
+        $sql = "SELECT idtarget,target_name,target_type_name, case priority when 1 then \"高\" when "
+            ." 2 then \"中\" when 3 then \"低\" end as priority FROM target,target_type"
+            ."WHERE owner = ? and target_type=idtarget_type order by priority asc";
 
         $query = $this->db->query($sql, $owner);
         return $query->result_array();
@@ -49,9 +51,9 @@ class Target_model extends CI_Model
     public function get_targets_for_interest_area($interest_area) {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtarget,target_name, case priority when 1 then \"高\" when "
-            ." 2 then \"中\" when 3 then \"低\" end as priority  FROM target "
-            ."WHERE owner = ? and interest_area = ?  order by priority asc";
+        $sql = "SELECT idtarget,target_name, target_type_name, case priority when 1 then \"高\" when "
+            ." 2 then \"中\" when 3 then \"低\" end as priority  FROM target,target_type "
+            ."WHERE owner = ? and interest_area = ?  and target_type=idtarget_type order by priority asc";
 
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();
