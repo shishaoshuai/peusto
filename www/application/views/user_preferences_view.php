@@ -148,25 +148,37 @@
         </div>
 
         <div id="tabs-3">
-            <form id="form2" method="post">
-                <div class="controls">每天
+            <?php
+            $attributes = array('class' => 'form-horizontal');
+            echo form_open('user_preferences/ura', $attributes);
+            ?>
+            <script type="text/javascript">
+                $(function() {
+                    $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value : '<?php echo "15" ?>' } );
+                    $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" } );
+                });
+            </script>
+                <div class="controls">
+
+                    <select  id="ura_type" name="ura_type">
+                        <?php
+                        foreach($rat_list as $rat_item)
+                            echo "<option value='". $rat_item['id_rat'] ."'>". $rat_item['rat_name'] ."</option>";
+                        ?>
+                    </select>
+
                     <input class="input-mini" type="startTime" placeholder="开始时间">&nbsp;到&nbsp;
                     <input class="input-mini" type="endTime" placeholder="结束时间">
                     <input class="input-large" type="action" placeholder="请输入固定任务">
-                    <select class="span2" placeholder="关注域">
-                        <option>家庭</option>
-                        <option>工作</option>
-                        <option>个人健康</option>
-                        <option>个人事业</option>
-                        <option>娱乐</option>
+
+                    <select id="interest_area" name="interest_area">
+
                     </select>
-                    <select class="span2" placeholder="所对应目标">
-                        <option>无</option>
-                        <option>建设时间管理网站</option>
-                        <option>坚持每周锻炼两次</option>
-                        <option>管理分析类数据标准落地</option>
-                        <option>行业主题挖掘分析</option>
+
+                    <select id="target" name="target">
+
                     </select>
+
                     &nbsp;&nbsp;
                     <button class="btn btn-small btn-primary" type="button">删除</button>
                     <button class="btn btn-small btn-primary" type="button">增加</button>

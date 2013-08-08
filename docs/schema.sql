@@ -1,6 +1,6 @@
 --
 -- MySQL 5.5.8
--- Wed, 07 Aug 2013 08:11:10 +0000
+-- Thu, 08 Aug 2013 08:35:50 +0000
 --
 
 CREATE DATABASE `peusto` DEFAULT CHARSET utf8;
@@ -46,6 +46,35 @@ INSERT INTO `interest_area` (`idinterest_area`, `interest_area_name`, `display_o
 ('8', '健康', '4'),
 ('9', '社会交往', '5');
 
+CREATE TABLE `regular_arrangement` (
+   `idRegular_arrangement` int(11) not null auto_increment,
+   `ra_type` int(11),
+   `ra_name` varchar(45),
+   `interest_area` int(11),
+   `start_time` varchar(45),
+   `end_time` varchar(45),
+   PRIMARY KEY (`idRegular_arrangement`),
+   KEY `fk_ra_ref_rat_idx` (`ra_type`),
+   KEY `fk_ra_ref_interest_area_idx` (`interest_area`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;
+
+INSERT INTO `regular_arrangement` (`idRegular_arrangement`, `ra_type`, `ra_name`, `interest_area`, `start_time`, `end_time`) VALUES 
+('1', '1', '睡觉', '8', '23:00', '5::00'),
+('2', '5', '吃早饭', '8', '7:25', '7:55');
+
+CREATE TABLE `regular_arrangement_type` (
+   `id_rat` int(11) not null auto_increment,
+   `rat_name` varchar(45),
+   PRIMARY KEY (`id_rat`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=6;
+
+INSERT INTO `regular_arrangement_type` (`id_rat`, `rat_name`) VALUES 
+('1', '每日'),
+('2', '每周'),
+('3', '每月'),
+('4', '每年'),
+('5', '每周一到周五');
+
 CREATE TABLE `target` (
    `idtarget` int(11) not null auto_increment,
    `target_name` varchar(140),
@@ -58,15 +87,16 @@ CREATE TABLE `target` (
    KEY `FK_targe_ref_interest_area_idx` (`interest_area`),
    KEY `FK_target_ref_user_idx` (`owner`),
    KEY `fk_target_ref_user_target_type_idx` (`target_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=10;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12;
 
--- [表 `target` 为空]
+INSERT INTO `target` (`idtarget`, `target_name`, `interest_area`, `priority`, `owner`, `create_time`, `target_type`) VALUES 
+('11', '这孩子真傻', '71', '1', '31', '2013-08-08 08:12:34', '2');
 
 CREATE TABLE `target_type` (
    `idtarget_type` int(11) not null auto_increment,
    `target_type_name` varchar(30),
    PRIMARY KEY (`idtarget_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=14;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=19;
 
 INSERT INTO `target_type` (`idtarget_type`, `target_type_name`) VALUES 
 ('1', '日目标'),
@@ -77,11 +107,16 @@ INSERT INTO `target_type` (`idtarget_type`, `target_type_name`) VALUES
 ('6', '年度目标'),
 ('7', '2年目标'),
 ('8', '3年目标'),
-('9', '5年目标'),
-('10', '10年目标'),
-('11', '15年目标'),
-('12', '20年目标'),
-('13', '人生目标');
+('9', '4年目标'),
+('10', '5年目标'),
+('11', '6年目标'),
+('12', '7年目标'),
+('13', '8年目标'),
+('14', '9年目标'),
+('15', '10年目标'),
+('16', '15年目标'),
+('17', '20年目标'),
+('18', '人生目标');
 
 CREATE TABLE `task` (
    `idtask` int(11) not null auto_increment,
@@ -120,23 +155,45 @@ INSERT INTO `user_interest_area` (`iduser_interest_area`, `owner`, `user_interes
 ('75', '31', '社会交往', '5', '2013-08-07 13:50:17'),
 ('76', '31', '其他', '6', '2013-08-07 13:50:17');
 
+CREATE TABLE `user_regular_arrangement` (
+   `id_ura` int(11) not null auto_increment,
+   `ura_name` varchar(45),
+   `start_time` varchar(45),
+   `end_time` varchar(45),
+   `ura_type` int(11),
+   `interest_area` int(11),
+   `target` int(11),
+   `create_time` timestamp default CURRENT_TIMESTAMP,
+   `owner` int(11),
+   PRIMARY KEY (`id_ura`),
+   KEY `fk_ura_ref_uia_idx` (`interest_area`),
+   KEY `fk_ura_users_idx` (`owner`),
+   KEY `fk_ura_target_idx` (`target`),
+   KEY `fk_ura_ref_rat_idx` (`ura_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- [表 `user_regular_arrangement` 为空]
+
 CREATE TABLE `user_target_type` (
    `iduser_target_type` int(11) not null auto_increment,
    `target_type_id` tinyint(4),
    `owner` int(11),
    PRIMARY KEY (`iduser_target_type`),
    KEY `fk_user_target_type_ref_target_type_idx` (`owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=58;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=65;
 
 INSERT INTO `user_target_type` (`iduser_target_type`, `target_type_id`, `owner`) VALUES 
-('42', '7', '31'),
-('44', '9', '31'),
 ('51', '16', '31'),
-('53', '1', '31'),
 ('54', '2', '31'),
 ('55', '5', '31'),
-('56', '14', '31'),
-('57', '15', '31');
+('57', '15', '31'),
+('58', '17', '31'),
+('59', '3', '31'),
+('60', '10', '31'),
+('61', '4', '31'),
+('62', '6', '31'),
+('63', '18', '31'),
+('64', '8', '31');
 
 CREATE TABLE `user_work_time` (
    `iduser_work_time` int(11) not null auto_increment,
@@ -145,12 +202,14 @@ CREATE TABLE `user_work_time` (
    `afternoon_start_time` varchar(10),
    `afternoon_end_time` varchar(10),
    `owner` int(11),
+   `day_type` int(11),
    PRIMARY KEY (`iduser_work_time`),
-   KEY `fk_user_work_time_ref_users_idx` (`owner`)
+   KEY `fk_user_work_time_ref_users_idx` (`owner`),
+   KEY `fk_user_work_time_ref_day_type_idx` (`day_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8;
 
-INSERT INTO `user_work_time` (`iduser_work_time`, `morning_start_time`, `morning_end_time`, `afternoon_start_time`, `afternoon_end_time`, `owner`) VALUES 
-('7', '8:30', '11:30', '13:00', '17:30', '31');
+INSERT INTO `user_work_time` (`iduser_work_time`, `morning_start_time`, `morning_end_time`, `afternoon_start_time`, `afternoon_end_time`, `owner`, `day_type`) VALUES 
+('7', '8:30', '11:30', '13:00', '17:30', '31', '1');
 
 CREATE TABLE `users` (
    `idusers` int(11) not null auto_increment,
