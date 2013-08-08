@@ -8,7 +8,7 @@ class User extends CI_Controller {
         $this->load->model('users_model');
     }
 	/*
-	 ÏÔÊ¾×¢²áÒ³Ãæ
+	 æ˜¾ç¤ºæ³¨å†Œé¡µé¢
 	*/
 	public function register() {
         $this->load->helper('form');
@@ -16,7 +16,7 @@ class User extends CI_Controller {
 	}
 
     /*
-     * ĞÂÔöÓÃ»§
+     * æ–°å¢ç”¨æˆ·
      */
 	public function create() {
         if( $this->users_model->set_user()) {
@@ -55,7 +55,7 @@ class User extends CI_Controller {
             }
             return TRUE;
         } else {
-            $this->form_validation->set_message('check_login', 'Invalid username or password');
+            $this->form_validation->set_message('check_login', 'ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®');
             return false;
         }
     }

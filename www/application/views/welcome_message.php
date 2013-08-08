@@ -25,14 +25,23 @@
             <li><a href="#">帮助</a></li>
             <li><a href="#">关于</a></li>
         </ul>
+        <?php echo validation_errors(); ?>
+
         <?php
         $attributes = array('class' => 'navbar-form pull-right');
         echo form_open('user/login', $attributes);
         ?>
-        用户名：<input class="input-large" name="username" type="text" placeholder="用户名/电子邮件/手机号">
-        <input class="input-small" name="password" type="password" placeholder="密码">
-        <button class="btn btn-primary" type="submit">登录</button>
-        <button class="btn btn-danger" type="button" onclick="window.location.href='register'">注册</button>
+        <fieldset>
+            <input class="input-large" name="username" type="text" placeholder="用户名/电子邮件/手机号"/>
+            <input class="input-small" name="password" type="password" placeholder="密码"/>
+            <label class="checkbox inline">
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+            <a class="help-inline" href="#">忘记密码？</a>
+
+            <button class="btn btn-primary" type="submit">登录</button>
+            <button class="btn btn-danger" type="button" onclick="window.location.href='register'">注册</button>
+        </fieldset>
         </form>
     </div>
 </div>
