@@ -249,11 +249,13 @@
 
                 <div class="control-group">
                     <div class="controls">
+                        <table width=100%>
+                            <tr>
                         <?php
                         $target_type_item_index = 0;
                         $user_target_type_item_index = 0;
                         foreach ($target_types as $target_type_item) {
-                            echo "<input type='checkbox' class='target_type_checkbox' value='" . ($target_type_item_index+1) . "'";
+                            echo "<td><input type='checkbox' class='target_type_checkbox' value='" . ($target_type_item_index+1) . "'";
                             $checked = "";
                             if ($target_type_item_index+1 == current($user_target_types[$user_target_type_item_index])) {
                                 $checked = " checked='true'";
@@ -262,10 +264,14 @@
                                 }
                             }
                             echo $checked . ">";
-                            echo $target_types[$target_type_item_index];
+                            echo $target_types[$target_type_item_index].'</td>';
                             $target_type_item_index++;
+                            if($target_type_item_index%6==0) echo '</tr><tr>';
+
                         }
                         ?>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </fieldset>

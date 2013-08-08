@@ -28,7 +28,6 @@ class Interest_area extends CI_Controller {
         }
         else
         {
-            //If no session, redirect to login page
             redirect('/', 'refresh');
         }
     }
@@ -45,7 +44,6 @@ class Interest_area extends CI_Controller {
             redirect('/');
         } else {
 
-
             $session_data = $this->session->userdata('logged_in');
             $owner = $session_data['idusers'];
 
@@ -59,12 +57,7 @@ class Interest_area extends CI_Controller {
     }
 
     public function modify($iduser_interest_area) {
-        $record = $this->user_interest_area_model->get_user_interest_area($iduser_interest_area);
-        $data['iduser_interest_area'] = $iduser_interest_area;
-
-        $data['user_interest_area_name'] = $record['user_interest_area_name'];
-        $data['display_order'] = $record['display_order'];
-
+        $data['uia_tbm'] = $this->user_interest_area_model->get_user_interest_area($iduser_interest_area);
         $this->load->helper('form');
 
         $session_data = $this->session->userdata('logged_in');
@@ -106,6 +99,6 @@ class Interest_area extends CI_Controller {
 
     public function delete_ia($iduser_interest_area) {
         $this->user_interest_area_model->delete_ia($iduser_interest_area);
-        $this->index();
+        redirect('interest_area');
     }
 }

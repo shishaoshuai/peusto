@@ -6,6 +6,11 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
+        add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
+            'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
+            'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
+            'jquery.jcombo.js','home.js'));
         $this->load->model('task_model');
     }
 
@@ -22,11 +27,7 @@ class Home extends CI_Controller
             $data['active_nav_item'] = 'home';
             $data['tasks'] = $this->task_model->get_all_tasks_by_interest_area();
 
-            add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
-            add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
-                'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
-                'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
-                'jquery.jcombo.js','home.js'));
+
             $this->load->helper('form');
 
             $this->load->view('templates/header', $data);

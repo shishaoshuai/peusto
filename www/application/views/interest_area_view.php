@@ -6,14 +6,14 @@
 
     <fieldset>
         <legend>关注域管理</legend>
-        <input type="hidden" name="iduser_interest_area" value="<?php echo isset( $iduser_interest_area)? $iduser_interest_area:'' ?>" />
+        <input type="hidden" name="iduser_interest_area" value="<?php echo isset( $uia_tbm)? $uia_tbm['iduser_interest_area']:'' ?>" />
         <div class="control-group">
             <label class="control-label" for="user_interest_area_name">关注域名称</label>
 
             <div class="controls">
                 <input type="text" id="user_interest_area_name" name="user_interest_area_name"
                        placeholder="请输入关注域名称"
-                       value="<?php echo isset($user_interest_area_name) ?$user_interest_area_name:'' ?>"
+                       value="<?php echo isset($uia_tbm) ?$uia_tbm['user_interest_area_name']:'' ?>"
                        minlength="2" maxlength="10"
                        required/>
                 <span class="help-inline">不少于2个汉字，且不超过10个汉字</span>
@@ -27,7 +27,7 @@
                 <input type="number" id="display_order" name="display_order"
                        data-validation-number-message="只能输入正整数"
                        placeholder="只能输入正整数" min="1"
-                       value="<?php echo isset($display_order) ?$display_order:'' ?>"
+                       value="<?php echo isset($uia_tbm) ?$uia_tbm['display_order']:'' ?>"
 
                     />
                 <span class="help-inline">正整数，数字越小，显示顺序越靠前</span>

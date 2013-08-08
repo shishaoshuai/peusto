@@ -46,6 +46,27 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function get_target_types()
+    {
+        $this->load->model('user_preferences/user_target_type_model');
+        $session_data = $this->session->userdata('logged_in');
+        $owner = $session_data['idusers'];
+
+        $target_types = $this->user_target_type_model->get_dropdown_list($owner);
+        $items = array();
+        foreach ($target_types as $target_type_item) {
+            $items[$target_type_item['target_type_id']] = $target_type_item['target_type_name'];
+        }
+        header('content-type: application/json; charset=utf-8');
+        // convert into JSON format and print
+        $response = json_encode($items);
+        if (isset($_GET['callback'])) {
+            echo $_GET['callback'] . "(" . $response . ")";
+        } else {
+            echo $response;
+        }
+    }
+
     public function delete_target_type($target_type_id)
     {
 

@@ -22,7 +22,7 @@
 				</ul>
 				<ul class="nav nav-pills pull-right">
 					<li><a href="#">欢迎<?php echo $username; ?></a></li>
-					<li><a href="home/logout">退出</a></li>
+					<li><a href="<?php echo site_url('home/logout')?>">退出</a></li>
 					<li><a href="#">修改密码</a></li>
 				</ul>
 			</div>
@@ -34,10 +34,10 @@
 				<div class="span2">
 				<!--Sidebar content-->
 				<ul class="nav nav-pills nav-stacked">
-					<li <?php echo $active_nav_item=='home' ?  "class=\"active\"":""; ?>><a href="home">待办任务</a></li>
-					<li <?php echo $active_nav_item=='target' ?  "class=\"active\"":""; ?>><a href="target">目标管理</a></li>
-					<li <?php echo $active_nav_item=='interest_area' ?  "class=\"active\"":""; ?>><a href="interest_area">关注域管理</a></li>
-					<li <?php echo $active_nav_item=='time_record' ?  "class=\"active\"":""; ?>><a href="time_record">时间使用情况记录</a></li>
-					<li <?php echo $active_nav_item=='user_preferences' ?  "class=\"active\"":""; ?>><a href="user_preferences">个人偏好设置</a></li>
+					<li <?php echo $active_nav_item=='home' ?  "class=\"active\"":""; ?>><a href="<?php echo site_url('home')?>">待办任务</a></li>
+					<li <?php echo $active_nav_item=='target' ?  "class=\"active\"":""; ?>><a href="<?php echo site_url('target')?>">目标管理</a></li>
+					<li <?php echo $active_nav_item=='interest_area' ?  "class=\"active\"":""; ?>><a href="<?php echo site_url('interest_area')?>">关注域管理</a></li>
+					<li <?php echo $active_nav_item=='time_record' ?  "class=\"active\"":""; ?>><a href="<?php echo site_url('time_record')?>">时间使用情况记录</a></li>
+					<li <?php echo $active_nav_item=='user_preferences' ?  "class=\"active\"":""; ?>><a href="<?php echo site_url('user_preferences')?>">个人偏好设置</a></li>
 				</ul>
 				</div>

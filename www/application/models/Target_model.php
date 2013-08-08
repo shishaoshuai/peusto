@@ -23,6 +23,20 @@ class Target_model extends CI_Model
         return $this->db->insert('target', $data);
     }
 
+    public function update_interest_area()
+    {
+        $this->load->helper('url');
+
+        $data = array(
+            'interest_area'=> $this->input->post('interest_area'),
+            'target_name' => $this->input->post('target_name'),
+            'priority' => $this->input->post('priority'),
+            'target_type' => $this->input->post('target_type')
+        );
+        $this->db->where('idtarget',  $this->input->post('idtarget'));
+        $this->db->update('target', $data);
+    }
+
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
@@ -71,4 +85,17 @@ class Target_model extends CI_Model
         }
     }
 
+    public function get_target($idtarget) {
+        $this->db->select('idtarget,target_name,interest_area,priority,target_type');
+        $this->db->from('target');
+        $this->db->where('idtarget',$idtarget);
+
+        $query = $this->db->get();
+
+        return $query->row_array();
+    }
+
+    public function delete_target($idtarget) {
+        $this->db->delete('target', array('idtarget' => $idtarget));
+    }
 }

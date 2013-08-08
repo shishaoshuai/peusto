@@ -58,12 +58,21 @@ $route['interest_area/update'] = 'interest_area/update';
 
 $route['target'] = 'target';
 $route['target/create'] = 'target/create';
+$route['target/modify/(:any)'] = 'target/modify/$1';
+$route['target/delete/(:any)'] = 'target/delete_target/$1';
+$route['target/update'] = 'target/update';
+
 $route['time_record'] = 'time_record';
 $route['user_preferences'] = 'user_preferences/home';
-$route['get_user_interest_areas'] = 'ajax/get_interest_areas';
-$route['get_targets/(:any)'] = 'ajax/get_targets/$1';
+
 $route['add_target_type/(:any)'] ='ajax/add_target_type/$1';
 $route['delete_target_type/(:any)'] ='ajax/delete_target_type/$1';
+
+
+$route['get_user_interest_areas'] = 'ajax/get_interest_areas';
+$route['get_target_types'] = 'ajax/get_target_types';
+$route['get_targets/(:any)'] = 'ajax/get_targets/$1';
+
 
 
 /* End of file routes.php */
