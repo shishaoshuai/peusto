@@ -26,7 +26,18 @@
 								<span class="help-inline">请输入该任务所属的关注域</span>
 							</div>
 						</div>
-						
+                            <div class="control-group">
+                                <label class="control-label" for="target_type">目标类型</label>
+                                <div class="controls">
+                                    <select  id="target_type" name="target_type">
+                                        <?php
+                                        foreach($target_types as $target_type_item)
+                                            echo "<option value='". $target_type_item['target_type_id'] ."'>". $target_type_item['target_type_name'] ."</option>";
+                                        ?>
+                                    </select>
+                                    <span class="help-inline">请输入该任务所属的关注域</span>
+                                </div>
+                            </div>
 						<div class="control-group">
 							<label class="control-label" for="priority">优先级</label>
 							<div class="controls">
@@ -54,7 +65,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th colspan="3"><?php echo $key ?></th>
+								<th colspan="4"><?php echo $key ?></th>
 
 							</tr>
 						</thead>
@@ -68,6 +79,7 @@
                                     <td><?php echo $i ?></td>
                                     <td><?php echo $target_item['target_name'] ?></td>
                                     <td><?php echo $target_item['priority'] ?>优先级</td>
+                                    <td><?php echo $target_item['target_type_name'] ?></td>
                                 </tr>
                             <?php endforeach ?>
 						  </tbody>

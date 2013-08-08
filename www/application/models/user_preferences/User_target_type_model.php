@@ -51,4 +51,16 @@ class User_target_type_model extends CI_Model
     {
         $this->db->delete('user_target_type', array('target_type_id' => $target_type_id,'owner'=>$owner));
     }
+
+    public function get_dropdown_list($owner) {
+        $sql = "select target_type_id, target_type_name from target_type, user_target_type "
+            ."where owner=? and target_type_id=idtarget_type order by target_type_id asc";
+
+        $query = $this->db->query($sql, array($owner));
+        if($query)
+        {
+            $result = $query->result_array();
+            return $result;
+        }
+    }
 }

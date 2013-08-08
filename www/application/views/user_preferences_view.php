@@ -41,12 +41,39 @@
 <div class="span10">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">高效工作时间</a></li>
-            <li><a href="#tabs-2">每天固定安排</a></li>
-            <li><a href="#tabs-3">每周固定安排</a></li>
-            <li><a href="#tabs-4">目标类型设置</a></li>
+            <li><a href="#tabs-1">工作时间</a></li>
+            <li><a href="#tabs-2">高效工作时间</a></li>
+            <li><a href="#tabs-3">每天固定安排</a></li>
+            <li><a href="#tabs-4">每周固定安排</a></li>
+            <li><a href="#tabs-5">目标类型设置</a></li>
         </ul>
         <div id="tabs-1">
+            <form id="form2" method="post">
+                <div class="controls">每天
+                    <input class="input-mini" type="startTime" placeholder="开始时间">&nbsp;到&nbsp;
+                    <input class="input-mini" type="endTime" placeholder="结束时间">
+                    <input class="input-large" type="action" placeholder="请输入固定任务">
+                    <select class="span2" placeholder="关注域">
+                        <option>家庭</option>
+                        <option>工作</option>
+                        <option>个人健康</option>
+                        <option>个人事业</option>
+                        <option>娱乐</option>
+                    </select>
+                    <select class="span2" placeholder="所对应目标">
+                        <option>无</option>
+                        <option>建设时间管理网站</option>
+                        <option>坚持每周锻炼两次</option>
+                        <option>管理分析类数据标准落地</option>
+                        <option>行业主题挖掘分析</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-small btn-primary" type="button">删除</button>
+                    <button class="btn btn-small btn-primary" type="button">增加</button>
+                </div>
+            </form>
+        </div>
+        <div id="tabs-2">
             <table class="table table-hover" id="table1">
                 <thead>
                 <tr>
@@ -120,7 +147,7 @@
             </form>
         </div>
 
-        <div id="tabs-2">
+        <div id="tabs-3">
             <form id="form2" method="post">
                 <div class="controls">每天
                     <input class="input-mini" type="startTime" placeholder="开始时间">&nbsp;到&nbsp;
@@ -146,7 +173,7 @@
                 </div>
             </form>
         </div>
-        <div id="tabs-3">
+        <div id="tabs-4">
             <form id="form3" method="post">
                 <div class="control-group">
                     <label class="control-label" for="dtp_input1"></label>
@@ -200,7 +227,7 @@
             </form>
         </div>
 
-        <div id='tabs-4'>
+        <div id='tabs-5'>
             <?php
             $attributes = array('class' => 'form-horizontal');
             echo form_open('target/create', $attributes);
@@ -214,9 +241,9 @@
                         $target_type_item_index = 0;
                         $user_target_type_item_index = 0;
                         foreach ($target_types as $target_type_item) {
-                            echo "<input type='checkbox' class='target_type_checkbox' value='" . $target_type_item_index . "'";
+                            echo "<input type='checkbox' class='target_type_checkbox' value='" . ($target_type_item_index+1) . "'";
                             $checked = "";
-                            if ($target_type_item_index == current($user_target_types[$user_target_type_item_index])) {
+                            if ($target_type_item_index+1 == current($user_target_types[$user_target_type_item_index])) {
                                 $checked = " checked='true'";
                                 if ($user_target_type_item_index < count($user_target_types) - 1) {
                                     $user_target_type_item_index++;
