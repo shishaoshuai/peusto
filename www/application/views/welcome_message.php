@@ -33,12 +33,16 @@
 
 <div class="container-fluid">
     <div id="header" class="row-fluid">
-        <div class="span2 header_area img_logo"><img src="<?php echo asset_url(); ?>img/peusto_logo.gif"/></div>
-        <div class="span6 header_area img_slogan"><img src="<?php echo asset_url(); ?>img/slogan.jpg"/></div>
+        <div class="span2 header_area"><img src="<?php echo asset_url(); ?>img/peusto_logo.gif"/></div>
+        <div class="span6 header_area"><img src="<?php echo asset_url(); ?>img/slogan.jpg"/></div>
         <div class="span4 header_area">关于我们</div>
     </div>
     <div class="row-fluid">
         <div class="span7 height350">
+            <h3>
+                树立长远目标，建立近期目标，细化分解任务，促进效能提升
+            </h3>
+
             <p class="lead">
                 　　没有目标的人，是可悲的。<strong>PEUSTO</strong>能够帮你更加有效地管理你的目标，并能帮你更加便捷地将长远
                 目标分解为短期目标，进而分解为任务。
@@ -62,18 +66,20 @@
                 </ul>
 
                 <div id="tabs-1" class="well height250">
-
-                    <form method="POST" action="" accept-charset="UTF-8">
-                        <div class="alert alert-error">
-                            <a class="close" data-dismiss="alert" href="#">x</a>Incorrect Username or Password!
-                        </div>
-                        <input class="span8" placeholder="Username" type="text" name="username">
-                        <input class="span8" placeholder="Password" type="password" name="password">
+                    <?php
+                    $attributes = array('accept-charset' => 'UTF-8');
+                    echo form_open('user/login', $attributes);
+                    ?>
+                    <fieldset>
+                        <legend>请输入登录用户和密码</legend>
+                        <?php echo validation_errors(); ?>
+                        <input class="span12" placeholder="用户名/电子邮件/手机号码" type="text" name="username" required="true">
+                        <input class="span12" placeholder="密码" type="password" name="password" required="true">
                         <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1"> Remember Me
+                            <input type="checkbox" name="remember" value="1"> 记住我
                         </label>
-                        <button class="btn-info btn" type="submit">Login</button>
-                        <button class="btn-info btn">Register</button>
+                        <button class="btn-info btn" type="submit">登录</button>
+                    </fieldset>
                     </form>
 
 

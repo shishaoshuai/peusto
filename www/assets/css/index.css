@@ -1,6 +1,6 @@
 .header_area {
     color:red;
-    height: 68px;
+    height: 80px;
     vertical-align: middle;
 
     text-align: center;
@@ -10,13 +10,6 @@
     font-family: SimHei;
 }
 
-.img_logo{
-    max-height: 60px;
-}
-
-.img_slogan{
-    max-height: 60px;
-}
 
 .height350 {
     height: 350px;

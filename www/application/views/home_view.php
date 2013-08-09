@@ -17,7 +17,7 @@
             <div class="controls">
                 <input type="text" class="input-block-level" id="task_name" name="task_name"
                        placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"
-                       required></input>
+                       required>
                 <span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
             </div>
         </div>
@@ -28,7 +28,7 @@
 
             <div class="controls date start_time" align="left" data-date-format="yyyy年MMdd日 - hh:ii"
                  data-link-field="start_time">
-                <input size="12" type="text" value="" readonly>
+                <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
                 <span class="add-on"><i class="icon-remove"></i></span>
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
@@ -48,7 +48,7 @@
 
             <div class="controls date due_time" align="left" data-date-format="yyyy年MMdd日 - hh:ii"
                  data-link-field="due_time">
-                <input size="12" type="text" value="" readonly>
+                <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
                 <span class="add-on"><i class="icon-remove"></i></span>
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>

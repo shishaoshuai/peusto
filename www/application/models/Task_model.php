@@ -54,8 +54,8 @@ class Task_model extends CI_Model
     public function get_tasks_for_interest_area($interest_area) {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtask,task_name, target_name FROM task, target "
-            ."WHERE task.owner = ? and task.interest_area = ? and target=idtarget order by priority asc";
+        $sql = "SELECT idtask,task_name, target_name FROM task LEFT JOIN target ON target=idtarget "
+            ."WHERE task.owner = ? AND task.interest_area = ? ORDER BY priority ASC";
 
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();
