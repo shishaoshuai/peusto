@@ -13,6 +13,7 @@
 
 	</head>
 	<body onload="document.forms[0].elements[0].focus（）">
+
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
