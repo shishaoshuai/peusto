@@ -13,81 +13,139 @@
     <script src="<?php echo asset_url(); ?>/js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo asset_url(); ?>/js/bootstrap.js"></script>
     <script src="<?php echo asset_url(); ?>/js/jqBootstrapValidation.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/jquery.ui.core.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/jquery.ui.widget.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/jquery.ui.tabs.js"></script>
 
     <link href="<?php echo asset_url(); ?>css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="<?php echo asset_url(); ?>css/docs.css" rel="stylesheet" media="screen">
+    <link href="<?php echo asset_url(); ?>css/jquery-ui/jquery.ui.all.css" rel="stylesheet" media="screen">
+    <link href="<?php echo asset_url(); ?>css/index.css" rel="stylesheet" media="screen">
+
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
 </head>
-<body onload="document.forms[0].elements[0].focus()">
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <ul class="nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#">帮助</a></li>
-            <li><a href="#">关于</a></li>
-        </ul>
-        <?php echo validation_errors(); ?>
 
-        <?php
-        $attributes = array('class' => 'navbar-form pull-right');
-        echo form_open('user/login', $attributes);
-        ?>
-        <fieldset>
-            <input class="input-large" name="username" type="text" placeholder="用户名/电子邮件/手机号"/>
-            <input class="input-small" name="password" type="password" placeholder="密码"/>
-            <label class="checkbox inline">
-                <input type="checkbox" value="remember-me"> 记住我
-            </label>
-            <a class="help-inline" href="#">忘记密码？</a>
 
-            <button class="btn btn-primary" type="submit">登录</button>
-            <button class="btn btn-danger" type="button" onclick="window.location.href='register'">注册</button>
-        </fieldset>
-        </form>
+<body>
+
+<div class="container-fluid">
+    <div id="header" class="row-fluid">
+        <div class="span2 header_area img_logo"><img src="<?php echo asset_url(); ?>img/peusto_logo.gif"/></div>
+        <div class="span6 header_area img_slogan"><img src="<?php echo asset_url(); ?>img/slogan.jpg"/></div>
+        <div class="span4 header_area">关于我们</div>
     </div>
-</div>
+    <div class="row-fluid">
+        <div class="span7 height350">
+            <p class="lead">
+                　　没有目标的人，是可悲的。<strong>PEUSTO</strong>能够帮你更加有效地管理你的目标，并能帮你更加便捷地将长远
+                目标分解为短期目标，进而分解为任务。
+            </p>
 
-<div class="bs-docs-example">
-    <div id="myCarousel" class="carousel slide">
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="<?php echo asset_url(); ?>img/bootstrap-mdo-sfmoma-01.jpg" alt="">
+            <p class="lead">
+                　　通过对长期目标->短期目标->任务的分解与跟踪，<strong>PEUSTO</strong>能够帮助你提升效能，
+                不但能促进你高效地做事，更能促使你一直在朝着目标做正确的事。
+            </p>
 
-                <div class="carousel-caption">
-                    <h4>时间是最公平的</h4>
+            <p class="lead">
+                　　<strong>PEUSTO</strong>基于目前最先进的时间管理理论，结合你个人的个性化设置，使你从繁重的
+                时间管理琐事中解脱出来，生成日程表，跟踪日程表成为一件极为简单的事情。
+            </p>
+        </div>
+        <div class="span5 height350">
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">登录</a></li>
+                    <li><a href="#tabs-2">注册新用户</a></li>
+                </ul>
 
-                    <p></p>
+                <div id="tabs-1" class="well height250">
+
+                    <form method="POST" action="" accept-charset="UTF-8">
+                        <div class="alert alert-error">
+                            <a class="close" data-dismiss="alert" href="#">x</a>Incorrect Username or Password!
+                        </div>
+                        <input class="span8" placeholder="Username" type="text" name="username">
+                        <input class="span8" placeholder="Password" type="password" name="password">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="1"> Remember Me
+                        </label>
+                        <button class="btn-info btn" type="submit">Login</button>
+                        <button class="btn-info btn">Register</button>
+                    </form>
+
+
                 </div>
-            </div>
-            <div class="item">
-                <img src="<?php echo asset_url(); ?>img/bootstrap-mdo-sfmoma-02.jpg" alt="">
+                <div id="tabs-2" class="well height250">
+                    <?php
+                    $attributes = array('class' => 'form-horizontal');
+                    echo form_open('user/create', $attributes);
+                    ?>
 
-                <div class="carousel-caption">
-                    <h4>时间产生的价值却迥然不同</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="username">用&nbsp;户&nbsp;名</label>
 
-                    <p></p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="<?php echo asset_url(); ?>img/bootstrap-mdo-sfmoma-03.jpg" alt="">
+                        <div class="controls">
+                            <input type="text" id="username" name="username" minlength="3" placeholder="请输入用户名"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email">电子邮件</label>
 
-                <div class="carousel-caption">
-                    <h4>我们希望借助我们的工具，让您在公平的时间面前，创造更大的价值</h4>
+                        <div class="controls">
+                            <input type="email" id="email" name="email" placeholder="请输入您常用的电子邮件地址" required>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="mobile">手&nbsp;&nbsp;&nbsp;&nbsp;机</label>
 
-                    <p></p>
+                        <div class="controls">
+                            <input type="text" id="mobile" name="mobile" placeholder="请输入您的手机号">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="password" required>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+
+                        <div class="controls">
+                            <input type="password" id="password" name="password" minlength="6" placeholder="请输入密码"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password_again">密码确认</label>
+
+                        <div class="controls">
+                            <input type="password" id="password_again"
+                                   data-validation-match-match="password" name="password_again"
+                                   data-validation-match-message="与密码不一致"
+                                   placeholder="请确认您的密码">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox"> 我已阅读并同意<a href="#">相关条款</a>
+                            </label>
+                            <button type="submit" class="btn btn-primary">注册</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span4 height160">new articles</div>
+        <div class="span4 height160">website news</div>
+        <div class="span4 height160">website tutorials</div>
     </div>
 </div>
-
-<hr>
 
 <footer>
     <p class="text-center">&copy; Peusto Co. Ltd 2013</p>

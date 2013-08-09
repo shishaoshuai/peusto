@@ -1,0 +1,31 @@
+.header_area {
+    color:red;
+    height: 68px;
+    vertical-align: middle;
+
+    text-align: center;
+}
+.introduction {
+    font-size: 20;
+    font-family: SimHei;
+}
+
+.img_logo{
+    max-height: 60px;
+}
+
+.img_slogan{
+    max-height: 60px;
+}
+
+.height350 {
+    height: 350px;
+}
+
+.height250 {
+    height: 250px;
+}
+
+.height160 {
+    height: 160px;
+}
