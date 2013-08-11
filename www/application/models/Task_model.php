@@ -27,6 +27,26 @@ class Task_model extends CI_Model
         return $this->db->insert('task', $data);
     }
 
+    public function set_task_from_calendar()
+    {
+        $this->load->helper('url');
+        $session_data = $this->session->userdata('logged_in');
+        $owner = $session_data['idusers'];
+
+        $data = array(
+            'owner' =>$owner,
+            'task_name' => $this->input->post('task_name'),
+            'expected_duration' => 30,//tbm
+            'start_time' => $this->input->post('start_time'),
+            'due_time' => $this->input->post('due_time'),
+            'interest_area'=> $this->input->post('interest_area'),
+            'target' => $this->input->post('target'),
+            'is_appointment' => 1
+        );
+        log_message('info','start_time:'. $this->input->post('start_time'));
+        return $this->db->insert('task', $data);
+    }
+
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];

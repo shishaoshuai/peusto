@@ -84,4 +84,10 @@ class Ajax extends CI_Controller
         $this->load->model('user_preferences/user_target_type_model');
         $this->user_target_type_model->add_user_target_type($owner, $target_type_id);
     }
+
+    public function create_task_from_calendar()
+    {
+        $this->load->model('task_model');
+        $this->task_model->set_task_from_calendar();
+    }
 }

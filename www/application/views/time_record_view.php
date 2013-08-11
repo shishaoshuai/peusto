@@ -30,6 +30,10 @@
                 startTime =start;
                 endTime=end;
                 allDayTime=allDay;
+                document.getElementById('start_time').value = startTime;
+                document.getElementById('end_time').value = end_time;
+
+
                 $('#task_modal').modal('show');
             },
             events: [
@@ -43,6 +47,27 @@
     }
     function saveTask () {
         title = document.getElementById('task_name').value
+        $.post();
+//tbm
+        $("#comment").submit(function(){
+            dataString = $("#comment").serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>index.php/comment/create",
+                data: dataString,
+
+                success: function(data){
+                    alert('Successful!);
+                }
+
+            });
+
+            return false;  //stop the actual form post !important!
+
+        });
+
+
         closeDialog ();
         calendar.fullCalendar('renderEvent',
             {
@@ -108,7 +133,17 @@
                     <span class="help-inline">请输入该任务所属的目标</span>
                 </div>
             </div>
+            <input type=hidden name="start_time" id="start_time">
+            <input type=hidden name="end_time" id="end_time">
 
+            <div class="control-group">
+                <label class="control-label" for="is_appointment">定时任务</label>
+
+                <div class="controls">
+                    <input type="checkbox" name="is_appointment" value="1"/>
+                    <span class="help-inline">定时任务一般指约定的会议，预约的安排等</span>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" onclick="closeDialog();">

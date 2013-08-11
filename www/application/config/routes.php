@@ -72,8 +72,7 @@ $route['delete_target_type/(:any)'] ='ajax/delete_target_type/$1';
 $route['get_user_interest_areas'] = 'ajax/get_interest_areas';
 $route['get_target_types'] = 'ajax/get_target_types';
 $route['get_targets/(:any)'] = 'ajax/get_targets/$1';
-
-
+$route['create_task_from_calendar'] = 'ajax/create_task_from_calendar';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

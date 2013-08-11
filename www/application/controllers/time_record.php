@@ -16,7 +16,6 @@ class Time_record extends CI_Controller {
             $data['active_nav_item'] = 'time_record';
             add_css(array('fullcalendar.css','fullcalendar.print.css'));
             add_js(array('jquery-ui-1.10.2.custom.min.js','fullcalendar.js','jquery.jcombo.js'));
-            //add_js(array('jquery-ui-1.10.2.custom.min.js','fullcalendar.js','jquery.jcombo.js'));
 
             $this->load->helper('form');
 
