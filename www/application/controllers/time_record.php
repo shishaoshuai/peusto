@@ -14,13 +14,11 @@ class Time_record extends CI_Controller {
             $session_data = $this->session->userdata('logged_in');
             $data['username'] = $session_data['username'];
             $data['active_nav_item'] = 'time_record';
-            add_css(array( 'jquery-ui/jquery.ui.all.css','datetimepicker.css',
-                'fullcalendar.css','fullcalendar.print.css'));
+            add_css(array('fullcalendar.css','fullcalendar.print.css'));
+            add_js(array('jquery-ui-1.10.2.custom.min.js','fullcalendar.js','jquery.jcombo.js'));
+            //add_js(array('jquery-ui-1.10.2.custom.min.js','fullcalendar.js','jquery.jcombo.js'));
 
-            add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js','jquery.ui.tabs.js',
-                'jquery-ui-1.10.2.custom.min.js','fullcalendar.js'));
-
-
+            $this->load->helper('form');
 
             $this->load->view('templates/header',$data);
             $this->load->view('time_record_view', $data);

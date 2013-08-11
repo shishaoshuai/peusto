@@ -18,8 +18,8 @@
 var defaults = {
 
 	// display
-	defaultView: 'agendaWeek',
-	aspectRatio: 2.35,
+	defaultView: 'month',
+	aspectRatio: 1.35,
 	header: {
 		left: 'title',
 		center: '',
@@ -45,9 +45,9 @@ var defaults = {
 	
 	// time formats
 	titleFormat: {
-		month: 'yyyy年MMMM',
-		week: "yyyy年MMMd日{ '&#8212;'[MMM] d日}",
-		day: 'yyyy年MMMd日dddd'
+		month: 'MMMM yyyy',
+		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
+		day: 'dddd, MMM d, yyyy'
 	},
 	columnFormat: {
 		month: 'ddd',
@@ -60,20 +60,20 @@ var defaults = {
 	
 	// locale
 	isRTL: false,
-	firstDay: 1,
-	monthNames: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-	monthNamesShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-	dayNames: ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'],
-	dayNamesShort: ['周一','周二','周三','周四','周五','周六','周日'],
+	firstDay: 0,
+	monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
 	buttonText: {
 		prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
 		next: "<span class='fc-text-arrow'>&rsaquo;</span>",
 		prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
 		nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-		today: '今天',
-		month: '月',
-		week: '周',
-		day: '日'
+		today: 'today',
+		month: 'month',
+		week: 'week',
+		day: 'day'
 	},
 	
 	// jquery-ui theming
@@ -5324,7 +5324,7 @@ function DayEventRenderer() {
 	// and sort into subrows.
 	function buildSegmentSubrows(segments) {
 
-		// Give user_preferences to elements with certain criteria, so they have
+		// Give preference to elements with certain criteria, so they have
 		// a chance to be closer to the top.
 		segments.sort(segmentCompare);
 
