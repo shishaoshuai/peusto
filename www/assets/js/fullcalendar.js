@@ -3952,17 +3952,17 @@ function AgendaEventRenderer() {
 			">" +
 			"<div class='fc-event-inner'>" +
 			"<div class='fc-event-time'>" +
-			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
+			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) + "god" +
 			"</div>" +
 			"<div class='fc-event-title'>" +
 			htmlEscape(event.title) +
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-bg'></div>";
-		if (seg.isEnd && isEventResizable(event)) {
+//		if (seg.isEnd && isEventResizable(event)) {
 			html +=
-				"<div class='ui-resizable-handle ui-resizable-s'>=</div>";
-		}
+				"<div class='ui-resizable-handle ui-resizable-s'>nothingiseverything</div>";
+//		}
 		html +=
 			"</" + (url ? "a" : "div") + ">";
 		return html;

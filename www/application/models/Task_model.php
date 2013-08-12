@@ -18,7 +18,7 @@ class Task_model extends CI_Model
             'task_name' => $this->input->post('task_name'),
             'expected_duration' => $this->input->post('duration_hour') * 60 +$this->input->post('duration_minute'),
             'start_time' => $this->input->post('start_time'),
-            'due_time' => $this->input->post('due_time'),
+            'due_time' => $this->input->post('end_time'),
             'interest_area'=> $this->input->post('interest_area'),
             'target' => $this->input->post('target'),
             'is_appointment' => $this->input->post('is_appointment')
@@ -33,16 +33,21 @@ class Task_model extends CI_Model
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
 
+
         $data = array(
             'owner' =>$owner,
             'task_name' => $this->input->post('task_name'),
             'expected_duration' => 30,//tbm
             'start_time' => $this->input->post('start_time'),
-            'due_time' => $this->input->post('due_time'),
+            'due_time' => $this->input->post('end_time'),
             'interest_area'=> $this->input->post('interest_area'),
             'target' => $this->input->post('target'),
             'is_appointment' => 1
         );
+
+        log_message('info',"new task is:owner".$data['owner'].'task_name'.$data['task_name']
+            .'start_time'.$data['start_time'].'end_time'.$data['end_time']
+            .'interest_area'.$data['interest_area'].'target'.$data['target']);
         log_message('info','start_time:'. $this->input->post('start_time'));
         return $this->db->insert('task', $data);
     }

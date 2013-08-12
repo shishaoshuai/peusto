@@ -1,20 +1,18 @@
 <script>
-    var title="";
-    var startTime ="";
-    var endTime="";
-    var allDayTime="";
+    var title = "";
+    var startTime = "";
+    var endTime = "";
+    var allDayTime = "";
     var calendar;
 
     $(document).ready(function () {
-        $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value : '<?php echo "15" ?>' } );
-        $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" } );
+        $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
+        $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
 
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
-
-
 
         calendar = $('#calendar').fullCalendar({
             header: {
@@ -25,15 +23,15 @@
             selectable: true,
             selectHelper: true,
             editable: true,
+            resizable:true,
+
 
             select: function (start, end, allDay) {
-                startTime =start;
-                endTime=end;
-                allDayTime=allDay;
+                startTime = start;
+                endTime = end;
+                allDayTime = allDay;
                 document.getElementById('start_time').value = startTime;
-                document.getElementById('end_time').value = end_time;
-
-
+                document.getElementById('end_time').value = endTime;
                 $('#task_modal').modal('show');
             },
             events: [
@@ -42,33 +40,25 @@
 
     });
 
-    function closeDialog () {
+    function closeDialog() {
         $('#task_modal').modal('hide');
     }
-    function saveTask () {
-        title = document.getElementById('task_name').value
-        $.post();
-//tbm
-        $("#comment").submit(function(){
-            dataString = $("#comment").serialize();
+    function saveTask() {
+        title = document.getElementById('task_name').value;
+        dataString = $("#create_task_form").serialize();
+        alert(dataString+title);
 
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>index.php/comment/create",
-                data: dataString,
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>/create_task_from_calendar",
+            data: dataString,
 
-                success: function(data){
-                    alert('Successful!);
-                }
-
-            });
-
-            return false;  //stop the actual form post !important!
-
+            success: function (data) {
+                alert('Successful!');
+            }
         });
 
-
-        closeDialog ();
+        closeDialog();
         calendar.fullCalendar('renderEvent',
             {
                 title: title,
@@ -79,7 +69,6 @@
             true
         );
         calendar.fullCalendar('unselect');
-        title="";
     }
 
 </script>
@@ -98,7 +87,7 @@
             </h3>
         </div>
         <?php
-        $attributes = array('class' => 'form-horizontal');
+        $attributes = array('class' => 'form-horizontal', 'id' => 'create_task_form');
         echo form_open('home/create', $attributes);
         ?>
         <div class="modal-body">
