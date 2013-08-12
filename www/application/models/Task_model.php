@@ -33,16 +33,19 @@ class Task_model extends CI_Model
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
 
+        $start_time = date('Y-m-d H:i:s',  $this->input->post('start_time'));
+        $due_time = date('Y-m-d H:i:s',  $this->input->post('due_time'));
+        log_message('info','timescope'.($this->input->post('due_time') - $this->input->post('start_time')));
 
         $data = array(
             'owner' =>$owner,
             'task_name' => $this->input->post('task_name'),
-            'expected_duration' => 30,//tbm
-            'start_time' => $this->input->post('start_time'),
-            'due_time' => $this->input->post('end_time'),
+            'expected_duration' =>  (($this->input->post('due_time')-$this->input->post('start_time'))/60),//tbm
+            'start_time' => $start_time,
+            'due_time' => $due_time,
             'interest_area'=> $this->input->post('interest_area'),
             'target' => $this->input->post('target'),
-            'is_appointment' => 1
+            'is_appointment' =>  $this->input->post('is_appointment')
         );
 
         log_message('info',"new task is:owner".$data['owner'].'task_name'.$data['task_name']
@@ -50,6 +53,31 @@ class Task_model extends CI_Model
             .'interest_area'.$data['interest_area'].'target'.$data['target']);
         log_message('info','start_time:'. $this->input->post('start_time'));
         return $this->db->insert('task', $data);
+    }
+
+    public function get_task($idtask) {
+        $this->db->select('idtask, start_time,due_time');
+        $this->db->where('idtask',$idtask);
+        $query = $this->db->get('task');
+        if($query)
+        {
+            $result = $query->row_array();
+            return $result;
+        }
+    }
+
+    public function move_task_in_calendar()    {
+        $this->load->helper('url');
+        $id =  $this->input->post('id');
+        $start_time = date('Y-m-d H:i:s',  $this->input->post('new_start_time'));
+        $due_time = date('Y-m-d H:i:s',  $this->input->post('new_due_time'));
+        $data = array(
+            'start_time'=>$start_time,
+            'due_time' =>$due_time
+        );
+        log_message('info',$this->input->post('id')."new start and due time".$data['start_time']."aaa" .$data['due_time']);
+        $this->db->where('idtask', $id);
+        return $this->db->update('task', $data);
     }
 
     public function get_targets() {
@@ -85,6 +113,39 @@ class Task_model extends CI_Model
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();
     }
+
+    public function get_tasks_for_fullcalendar() {
+        $session_data = $this->session->userdata('logged_in');
+        $owner = $session_data['idusers'];
+        $sql = "SELECT idtask,task_name, target_name,start_time, due_time "
+            ."FROM task LEFT JOIN target ON target=idtarget "
+            ."WHERE task.owner = ? ORDER BY priority ASC";
+
+        $query = $this->db->query($sql, $owner);
+        $tmp_result = $query->result_array();
+        $result="";
+        foreach($tmp_result as $item) {
+            $start_time_arr = date_parse($item['start_time']);
+            $end_time_arr = date_parse($item['due_time']);
+            $result .="{
+					id: ";
+            $result .= $item['idtask'].",";
+            $result .= "title:";
+            $result .= "'".$item['task_name']."',";
+            $result .="start:new Date(";
+            $result .=$start_time_arr['year'] .",".($start_time_arr['month']-1).",".$start_time_arr['day'] .",";
+            $result .=$start_time_arr['hour'].",".$start_time_arr['minute']."),";
+            $result .="end:new Date(";
+            $result .=$end_time_arr['year'] .",".($end_time_arr['month']-1).",".$end_time_arr['day'] .",";
+            $result .=$end_time_arr['hour'].",".$end_time_arr['minute']."),";
+//            $result .="description:'test event description(tbm)',";
+            $result .="allDay: false
+				},";
+        }
+        log_message('info', "for full calendar".$result);
+        return $result;
+    }
+
 
     public function get_dropdown_list($owner) {
         $this->db->select('idtargets, target_name');
