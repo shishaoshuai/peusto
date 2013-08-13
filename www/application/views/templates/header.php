@@ -6,7 +6,7 @@
         <title><?php echo $username; ?>的管理首页</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+        <link href='<?php echo asset_url() ?>css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <?php
         echo put_headers();
         ?>

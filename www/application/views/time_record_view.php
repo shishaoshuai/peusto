@@ -68,9 +68,6 @@
                     type: "POST",
                     url: "<?php echo base_url(); ?>move_task_in_calendar",
                     data: {id: (event.id), new_start_time:tmpStart, new_due_time:tmpDue},
-//                    .addMinutes(dayDelta*1440+minuteDelta)),
-//                        new_due_time: event.end.addMinutes(dayDelta*1440+minuteDelta)},
-
                     success: function (data) {
                         alert('Successful!');
                     }
@@ -99,19 +96,29 @@
         var isa = document.getElementById('is_appointment').value;
         var ia = document.getElementById('interest_area').value;
         var ta = document.getElementById('target').value;
-        $.ajax({
+        var newInsertId=
+            $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>create_task_from_calendar",
             data: {task_name: title, start_time: st, due_time: dt, is_appointment: isa, target: ta, interest_area: ia},
-
-            success: function (data) {
-                alert('Successful!');
+            success: function (data,status) {
+                newInsertId = data;
+                alert('Success '+ newInsertId +"tats." +status + ' ful!');
             }
         });
+
+        newInsertId.success(function(realData) {
+            alert('realData' + newInsertId.valueOf());
+        });
+
+
+
+        alert('newid' +newInsertId);
 
         closeDialog();
         calendar.fullCalendar('renderEvent',
             {
+                id: newInsertId,
                 title: title,
                 start: startTime,
                 end: endTime,

@@ -88,7 +88,10 @@ class Ajax extends CI_Controller
     public function create_task_from_calendar()
     {
         $this->load->model('task_model');
-        $this->task_model->set_task_from_calendar();
+        $ii = $this->task_model->set_task_from_calendar();
+        log_message('info','$this->db->$ii():'.$ii);
+
+        return $ii;
     }
 
     public function move_task_in_calendar()

@@ -49,10 +49,13 @@ class Task_model extends CI_Model
         );
 
         log_message('info',"new task is:owner".$data['owner'].'task_name'.$data['task_name']
-            .'start_time'.$data['start_time'].'end_time'.$data['end_time']
+            .'start_time'.$data['start_time'].'end_time'.$data['due_time']
             .'interest_area'.$data['interest_area'].'target'.$data['target']);
         log_message('info','start_time:'. $this->input->post('start_time'));
-        return $this->db->insert('task', $data);
+        $this->db->insert('task', $data);
+        log_message('info','$this->db->insert_id():'.$this->db->insert_id());
+
+        return $this->db->insert_id();
     }
 
     public function get_task($idtask) {
