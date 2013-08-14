@@ -53,9 +53,8 @@ class Task_model extends CI_Model
             .'interest_area'.$data['interest_area'].'target'.$data['target']);
         log_message('info','start_time:'. $this->input->post('start_time'));
         $this->db->insert('task', $data);
-        log_message('info','$this->db->insert_id():'.$this->db->insert_id());
-
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+        echo json_encode(array('id' => $id));
     }
 
     public function get_task($idtask) {

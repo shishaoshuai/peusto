@@ -34,55 +34,31 @@
             events: [<?php echo $fc_events; ?>
             ],
             eventClick: function (calEvent, jsEvent, view) {
-                id = calEvent.id;
-
-                $("#dialog").dialog({
-                    resizable: false,
-                    height: 200,
-                    width: 500,
-                    modal: true,
-                    title: '你想怎样操作这个任务?',
-                    buttons: {
-                        CLOSE: function () {
-                            $("#dialog").dialog("close");
-                        },
-                        "DELETE": function () {
-                            //do the ajax request?
-                        }
-                    }
-                });
+                $('#task_op_modal').modal('show');
             },
-            eventDrop: function(event,dayDelta,minuteDelta) {
-
-                alert(
-                    event.id + " was moved " +
-                        dayDelta + " days and " +
-                        minuteDelta + " minutes."
-                );
+            eventDrop: function (event, dayDelta, minuteDelta) {
                 var tmpStart = event.start.valueOf() / 1000;
                 var tmpDue = event.end.valueOf() / 1000;
-
-                alert('tmpStart' +tmpStart+'tmpDue' + tmpDue );
-
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>move_task_in_calendar",
-                    data: {id: (event.id), new_start_time:tmpStart, new_due_time:tmpDue},
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
                     success: function (data) {
-                        alert('Successful!');
                     }
                 });
-
+            },
+            eventResize: function (event) {
+                var tmpStart = event.start.valueOf() / 1000;
+                var tmpDue = event.end.valueOf() / 1000;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>move_task_in_calendar",
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
+                    success: function (data) {
+                    }
+                });
             }
-
-
-// ,
-//            eventRender: function(event, element) {
-//                element.qtip({
-//                    content: event.description
-//                });
-//            }
-            });
+        });
 
     });
 
@@ -96,25 +72,17 @@
         var isa = document.getElementById('is_appointment').value;
         var ia = document.getElementById('interest_area').value;
         var ta = document.getElementById('target').value;
-        var newInsertId=
-            $.ajax({
+
+        var newInsertId = "";
+        $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>create_task_from_calendar",
             data: {task_name: title, start_time: st, due_time: dt, is_appointment: isa, target: ta, interest_area: ia},
-            success: function (data,status) {
-                newInsertId = data;
-                alert('Success '+ newInsertId +"tats." +status + ' ful!');
+            dataType: 'json',
+            success: function (data, status) {
+                newInsertId = data.id;
             }
         });
-
-        newInsertId.success(function(realData) {
-            alert('realData' + newInsertId.valueOf());
-        });
-
-
-
-        alert('newid' +newInsertId);
-
         closeDialog();
         calendar.fullCalendar('renderEvent',
             {
@@ -133,8 +101,6 @@
 
 
 <div class="span10" id='calendar'>
-
-
 </div>
 </div>
 </div>
@@ -204,8 +170,17 @@
     </div>
     </form>
 </div>
-<div id="dialog" title="" style="display:none;">Are you sure want to delete it?</div>
-
+<div class="modal hide fade" id="task_op_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-footer">
+        <a href="#" class="btn" onclick="closeDialog();">
+            关闭
+        </a>
+        <a href="#" class="btn btn-primary" onclick="saveTask();">
+            保存
+        </a>
+    </div>
+</div>
 
 
 
