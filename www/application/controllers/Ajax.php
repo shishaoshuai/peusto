@@ -94,6 +94,12 @@ class Ajax extends CI_Controller
         return $ii;
     }
 
+    public function modify_task_from_calendar()
+    {
+        $this->load->model('task_model');
+        $this->task_model->modify_task_from_calendar();
+    }
+
     public function move_task_in_calendar()
     {
         $this->load->model('task_model');

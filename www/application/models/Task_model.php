@@ -82,6 +82,26 @@ class Task_model extends CI_Model
         return $this->db->update('task', $data);
     }
 
+    public function modify_task_from_calendar()    {
+        $this->load->helper('url');
+        $id =  $this->input->post('idtask');
+        $task_name = $this->input->post('task_name');
+        $target = $this->input->post('target');
+        $interest_area = $this->input->post('interest_area');
+        $is_appointment = $this->input->post('is_appointment');
+
+        $data = array(
+            'task_name'=>$task_name,
+            'target' =>$target,
+            'interest_area' =>$interest_area,
+            'is_appointment' =>$is_appointment,
+        );
+        log_message('info','Task_model->modify_task_from_calendar' + $id+$target+$interest_area+$is_appointment);
+
+        $this->db->where('idtask', $id);
+        return $this->db->update('task', $data);
+    }
+
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
@@ -119,7 +139,7 @@ class Task_model extends CI_Model
     public function get_tasks_for_fullcalendar() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtask,task_name, target_name,start_time, due_time "
+        $sql = "SELECT idtask,task_name, target_name,start_time, due_time, task.interest_area interest_area,is_appointment, target "
             ."FROM task LEFT JOIN target ON target=idtarget "
             ."WHERE task.owner = ? ORDER BY priority ASC";
 
@@ -141,8 +161,11 @@ class Task_model extends CI_Model
             $result .=$end_time_arr['year'] .",".($end_time_arr['month']-1).",".$end_time_arr['day'] .",";
             $result .=$end_time_arr['hour'].",".$end_time_arr['minute']."),";
 //            $result .="description:'test event description(tbm)',";
-            $result .="allDay: false
-				},";
+            $result .="allDay: false,";
+            $result .="interest_area:" .$item['interest_area'].",";
+            $result .="is_appointment:" .$item['is_appointment'].",";
+
+            $result .="target:" .$item['target']."},";
         }
         log_message('info', "for full calendar".$result);
         return $result;

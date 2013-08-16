@@ -6,8 +6,7 @@
     var calendar;
 
     $(document).ready(function () {
-        $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
-        $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
+
 
         var date = new Date();
         var d = date.getDate();
@@ -20,6 +19,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            defaultView: 'agendaWeek',
             selectable: true,
             selectHelper: true,
             editable: true,
@@ -29,12 +29,30 @@
                 startTime = start;
                 endTime = end;
                 allDayTime = allDay;
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
                 $('#task_modal').modal('show');
             },
             events: [<?php echo $fc_events; ?>
             ],
             eventClick: function (calEvent, jsEvent, view) {
-                $('#task_op_modal').modal('show');
+                if(document.getElementById('idtask') != null) {
+                    alert('id' + calEvent.id);
+
+                    document.getElementById('idtask').value = calEvent.id;
+
+                    document.getElementById('task_name').value = calEvent.title;
+                    document.getElementById('interest_area').value = calEvent.interest_area;
+                    document.getElementById('target').value = calEvent.target;
+                    document.getElementById('is_appointment').value = calEvent.is_appointment;
+                    document.getElementById('task_name').value = calEvent.title;
+                    document.getElementById('start_time').value = calEvent.start;
+                    document.getElementById('due_time').value = calEvent.end;
+
+                }
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: calEvent.interest_area });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area", selected_value: calEvent.target });
+                $('#task_modal').modal('show');
             },
             eventDrop: function (event, dayDelta, minuteDelta) {
                 var tmpStart = event.start.valueOf() / 1000;
@@ -62,31 +80,52 @@
 
     });
 
-    function closeDialog() {
-        $('#task_modal').modal('hide');
+    function closeDialog(dialogName) {
+        $("#" + dialogName + "").modal('hide');
     }
     function saveTask() {
+
         title = document.getElementById('task_name').value;
-        var st = startTime.valueOf() / 1000;
-        var dt = endTime.valueOf() / 1000;
+        var taskId = document.getElementById('idtask') != null ?document.getElementById('idtask').value:"";
+        startTime = document.getElementById('start_time') != null ?document.getElementById('start_time').value:startTime;
+        endTime = document.getElementById('due_time') != null ?document.getElementById('due_time').value:endTime;
+
         var isa = document.getElementById('is_appointment').value;
         var ia = document.getElementById('interest_area').value;
         var ta = document.getElementById('target').value;
+        var st = startTime.valueOf() / 1000;
+        var dt = endTime.valueOf() / 1000;
 
-        var newInsertId = "";
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>create_task_from_calendar",
-            data: {task_name: title, start_time: st, due_time: dt, is_appointment: isa, target: ta, interest_area: ia},
-            dataType: 'json',
-            success: function (data, status) {
-                newInsertId = data.id;
-            }
-        });
-        closeDialog();
+        alert('value' + title + +' ' + isa +' '+ ia +' '+ta);
+        if (taskId == "") {
+            alert('creating...');
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>create_task_from_calendar",
+                data: {task_name: title, start_time: st, due_time: dt, is_appointment: isa, target: ta, interest_area: ia},
+                dataType: 'json',
+                success: function (data, status) {
+                    taskId = data.id;
+                }
+            });
+        } else {
+            alert('modifying...');
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>modify_task_from_calendar",
+                data: {id:taskId, task_name: title, is_appointment: isa, target: ta, interest_area: ia},
+                dataType: 'json',
+                success: function (data, status) {
+                    alert('modify success.');
+                    taskId = data.id;
+                }
+            });
+        }
+        closeDialog('task_modal');
         calendar.fullCalendar('renderEvent',
             {
-                id: newInsertId,
+                id: taskId,
                 title: title,
                 start: startTime,
                 end: endTime,
@@ -104,6 +143,7 @@
 </div>
 </div>
 </div>
+
 <div class="modal hide fade" id="task_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
@@ -111,13 +151,10 @@
             &times;
         </button>
         <h3>
-            请输入任务详情
+            请对该任务进行操作:
         </h3>
     </div>
-    <?php
-    $attributes = array('class' => 'form-horizontal', 'id' => 'create_task_form');
-    echo form_open('home/create', $attributes);
-    ?>
+
     <div class="modal-body">
         <div class="control-group">
             <label class="control-label" for="task_name">任务名称</label>
@@ -129,9 +166,12 @@
                 <span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
             </div>
         </div>
+        <input type="hidden" id="idtask" name="idtask">
+        <input type="hidden" id="start_time" name="start_time">
+        <input type="hidden" id="due_time" name="due_time">
 
         <div class="control-group">
-            <label class="control-label" for="target">所属关注域</label>
+            <label class="control-label" for="interest_area">所属关注域</label>
 
             <div class="controls">
                 <select id="interest_area" name="interest_area">
@@ -160,20 +200,9 @@
             </div>
         </div>
     </div>
+
     <div class="modal-footer">
-        <a href="#" class="btn" onclick="closeDialog();">
-            关闭
-        </a>
-        <a href="#" class="btn btn-primary" onclick="saveTask();">
-            保存
-        </a>
-    </div>
-    </form>
-</div>
-<div class="modal hide fade" id="task_op_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-footer">
-        <a href="#" class="btn" onclick="closeDialog();">
+        <a href="#" class="btn" onclick="closeDialog('task_modal');">
             关闭
         </a>
         <a href="#" class="btn btn-primary" onclick="saveTask();">
