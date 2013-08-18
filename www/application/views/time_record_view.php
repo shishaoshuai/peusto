@@ -86,17 +86,18 @@
     function saveTask() {
 
         title = document.getElementById('task_name').value;
-        var taskId = document.getElementById('idtask') != null ?document.getElementById('idtask').value:"";
         startTime = document.getElementById('start_time') != null ?document.getElementById('start_time').value:startTime;
         endTime = document.getElementById('due_time') != null ?document.getElementById('due_time').value:endTime;
 
+        var taskId = document.getElementById('idtask') != null ?document.getElementById('idtask').value:"";
         var isa = document.getElementById('is_appointment').value;
         var ia = document.getElementById('interest_area').value;
         var ta = document.getElementById('target').value;
         var st = startTime.valueOf() / 1000;
         var dt = endTime.valueOf() / 1000;
 
-        alert('value' + title + +' ' + isa +' '+ ia +' '+ta);
+        var updateFlag = document.getElementById('idtask') != null ?true:false;
+        alert('value'+taskId +' ' + title + +' ' + isa +' '+ ia +' '+ta);
         if (taskId == "") {
             alert('creating...');
 
@@ -118,21 +119,35 @@
                 dataType: 'json',
                 success: function (data, status) {
                     alert('modify success.');
-                    taskId = data.id;
                 }
             });
         }
         closeDialog('task_modal');
-        calendar.fullCalendar('renderEvent',
-            {
-                id: taskId,
-                title: title,
-                start: startTime,
-                end: endTime,
-                allDay: allDayTime
-            },
-            true
-        );
+        if(updateFlag) {
+            calendar.fullCalendar( 'removeEvents',taskId);
+            calendar.fullCalendar('renderEvent',
+                {
+                    id: taskId,
+                    title: title,
+                    start: startTime,
+                    end: endTime,
+                    allDay: allDayTime
+                },
+                true
+            );
+        } else {
+            calendar.fullCalendar('renderEvent',
+                {
+                    id: taskId,
+                    title: title,
+                    start: startTime,
+                    end: endTime,
+                    allDay: allDayTime
+                },
+                true
+            );
+        }
+
         calendar.fullCalendar('unselect');
     }
 

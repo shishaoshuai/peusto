@@ -84,7 +84,7 @@ class Task_model extends CI_Model
 
     public function modify_task_from_calendar()    {
         $this->load->helper('url');
-        $id =  $this->input->post('idtask');
+        $id =  $this->input->post('id');
         $task_name = $this->input->post('task_name');
         $target = $this->input->post('target');
         $interest_area = $this->input->post('interest_area');
@@ -96,7 +96,7 @@ class Task_model extends CI_Model
             'interest_area' =>$interest_area,
             'is_appointment' =>$is_appointment,
         );
-        log_message('info','Task_model->modify_task_from_calendar' + $id+$target+$interest_area+$is_appointment);
+        log_message('info','Task_model->modify_task_from_calendar id:'.  $id."target".$target."interest_area".$interest_area."is_appointment".$is_appointment);
 
         $this->db->where('idtask', $id);
         return $this->db->update('task', $data);
