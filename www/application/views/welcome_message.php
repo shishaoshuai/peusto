@@ -30,7 +30,16 @@
 
 
 <body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li class="active"><a href="<?php echo site_url('home')?>">首页</a></li>
+            <li><a href="#">帮助</a></li>
+            <li><a href="#">关于</a></li>
+        </ul>
 
+    </div>
+</div>
 <div class="container-fluid">
     <div id="header" class="row-fluid">
         <div class="span2 header_area"><img src="<?php echo asset_url(); ?>img/peusto_logo.gif"/></div>

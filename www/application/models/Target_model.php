@@ -48,26 +48,27 @@ class Target_model extends CI_Model
         return $query->result_array();
     }
 
-    public function get_all_targets_by_interest_area() {
+    public function get_targets_group_by_interest_area($target_type=0) {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
         $this->load->model('user_interest_area_model');
         $interest_areas = $this->user_interest_area_model->get_dropdown_list($owner);
         $targets = array();
         foreach($interest_areas as $interest_area_item) {
-            $target_item = $this->get_targets_for_interest_area($interest_area_item['iduser_interest_area']);
+            $target_item = $this->get_targets_for_interest_area($interest_area_item['iduser_interest_area'],$target_type);
             $targets[$interest_area_item['user_interest_area_name']] = $target_item;
         }
         return $targets;
-
     }
 
-    public function get_targets_for_interest_area($interest_area) {
+    public function get_targets_for_interest_area($interest_area,$target_type="") {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
         $sql = "SELECT idtarget,target_name, target_type_name, case priority when 1 then \"高\" when "
             ." 2 then \"中\" when 3 then \"低\" end as priority  FROM target,target_type "
-            ."WHERE owner = ? and interest_area = ?  and target_type=idtarget_type order by priority asc";
+            ."WHERE owner = ? and interest_area = ?  and target_type=idtarget_type "
+            .($target_type==0 ?' ':(" and target.target_type=".$target_type.""))
+            ." order by priority asc";
 
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();

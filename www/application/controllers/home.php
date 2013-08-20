@@ -6,35 +6,27 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
-        add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
-            'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
-            'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
-            'jquery.jcombo.js','home.js'));
-        $this->load->model('task_model');
+        add_css(array('fc_ui_theme.css','fullcalendar.css'));
+        add_js(array('jquery-ui-1.10.3.custom.min.js','fullcalendar.js','jquery.jcombo.js','date.js'));
+        $this->load->model('target_model');
     }
 
     function index()
     {
-        if ($this->session->userdata('logged_in')) {
+        if($this->session->userdata('logged_in'))
+        {
             $session_data = $this->session->userdata('logged_in');
 
-            $this->load->model('user_interest_area_model');
-            $data['interest_area_list']=$this->user_interest_area_model->get_dropdown_list($session_data['idusers']);
-
             $data['username'] = $session_data['username'];
-            $data['idusers'] = $session_data['idusers'];
+            $data['targets'] = $this->target_model->get_targets_group_by_interest_area(2);
             $data['active_nav_item'] = 'home';
-            $data['tasks'] = $this->task_model->get_all_tasks_by_interest_area();
 
-
-            $this->load->helper('form');
-
-            $this->load->view('templates/header', $data);
+            $this->load->view('templates/header',$data);
             $this->load->view('home_view', $data);
-            $this->load->view('templates/footer', $data);
-        } else {
-            //If no session, redirect to login page
+            $this->load->view('templates/footer',$data);
+        }
+        else
+        {
             redirect('/', 'refresh');
         }
     }
@@ -43,24 +35,19 @@ class Home extends CI_Controller
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('task_name', '任务名称', 'required');
+        $this->form_validation->set_rules('todo_name', '任务名称', 'required');
         $this->form_validation->set_rules('interest_area', '所属关注域', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             redirect('/');
         } else {
-            $this->task_model->set_task();
+            $this->todo_model->set_todo();
 
-            $data['active_nav_item'] = 'task';
+            $data['active_nav_item'] = 'todo';
 
             redirect('home');
         }
     }
 
-    function logout()
-    {
-        $this->session->unset_userdata('logged_in');
-        session_destroy();
-        redirect('home', 'refresh');
-    }
+
 }

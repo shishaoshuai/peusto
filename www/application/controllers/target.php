@@ -17,7 +17,7 @@ class Target extends CI_Controller {
             $data['username'] = $session_data['username'];
             $data['action_name']='target/create';
 
-            $data['targets'] = $this->target_model->get_all_targets_by_interest_area();
+            $data['targets'] = $this->target_model->get_targets_group_by_interest_area();
 
             $this->load->helper('form');
 

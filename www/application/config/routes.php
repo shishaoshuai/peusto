@@ -42,12 +42,14 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 $route['register'] = 'user/register';
-$route['user/create'] = 'user/create';
-$route['user/login'] = 'user/login';
+$route['create_user'] = 'user/create';
+$route['login'] = 'user/login';
+$route['logout'] = 'user/logout';
 
 $route['home'] = 'home';
-$route['home/logout'] = 'home/logout';
-$route['home/create'] = 'home/create';
+
+$route['todo'] = 'todo';
+$route['todo/create'] = 'todo/create';
 
 $route['interest_area'] = 'interest_area';
 $route['interest_area/create'] = 'interest_area/create';
