@@ -21,24 +21,75 @@
 //                right: 'month,agendaWeek,agendaDay'
 //            },
             defaultView: 'agendaDay',
-            theme:true,
+            theme: true,
             aspectRatio: 0.15,
-            contentHeight:640,
+            contentHeight: 640,
             selectable: true,
             selectHelper: true,
             editable: true,
             resizable: true,
-            allDaySlot:false,
+            allDaySlot: false,
             minTime: 5,
             maxTime: 23,
-            firstHour:8,
+            firstHour: 8,
             slotMinutes: 30,
             snapMinutes: 30
 
+            select: function (start, end, allDay) {
+                startTime = start;
+                endTime = end;
+                allDayTime = allDay;
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
+                $('#todo_modal').modal('show');
+            },
+            events: [<?php echo $fc_events; ?>
+            ],
+            eventClick: function (calEvent, jsEvent, view) {
+                if (document.getElementById('idtodo') != null) {
+                    alert('id' + calEvent.id);
 
+                    document.getElementById('idtodo').value = calEvent.id;
+
+                    document.getElementById('todo_name').value = calEvent.title;
+                    document.getElementById('interest_area').value = calEvent.interest_area;
+                    document.getElementById('target').value = calEvent.target;
+                    document.getElementById('is_appointment').value = calEvent.is_appointment;
+                    document.getElementById('todo_name').value = calEvent.title;
+                    document.getElementById('start_time').value = calEvent.start;
+                    document.getElementById('due_time').value = calEvent.end;
+
+                }
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: calEvent.interest_area });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area", selected_value: calEvent.target });
+                $('#todo_modal').modal('show');
+            },
+            eventDrop: function (event, dayDelta, minuteDelta) {
+                var tmpStart = event.start.valueOf() / 1000;
+                var tmpDue = event.end.valueOf() / 1000;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
+                    success: function (data) {
+                    }
+                });
+            },
+            eventResize: function (event) {
+                var tmpStart = event.start.valueOf() / 1000;
+                var tmpDue = event.end.valueOf() / 1000;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
+                    success: function (data) {
+                    }
+                });
+            }
         });
 
     });
+
 
     function closeDialog(dialogName) {
         $("#" + dialogName + "").modal('hide');
@@ -111,6 +162,11 @@
         calendar.fullCalendar('unselect');
     }
 
+    function showCreateTodoModal(targetId) {
+        document.getElementById('target').value=targetId;
+
+        $('#todo_modal').modal('show');
+    }
 </script>
 <div class="span7">
 
@@ -142,7 +198,7 @@
                             <td><?php echo $target_item['priority'] ?>优先级</td>
                             <td><?php echo $target_item['target_type_name'] ?></td>
                             <td>
-                                <a href="<?php echo site_url('target/modify/' . $target_item['idtarget']) ?>">新建待办</a>
+                                <a href="onclick=showCreateTodoModal(<?php echo $target_item['idtarget'] ?>)">新建待办</a>
                             </td>
                             <td>
                                 <a href="<?php echo site_url('target/delete/' . $target_item['idtarget']) ?>">删除</a>
@@ -161,4 +217,72 @@
 </div>
 
 </div>
+</div>
+
+
+<div class="modal hide fade" id="todo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+        </button>
+        <h3>
+            请对该任务进行操作:
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="control-group">
+            <label class="control-label" for="todo_name">任务名称</label>
+
+            <div class="controls">
+                <input type="text" class="input-block-level" id="todo_name" name="todo_name"
+                       placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"
+                       required>
+                <span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
+            </div>
+        </div>
+        <input type="hidden" id="target" name="target">
+        <input type="hidden" id="start_time" name="start_time">
+        <input type="hidden" id="due_time" name="due_time">
+
+        <div class="control-group">
+            <label class="control-label" for="interest_area">所属关注域</label>
+
+            <div class="controls">
+                <select id="interest_area" name="interest_area">
+
+                </select>
+                <span class="help-inline">请输入该任务所属的关注域</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="target">所属目标</label>
+
+            <div class="controls">
+                <select id="target" name="target">
+
+                </select>
+                <span class="help-inline">请输入该任务所属的目标</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="is_appointment">定时任务</label>
+
+            <div class="controls">
+                <input type="checkbox" name="is_appointment" id="is_appointment" value="1"/>
+                <span class="help-inline">定时任务一般指约定的会议，预约的安排等</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" class="btn" onclick="closeDialog('todo_modal');">
+            关闭
+        </a>
+        <a href="#" class="btn btn-primary" onclick="saveTask();">
+            保存
+        </a>
+    </div>
 </div>
