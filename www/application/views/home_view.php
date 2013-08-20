@@ -6,8 +6,6 @@
     var calendar;
 
     $(document).ready(function () {
-
-
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -22,8 +20,8 @@
 //            },
             defaultView: 'agendaDay',
             theme:true,
-            aspectRatio: 0.15,
-            contentHeight:640,
+            aspectRatio: 0.10,
+            contentHeight:600,
             selectable: true,
             selectHelper: true,
             editable: true,
@@ -34,10 +32,7 @@
             firstHour:8,
             slotMinutes: 30,
             snapMinutes: 30
-
-
         });
-
     });
 
     function closeDialog(dialogName) {
@@ -112,7 +107,7 @@
     }
 
 </script>
-<div class="span7">
+<div class="span8">
 
     <div class="row-fluid">
         <div class="">
@@ -156,7 +151,7 @@
     </div>
 </div>
 
-<div class="span3" id='dayCalendar'>
+<div class="span2" id='dayCalendar'>
 
 </div>
 

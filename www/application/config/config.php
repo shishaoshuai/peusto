@@ -360,7 +360,7 @@ $config['proxy_ips'] = '';
 
 //
 //$config['header_css'] = array('');
-$config['header_css'] = array('bootstrap.css');
+$config['header_css'] = array('bootstrap.css','bootstrap-responsive.css','docs.css');
 
 $config['header_js']  = array('jquery-1.9.1.min.js','bootstrap.min.js','jqBootstrapValidation.js');
 //$config['header_js']  = array('jquery-1.9.1.min.js',);
