@@ -6,8 +6,6 @@
     var calendar;
 
     $(document).ready(function () {
-
-
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -21,9 +19,15 @@
 //                right: 'month,agendaWeek,agendaDay'
 //            },
             defaultView: 'agendaDay',
+<<<<<<< HEAD
             theme: true,
             aspectRatio: 0.15,
             contentHeight: 640,
+=======
+            theme:true,
+            aspectRatio: 0.10,
+            contentHeight:600,
+>>>>>>> d06c1baa7f977c0d44fd67aca4bf0ddb6ada5176
             selectable: true,
             selectHelper: true,
             editable: true,
@@ -34,6 +38,7 @@
             firstHour: 8,
             slotMinutes: 30,
             snapMinutes: 30
+<<<<<<< HEAD
 
             select: function (start, end, allDay) {
                 startTime = start;
@@ -86,8 +91,9 @@
                     }
                 });
             }
+=======
+>>>>>>> d06c1baa7f977c0d44fd67aca4bf0ddb6ada5176
         });
-
     });
 
 
@@ -168,7 +174,7 @@
         $('#todo_modal').modal('show');
     }
 </script>
-<div class="span7">
+<div class="span8">
 
     <div class="row-fluid">
         <div class="">
@@ -212,7 +218,7 @@
     </div>
 </div>
 
-<div class="span3" id='dayCalendar'>
+<div class="span2" id='dayCalendar'>
 
 </div>
 

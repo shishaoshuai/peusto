@@ -1324,6 +1324,7 @@ textarea[class*="span"],
 .row-fluid select[class*="span"],
 .row-fluid textarea[class*="span"],
 .row-fluid .uneditable-input[class*="span"] {
+    display:block;
   float: none;
   margin-left: 0;
 }
