@@ -40,19 +40,16 @@ class Target extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('target_name', '目标名称', 'required');
-        $this->form_validation->set_rules('priority', '优先级', 'required');
+//        $this->form_validation->set_rules('priority', '优先级', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this -> index();
         } else {
             $this->target_model->set_target();
-
-            $data['active_nav_item'] = 'interest_area';
-
+            $data['active_nav_item'] = 'target';
             redirect('target');
         }
     }
-
 
     public function modify($idtarget) {
         $data['target_tbm'] = $this->target_model->get_target($idtarget);

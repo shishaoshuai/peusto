@@ -46,6 +46,24 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function get_hierachy_targets($interest_area="")
+    {
+        $this->load->model('target_model');
+        $targets = $this->target_model->get_hierachy_targets_for_interest_area();
+        $items = array();
+        foreach ($targets as $target_item) {
+            $items[$target_item['idtarget']] = $target_item['target_name'];
+        }
+        header('content-type: application/json; charset=utf-8');
+        // convert into JSON format and print
+        $response = json_encode($items);
+        log_message('info','$response '.$response );
+        if (isset($_GET['callback'])) {
+            echo $_GET['callback'] . "(" . $response . ")";
+        } else {
+            echo $response;
+        }
+    }
     public function get_target_types()
     {
         $this->load->model('user_preferences/user_target_type_model');

@@ -1,12 +1,8 @@
 <script type="text/javascript">
-    $(function () {
-        $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo isset( $target_tbm)? $target_tbm['interest_area']:'' ?>' });
-        $("#target_type").jCombo("http://localhost/get_target_types", { selected_value: '<?php echo isset( $target_tbm)? $target_tbm['target_type']:'' ?>' });
-        $('select[name=target_type]').change(function () {
-            if ($(this).val() == '2')            $('#week_memo').show();
-        });
 
-    });
+        $(function() {
+            $("#parent_target").jCombo("http://localhost/get_hierachy_targets" );
+        });
 </script>
 
 <div class="span5">
@@ -27,27 +23,13 @@
                        placeholder="请输入目标名称"/>
             </div>
         </div>
+
         <div class="control-group">
-            <label class="control-label" for="interest_area">所隶属的关注域</label>
+            <label class="control-label" for="target_type">上一级目标</label>
 
             <div class="controls">
-                <select id="interest_area" name="interest_area">
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="target_type">目标类型</label>
+                <select id="parent_target" name="parent_target">
 
-            <div class="controls">
-                <select id="target_type" name="target_type">
-                </select>
-            </div>
-        </div>
-        <div class="control-group" id="week_memo" style="display: none">
-            <label class="control-label" for="target_type">目标类型</label>
-
-            <div class="controls">
-                <select id="gg" name="gg">
                 </select>
             </div>
         </div>

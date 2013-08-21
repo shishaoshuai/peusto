@@ -15,15 +15,45 @@ class Target_model extends CI_Model
 
         $data = array(
             'owner' =>$owner,
-            'interest_area'=> $this->input->post('interest_area'),
             'target_name' => $this->input->post('target_name'),
-            'priority' => $this->input->post('priority'),
-            'target_type' => $this->input->post('target_type')
+//            'due_time' => $this->input->post('due_time'),
+            'parent_target' => $this->input->post('parent_target')
         );
-        return $this->db->insert('target', $data);
+
+        $sql = array();
+        $result = array();
+
+        if($this->input->post('parent_target')=='0') {
+            $sql['query1'] = "LOCK TABLE target WRITE";
+            $sql['query2'] = "SELECT @myRight := MAX(rgt) FROM target WHERE owner=".$owner ;
+
+            $sql['query3'] = "UPDATE target SET rgt = rgt + 2 WHERE rgt >= @myRight AND owner=".$owner ;
+            $sql['query4'] = "INSERT INTO target(owner, target_name,lft,rgt) VALUES("
+                .$owner.",'"
+                .$this->input->post('target_name')."',@myRight, @myRight + 1)";
+            $sql['query5'] = "UNLOCK TABLES;";
+            foreach($sql as $key => $value)
+            {
+                $result[$key] = $this->db->query($value);
+            }
+        } else {
+            $sql['query1'] = "LOCK TABLE target WRITE";
+            $sql['query2'] = "SELECT @myRight := rgt FROM target where idtarget=".$this->input->post('parent_target') ;
+            $sql['query3'] = "UPDATE target SET rgt = rgt + 2 WHERE rgt >= @myRight AND owner=".$owner ;
+            $sql['query4'] = "UPDATE target SET lft = lft + 2 WHERE lft > @myRight AND owner=".$owner ;
+            $sql['query5'] = "INSERT INTO target(owner,  target_name,lft,rgt) VALUES("
+                .$owner.",'"
+                .$this->input->post('target_name')."',@myRight, @myRight + 1)";
+            $sql['query6'] = "UNLOCK TABLES;";
+            foreach($sql as $key => $value)
+            {
+                $result[$key] = $this->db->query($value);
+            }
+        }
+//        return $this->db->insert('target', $data);
     }
 
-    public function update_interest_area()
+    public function update_target()
     {
         $this->load->helper('url');
 
@@ -31,7 +61,9 @@ class Target_model extends CI_Model
             'interest_area'=> $this->input->post('interest_area'),
             'target_name' => $this->input->post('target_name'),
             'priority' => $this->input->post('priority'),
-            'target_type' => $this->input->post('target_type')
+            'target_type' => $this->input->post('target_type'),
+            'due_time' => $this->input->post('due_time'),
+            'parent_target' => $this->input->post('parent_target')
         );
         $this->db->where('idtarget',  $this->input->post('idtarget'));
         $this->db->update('target', $data);
@@ -72,6 +104,26 @@ class Target_model extends CI_Model
 
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();
+    }
+
+    public function get_hierachy_targets_for_interest_area($target_type="") {
+        $session_data = $this->session->userdata('logged_in');
+        $owner = $session_data['idusers'];
+        $sql = "SELECT node.idtarget as idtarget, CONCAT( REPEAT( '&nbsp;&nbsp;', (COUNT(parent.target_name) - 1) ),'--', node.target_name) AS target_name"
+            ." FROM target AS node,target AS parent"
+            ." WHERE node.lft BETWEEN parent.lft AND parent.rgt AND node.owner=".$owner
+            ." GROUP BY node.idtarget"
+            ." ORDER BY node.lft ASC";
+        $query = $this->db->query($sql);
+        $query_result = $query->result_array();
+        $result=array();
+        if(count($query_result)>=1) {
+            $result = array_slice($query_result,1,count($query_result)-1);
+        }
+        foreach($result as $item) {
+            log_message('info',$item['idtarget'] );
+        }
+        return $result;
     }
 
     public function get_dropdown_list($owner) {
