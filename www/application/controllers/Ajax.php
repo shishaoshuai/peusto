@@ -52,7 +52,7 @@ class Ajax extends CI_Controller
         $targets = $this->target_model->get_hierachy_targets_for_interest_area();
         $items = array();
         foreach ($targets as $target_item) {
-            $items[$target_item['idtarget']] = $target_item['target_name'];
+            $items[$target_item['lft']] = $target_item['target_name'];
         }
         header('content-type: application/json; charset=utf-8');
         // convert into JSON format and print

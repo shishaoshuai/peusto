@@ -17,13 +17,13 @@ class Target_model extends CI_Model
             'owner' =>$owner,
             'target_name' => $this->input->post('target_name'),
 //            'due_time' => $this->input->post('due_time'),
-            'parent_target' => $this->input->post('parent_target')
+            'lft' => $this->input->post('lft')
         );
 
         $sql = array();
         $result = array();
 
-        if($this->input->post('parent_target')=='0') {
+        if($this->input->post('lft')=='0') {
             $sql['query1'] = "LOCK TABLE target WRITE";
             $sql['query2'] = "SELECT @myRight := MAX(rgt) FROM target WHERE owner=".$owner ;
 
@@ -38,7 +38,8 @@ class Target_model extends CI_Model
             }
         } else {
             $sql['query1'] = "LOCK TABLE target WRITE";
-            $sql['query2'] = "SELECT @myRight := rgt FROM target where idtarget=".$this->input->post('parent_target') ;
+            $sql['query2'] = "SELECT @myRight := rgt FROM target WHERE lft=".$this->input->post('lft')
+                ." AND owner=".$owner;
             $sql['query3'] = "UPDATE target SET rgt = rgt + 2 WHERE rgt >= @myRight AND owner=".$owner ;
             $sql['query4'] = "UPDATE target SET lft = lft + 2 WHERE lft > @myRight AND owner=".$owner ;
             $sql['query5'] = "INSERT INTO target(owner,  target_name,lft,rgt) VALUES("
@@ -109,7 +110,10 @@ class Target_model extends CI_Model
     public function get_hierachy_targets_for_interest_area($target_type="") {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT node.idtarget as idtarget, CONCAT( REPEAT( '&nbsp;&nbsp;', (COUNT(parent.target_name) - 1) ),'--', node.target_name) AS target_name"
+        $sql = "SELECT node.lft as lft, CONCAT( REPEAT('&nbsp;&nbsp;',"
+            ."COUNT(parent.target_name) - (CASE COUNT(parent.target_name) WHEN 1 THEN 1 ELSE 2 END) ),"
+            ."(CASE COUNT(parent.target_name) WHEN 1 THEN '' WHEN 2 THEN '' ELSE '└' END)"
+            .", node.target_name) AS target_name"
             ." FROM target AS node,target AS parent"
             ." WHERE node.lft BETWEEN parent.lft AND parent.rgt AND node.owner=".$owner
             ." GROUP BY node.idtarget"
@@ -119,9 +123,6 @@ class Target_model extends CI_Model
         $result=array();
         if(count($query_result)>=1) {
             $result = array_slice($query_result,1,count($query_result)-1);
-        }
-        foreach($result as $item) {
-            log_message('info',$item['idtarget'] );
         }
         return $result;
     }

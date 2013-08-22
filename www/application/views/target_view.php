@@ -1,7 +1,18 @@
 <script type="text/javascript">
 
         $(function() {
-            $("#parent_target").jCombo("http://localhost/get_hierachy_targets" );
+            $("#lft").jCombo("http://localhost/get_hierachy_targets" );
+            $('.due_time').datetimepicker({
+                language:  'zh-CN',
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                minView:'month',
+                showMeridian:false
+            });
         });
 </script>
 
@@ -28,21 +39,21 @@
             <label class="control-label" for="target_type">上一级目标</label>
 
             <div class="controls">
-                <select id="parent_target" name="parent_target">
+                <select id="lft" name="lft">
 
                 </select>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="priority">优先级</label>
+            <label class="control-label" for="due_time">完成时间</label>
 
-            <div class="controls">
-                <select id="priority" name="priority">
-                    <option value="1">高</option>
-                    <option value="2">中</option>
-                    <option value="3">低</option>
-                </select>
+            <div class="controls date due_time" align="left" data-date-format="yyyy年MMdd日"
+                 data-link-field="due_time">
+                <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
             </div>
+            <input type="hidden" id="due_time" name="due_time" value=""/>
         </div>
         <div class="control-group">
             <div class="controls" text-align="center">

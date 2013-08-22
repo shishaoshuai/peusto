@@ -5,7 +5,11 @@ class Target extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        add_js(array( 'jquery.jcombo.js'));
+        add_css(array('datetimepicker.css', 'jquery-ui/jquery.ui.all.css'));
+        add_js(array( 'jquery.ui.core.js', 'jquery.ui.widget.js',
+            'jquery.ui.spinner.js', 'jquery.mousewheel.js','jquery.ui.tabs.js','jquery.ui.button.js',
+            'bootstrap-datetimepicker.js','locales/bootstrap-datetimepicker.zh-CN.js',
+            'jquery.jcombo.js'));
         $this->load->model('target_model');
     }
 

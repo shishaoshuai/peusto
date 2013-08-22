@@ -46,7 +46,7 @@
 				success: function(data){
 					var response = '<option value="' + $options.first_optval + '">' + $options.initext + '</option>';
 					var selected;
-					for(var index =0;i<data.length;i++) {
+					for(var index in data) {
 						selected = (index==$options.inival)?' selected="selected"':'';
 						response += '<option value="' + index + '"' + selected + '>' + data[index] + '</option>';
 					}
