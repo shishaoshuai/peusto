@@ -7,8 +7,7 @@ class Home extends CI_Controller
     {
         parent::__construct();
         add_css(array('fc_ui_theme.css','fullcalendar.css','zTreeStyle.css'));
-        add_js(array('jquery-ui-1.10.3.custom.min.js','fullcalendar.js',
-            'jquery.jcombo.js','date.js','jquery.ztree.all-3.5.js'));
+        add_js(array('jquery-ui-1.10.3.custom.min.js','fullcalendar.js','jquery.jcombo.js','date.js','jquery.ztree.all-3.5.js'));
         $this->load->model('target_model');
     }
 

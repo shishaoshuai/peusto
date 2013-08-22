@@ -5,96 +5,7 @@
     var allDayTime = "";
     var calendar;
 
-    $(document).ready(function () {
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
 
-        calendar = $('#dayCalendar').fullCalendar({
-            header: false,
-//            header: {
-//                left: 'prev,next today',
-//                center: 'title',
-//                right: 'month,agendaWeek,agendaDay'
-//            },
-            defaultView: 'agendaDay',
-<<<<<<< HEAD
-            theme: true,
-            aspectRatio: 0.15,
-            contentHeight: 640,
-=======
-            theme:true,
-            aspectRatio: 0.10,
-            contentHeight:600,
->>>>>>> d06c1baa7f977c0d44fd67aca4bf0ddb6ada5176
-            selectable: true,
-            selectHelper: true,
-            editable: true,
-            resizable: true,
-            allDaySlot: false,
-            minTime: 5,
-            maxTime: 23,
-            firstHour: 8,
-            slotMinutes: 30,
-            snapMinutes: 30
-<<<<<<< HEAD
-
-            select: function (start, end, allDay) {
-                startTime = start;
-                endTime = end;
-                allDayTime = allDay;
-                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
-                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
-                $('#todo_modal').modal('show');
-            },
-            events: [<?php echo $fc_events; ?>
-            ],
-            eventClick: function (calEvent, jsEvent, view) {
-                if (document.getElementById('idtodo') != null) {
-                    alert('id' + calEvent.id);
-
-                    document.getElementById('idtodo').value = calEvent.id;
-
-                    document.getElementById('todo_name').value = calEvent.title;
-                    document.getElementById('interest_area').value = calEvent.interest_area;
-                    document.getElementById('target').value = calEvent.target;
-                    document.getElementById('is_appointment').value = calEvent.is_appointment;
-                    document.getElementById('todo_name').value = calEvent.title;
-                    document.getElementById('start_time').value = calEvent.start;
-                    document.getElementById('due_time').value = calEvent.end;
-
-                }
-                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: calEvent.interest_area });
-                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area", selected_value: calEvent.target });
-                $('#todo_modal').modal('show');
-            },
-            eventDrop: function (event, dayDelta, minuteDelta) {
-                var tmpStart = event.start.valueOf() / 1000;
-                var tmpDue = event.end.valueOf() / 1000;
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
-                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
-                    success: function (data) {
-                    }
-                });
-            },
-            eventResize: function (event) {
-                var tmpStart = event.start.valueOf() / 1000;
-                var tmpDue = event.end.valueOf() / 1000;
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
-                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
-                    success: function (data) {
-                    }
-                });
-            }
-=======
->>>>>>> d06c1baa7f977c0d44fd67aca4bf0ddb6ada5176
-        });
-    });
 
 
     function closeDialog(dialogName) {
@@ -173,7 +84,201 @@
 
         $('#todo_modal').modal('show');
     }
+
+    var setting = {
+        view: {
+            dblClickExpand: false
+        },
+        check: {
+            enable: true
+        },
+        callback: {
+            onRightClick: OnRightClick
+        }
+    };
+
+    var zNodes =[
+        {id:1, name:"无右键菜单 1", open:true, noR:true,
+            children:[
+                {id:11, name:"节点 1-1", noR:true},
+                {id:12, name:"节点 1-2", noR:true}
+
+            ]},
+        {id:2, name:"右键操作 2", open:true,
+            children:[
+                {id:21, name:"节点 2-1"},
+                {id:22, name:"节点 2-2"},
+                {id:23, name:"节点 2-3"},
+                {id:24, name:"节点 2-4"}
+            ]},
+        {id:3, name:"右键操作 3", open:true,
+            children:[
+                {id:31, name:"节点 3-1"},
+                {id:32, name:"节点 3-2"},
+                {id:33, name:"节点 3-3"},
+                {id:34, name:"节点 3-4"}
+            ]}
+    ];
+
+    function OnRightClick(event, treeId, treeNode) {
+        if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
+            zTree.cancelSelectedNode();
+            showRMenu("root", event.clientX, event.clientY);
+        } else if (treeNode && !treeNode.noR) {
+            zTree.selectNode(treeNode);
+            showRMenu("node", event.clientX, event.clientY);
+        }
+    }
+
+    function showRMenu(type, x, y) {
+        $("#rMenu ul").show();
+        if (type=="root") {
+            $("#m_del").hide();
+            $("#m_check").hide();
+            $("#m_unCheck").hide();
+        } else {
+            $("#m_del").show();
+            $("#m_check").show();
+            $("#m_unCheck").show();
+        }
+        rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
+
+        $("body").bind("mousedown", onBodyMouseDown);
+    }
+    function hideRMenu() {
+        if (rMenu) rMenu.css({"visibility": "hidden"});
+        $("body").unbind("mousedown", onBodyMouseDown);
+    }
+    function onBodyMouseDown(event){
+        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
+            rMenu.css({"visibility" : "hidden"});
+        }
+    }
+    var addCount = 1;
+    function addTreeNode() {
+        hideRMenu();
+        var newNode = { name:"增加" + (addCount++)};
+        if (zTree.getSelectedNodes()[0]) {
+            newNode.checked = zTree.getSelectedNodes()[0].checked;
+            zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
+        } else {
+            zTree.addNodes(null, newNode);
+        }
+    }
+    function removeTreeNode() {
+        hideRMenu();
+        var nodes = zTree.getSelectedNodes();
+        if (nodes && nodes.length>0) {
+            if (nodes[0].children && nodes[0].children.length > 0) {
+                var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
+                if (confirm(msg)==true){
+                    zTree.removeNode(nodes[0]);
+                }
+            } else {
+                zTree.removeNode(nodes[0]);
+            }
+        }
+    }
+    function checkTreeNode(checked) {
+        var nodes = zTree.getSelectedNodes();
+        if (nodes && nodes.length>0) {
+            zTree.checkNode(nodes[0], checked, true);
+        }
+        hideRMenu();
+    }
+    function resetTree() {
+        hideRMenu();
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    }
+
+    var zTree, rMenu;
+
+    $(document).ready(function () {
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        calendar = $('#dayCalendar').fullCalendar({
+            header: false,
+//            header: {
+//                left: 'prev,next today',
+//                center: 'title',
+//                right: 'month,agendaWeek,agendaDay'
+//            },
+            defaultView: 'agendaDay',
+
+            select: function (start, end, allDay) {
+                startTime = start;
+                endTime = end;
+                allDayTime = allDay;
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
+                $('#todo_modal').modal('show');
+            },
+
+            eventClick: function (calEvent, jsEvent, view) {
+                if (document.getElementById('idtodo') != null) {
+                    alert('id' + calEvent.id);
+
+                    document.getElementById('idtodo').value = calEvent.id;
+
+                    document.getElementById('todo_name').value = calEvent.title;
+                    document.getElementById('interest_area').value = calEvent.interest_area;
+                    document.getElementById('target').value = calEvent.target;
+                    document.getElementById('is_appointment').value = calEvent.is_appointment;
+                    document.getElementById('todo_name').value = calEvent.title;
+                    document.getElementById('start_time').value = calEvent.start;
+                    document.getElementById('due_time').value = calEvent.end;
+
+                }
+                $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: calEvent.interest_area });
+                $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area", selected_value: calEvent.target });
+                $('#todo_modal').modal('show');
+            },
+            eventDrop: function (event, dayDelta, minuteDelta) {
+                var tmpStart = event.start.valueOf() / 1000;
+                var tmpDue = event.end.valueOf() / 1000;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
+                    success: function (data) {
+                    }
+                });
+            },
+            eventResize: function (event) {
+                var tmpStart = event.start.valueOf() / 1000;
+                var tmpDue = event.end.valueOf() / 1000;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>move_todo_in_calendar",
+                    data: {id: (event.id), new_start_time: tmpStart, new_due_time: tmpDue},
+                    success: function (data) {
+                    }
+                });
+            }
+
+        });
+
+
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        rMenu = $("#rMenu");
+    });
+
 </script>
+
+<style type="text/css">
+    div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #555;text-align: left;padding: 2px;}
+    div#rMenu ul li{
+        margin: 1px 0;
+        padding: 0 5px;
+        cursor: pointer;
+        list-style: none outside none;
+        background-color: #DFDFDF;
+    }
+</style>
 <div class="span8">
 
     <div class="row-fluid">
@@ -181,39 +286,7 @@
             <h3> 现在，你应该着手去做 </h3>
         </div>
         <div>
-            <h3>您的本周目标是：</h3>
-            <?php
-            while (list($key, $target_group) = each($targets)) {
-                ?>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th colspan="6"><?php echo $key ?></th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($target_group as $target_item):
-                        $i++;
-                        ?>
-                        <tr>
-                            <td><?php echo $i ?></td>
-                            <td><?php echo $target_item['target_name'] ?></td>
-                            <td><?php echo $target_item['priority'] ?>优先级</td>
-                            <td><?php echo $target_item['target_type_name'] ?></td>
-                            <td>
-                                <a href="onclick=showCreateTodoModal(<?php echo $target_item['idtarget'] ?>)">新建待办</a>
-                            </td>
-                            <td>
-                                <a href="<?php echo site_url('target/delete/' . $target_item['idtarget']) ?>">删除</a>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                    </tbody>
-                </table>
-            <?php } ?>
+            <ul id="treeDemo" class="ztree"></ul>
         </div>
     </div>
 </div>
@@ -291,4 +364,15 @@
             保存
         </a>
     </div>
+</div>
+
+
+<div id="rMenu">
+    <ul>
+        <li id="m_add" onclick="addTreeNode();">增加节点</li>
+        <li id="m_del" onclick="removeTreeNode();">删除节点</li>
+        <li id="m_check" onclick="checkTreeNode(true);">Check节点</li>
+        <li id="m_unCheck" onclick="checkTreeNode(false);">unCheck节点</li>
+        <li id="m_reset" onclick="resetTree();">恢复zTree</li>
+    </ul>
 </div>
