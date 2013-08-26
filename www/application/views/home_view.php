@@ -86,6 +86,16 @@
     }
 
     var setting = {
+        edit: {
+            enable: true,
+            showRemoveBtn: false,
+            showRenameBtn: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
         view: {
             dblClickExpand: false
         },
@@ -93,32 +103,43 @@
             enable: true
         },
         callback: {
-            onRightClick: OnRightClick
+            onRightClick: OnRightClick,
+            beforeDrag: beforeDrag,
+            beforeDrop: beforeDrop
         }
     };
 
     var zNodes =[
-        {id:1, name:"无右键菜单 1", open:true, noR:true,
-            children:[
-                {id:11, name:"节点 1-1", noR:true},
-                {id:12, name:"节点 1-2", noR:true}
-
-            ]},
-        {id:2, name:"右键操作 2", open:true,
-            children:[
-                {id:21, name:"节点 2-1"},
-                {id:22, name:"节点 2-2"},
-                {id:23, name:"节点 2-3"},
-                {id:24, name:"节点 2-4"}
-            ]},
-        {id:3, name:"右键操作 3", open:true,
-            children:[
-                {id:31, name:"节点 3-1"},
-                {id:32, name:"节点 3-2"},
-                {id:33, name:"节点 3-3"},
-                {id:34, name:"节点 3-4"}
-            ]}
+        { id:1, pId:0, name:"随意拖拽 1", open:true},
+        { id:11, pId:1, name:"随意拖拽 1-1"},
+        { id:12, pId:1, name:"随意拖拽 1-2", open:true},
+        { id:121, pId:12, name:"随意拖拽 1-2-1"},
+        { id:122, pId:12, name:"随意拖拽 1-2-2"},
+        { id:123, pId:12, name:"随意拖拽 1-2-3"},
+        { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
+        { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
+        { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
+        { id:133, pId:13, name:"随意拖拽 1-3-3"},
+        { id:2, pId:0, name:"随意拖拽 2", open:true},
+        { id:21, pId:2, name:"随意拖拽 2-1"},
+        { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
+        { id:221, pId:22, name:"随意拖拽 2-2-1"},
+        { id:222, pId:22, name:"随意拖拽 2-2-2"},
+        { id:223, pId:22, name:"随意拖拽 2-2-3"},
+        { id:23, pId:2, name:"随意拖拽 2-3"}
     ];
+
+    function beforeDrag(treeId, treeNodes) {
+        for (var i=0,l=treeNodes.length; i<l; i++) {
+            if (treeNodes[i].drag === false) {
+                return false;
+            }
+        }
+        return true;
+    }
+    function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+        return targetNode ? targetNode.drop !== false : true;
+    }
 
     function OnRightClick(event, treeId, treeNode) {
         if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
