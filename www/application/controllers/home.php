@@ -19,7 +19,7 @@ class Home extends CI_Controller
             $session_data = $this->session->userdata('logged_in');
 
             $data['username'] = $session_data['username'];
-            $data['targets'] = $this->target_model->get_targets_group_by_interest_area(2);
+            $data['targets'] = $this->target_model->get_targets();
             $data['active_nav_item'] = 'home';
 
             $this->load->view('templates/header',$data);

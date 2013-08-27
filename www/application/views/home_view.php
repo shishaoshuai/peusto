@@ -110,25 +110,41 @@
     };
 
     var zNodes =[
-        { id:1, pId:0, name:"随意拖拽 1", open:true},
-        { id:11, pId:1, name:"随意拖拽 1-1"},
-        { id:12, pId:1, name:"随意拖拽 1-2", open:true},
-        { id:121, pId:12, name:"随意拖拽 1-2-1"},
-        { id:122, pId:12, name:"随意拖拽 1-2-2"},
-        { id:123, pId:12, name:"随意拖拽 1-2-3"},
-        { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
-        { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
-        { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
-        { id:133, pId:13, name:"随意拖拽 1-3-3"},
-        { id:2, pId:0, name:"随意拖拽 2", open:true},
-        { id:21, pId:2, name:"随意拖拽 2-1"},
-        { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
-        { id:221, pId:22, name:"随意拖拽 2-2-1"},
-        { id:222, pId:22, name:"随意拖拽 2-2-2"},
-        { id:223, pId:22, name:"随意拖拽 2-2-3"},
-        { id:23, pId:2, name:"随意拖拽 2-3"}
+        <?php
+         $display_arr="";
+
+        foreach($targets as $target_item)
+        {
+            $display_arr .= '{';
+            $display_arr .= 'id:'.$target_item['idtarget'];
+            $display_arr .= ',pId:'.($target_item['parent_target']==null?0:$target_item['parent_target']) ;
+            $display_arr .= ',name:"'.$target_item['target_name'] .'"';
+            $display_arr .= ',open:true';
+            $display_arr .= ',drag:'. ($target_item['parent_target']==null ?'false':'true');
+            $display_arr .= '},';
+        }
+        $display_arr = substr($display_arr,0, strlen($display_arr)-1);
+        echo $display_arr;?>
     ];
 
+
+//    { id:1, pId:0, name:"随意拖拽 1", open:true},
+//    { id:11, pId:1, name:"随意拖拽 1-1"},
+//    { id:12, pId:1, name:"随意拖拽 1-2", open:true},
+//    { id:121, pId:12, name:"随意拖拽 1-2-1"},
+//    { id:122, pId:12, name:"随意拖拽 1-2-2"},
+//    { id:123, pId:12, name:"随意拖拽 1-2-3"},
+//    { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
+//    { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
+//    { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
+//    { id:133, pId:13, name:"随意拖拽 1-3-3"},
+//    { id:2, pId:0, name:"随意拖拽 2", open:true},
+//    { id:21, pId:2, name:"随意拖拽 2-1"},
+//    { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
+//    { id:221, pId:22, name:"随意拖拽 2-2-1"},
+//    { id:222, pId:22, name:"随意拖拽 2-2-2"},
+//    { id:223, pId:22, name:"随意拖拽 2-2-3"},
+//    { id:23, pId:2, name:"随意拖拽 2-3"}
     function beforeDrag(treeId, treeNodes) {
         for (var i=0,l=treeNodes.length; i<l; i++) {
             if (treeNodes[i].drag === false) {

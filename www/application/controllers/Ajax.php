@@ -28,10 +28,11 @@ class Ajax extends CI_Controller
         }
     }
 
-    public function get_targets($interest_area)
+    public function get_targets()
     {
         $this->load->model('target_model');
-        $targets = $this->target_model->get_targets_for_interest_area($interest_area);
+        $targets = $this->target_model->get_targets();
+        log_message('info',var_dump($targets));
         $items = array();
         foreach ($targets as $target_item) {
             $items[$target_item['idtarget']] = $target_item['target_name'];

@@ -61,8 +61,6 @@ class Target_model extends CI_Model
         $data = array(
             'interest_area'=> $this->input->post('interest_area'),
             'target_name' => $this->input->post('target_name'),
-            'priority' => $this->input->post('priority'),
-            'target_type' => $this->input->post('target_type'),
             'due_time' => $this->input->post('due_time'),
             'parent_target' => $this->input->post('parent_target')
         );
@@ -73,9 +71,8 @@ class Target_model extends CI_Model
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtarget,target_name,target_type_name, case priority when 1 then \"高\" when "
-            ." 2 then \"中\" when 3 then \"低\" end as priority FROM target,target_type"
-            ."WHERE owner = ? and target_type=idtarget_type order by priority asc";
+        $sql = "SELECT idtarget,parent_target, target_name FROM target"
+            ." WHERE owner = ?  order by parent_target, dis_order asc";
 
         $query = $this->db->query($sql, $owner);
         return $query->result_array();
@@ -97,11 +94,8 @@ class Target_model extends CI_Model
     public function get_targets_for_interest_area($interest_area,$target_type="") {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtarget,target_name, target_type_name, case priority when 1 then \"高\" when "
-            ." 2 then \"中\" when 3 then \"低\" end as priority  FROM target,target_type "
-            ."WHERE owner = ? and interest_area = ?  and target_type=idtarget_type "
-            .($target_type==0 ?' ':(" and target.target_type=".$target_type.""))
-            ." order by priority asc";
+        $sql = "SELECT idtarget,target_name FROM target "
+            ." WHERE owner = ? AND interest_area = ? ";
 
         $query = $this->db->query($sql, array($owner,$interest_area));
         return $query->result_array();
@@ -127,20 +121,9 @@ class Target_model extends CI_Model
         return $result;
     }
 
-    public function get_dropdown_list($owner) {
-        $this->db->select('idtargets, target_name');
-        $this->db->where('owner', $owner);
-        $this->db->order_by('display_order', "asc");
-        $query = $this->db->get('target');
-        if($query)
-        {
-            $result = $query->result_array();
-            return $result;
-        }
-    }
 
     public function get_target($idtarget) {
-        $this->db->select('idtarget,target_name,interest_area,priority,target_type');
+        $this->db->select('idtarget,target_name,interest_area');
         $this->db->from('target');
         $this->db->where('idtarget',$idtarget);
 
