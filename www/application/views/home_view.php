@@ -5,9 +5,6 @@
     var allDayTime = "";
     var calendar;
 
-
-
-
     function closeDialog(dialogName) {
         $("#" + dialogName + "").modal('hide');
     }
@@ -92,6 +89,9 @@
             showRenameBtn: showRenameBtn
         },
         data: {
+            key: {
+                title:"t"
+            },
             simpleData: {
                 enable: true
             }
@@ -100,10 +100,14 @@
             addHoverDom: addHoverDom,
             removeHoverDom: removeHoverDom,
             dblClickExpand: false,
-            showTitle:false,
-            selectedMulti: false
+            showTitle:true,
+            showIcon:false,
+            selectedMulti: false,
+            fontCss: getFont,
+            nameIsHTML: true
         },
         callback: {
+            onClick: onClick,
             onRightClick: OnRightClick,
             beforeDrag: beforeDrag,
             beforeDrop: beforeDrop,
@@ -125,14 +129,19 @@
             $display_arr .= 'id:'.$target_item['idtarget'];
             $display_arr .= ',pId:'.($target_item['parent_target']==null?0:$target_item['parent_target']) ;
             $display_arr .= ',name:"'.$target_item['target_name'] .'"';
+            $display_arr .= ',t:"目标完成时间：'.$target_item['due_date'] . '"';
             $display_arr .= ',open:true';
             $display_arr .= ',drag:'. ($target_item['parent_target']==null ?'false':'true');
+            $display_arr .= ",".($target_item['parent_target']==null ?"font:{'font-weight':'bold'}":'');
             $display_arr .= '},';
         }
         $display_arr = substr($display_arr,0, strlen($display_arr)-1);
         echo $display_arr;?>
     ];
 
+    function getFont(treeId, node) {
+        return node.font ? node.font : {};
+    }
 
     function beforeDrag(treeId, treeNodes) {
         for (var i=0,l=treeNodes.length; i<l; i++) {
@@ -145,6 +154,10 @@
 
     function beforeDrop(treeId, treeNodes, targetNode, moveType) {
         return targetNode ? targetNode.drop !== false : true;
+    }
+
+    function onClick(event, treeId, treeNode, clickFlag) {
+        document.getElementById("task_list").innerHTML = "显示treeNode的ID、pID、name:" + treeNode.id + " "  + treeNode.pId + " " +treeNode.name ;
     }
 
     function OnRightClick(event, treeId, treeNode) {
@@ -316,7 +329,19 @@
 //                right: 'month,agendaWeek,agendaDay'
 //            },
             defaultView: 'agendaDay',
-
+            theme: true,
+            aspectRatio: 0.15,
+            contentHeight: 520,
+            selectable: true,
+            selectHelper: true,
+            editable: true,
+            resizable: true,
+            allDaySlot: false,
+            minTime: 5,
+            maxTime: 23,
+            firstHour: 8,
+            slotMinutes: 30,
+            snapMinutes: 30,
             select: function (start, end, allDay) {
                 startTime = start;
                 endTime = end;
@@ -391,19 +416,21 @@
     .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
 
 </style>
-<div class="span8">
+<div class="span7">
 
     <div class="row-fluid">
-        <div class="">
+        <div class="span12">
             <h3> 现在，你应该着手去做 </h3>
         </div>
-        <div  class="zTreeDemoBackground left">
+        <div  class="span12 zTreeDemoBackground left">
             <ul id="treeDemo" class="ztree"></ul>
+        </div>
+        <div id="task_list" class="span12">
         </div>
     </div>
 </div>
 
-<div class="span2" id='dayCalendar'>
+<div class="span3" id='dayCalendar'>
 
 </div>
 
