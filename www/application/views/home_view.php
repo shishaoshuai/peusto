@@ -81,15 +81,15 @@
 
     function showCreateTodoModal(targetId) {
         document.getElementById('target').value=targetId;
-
         $('#todo_modal').modal('show');
     }
 
     var setting = {
         edit: {
             enable: true,
-            showRemoveBtn: false,
-            showRenameBtn: false
+            editNameSelectAll: true,
+            showRemoveBtn: showRemoveBtn,
+            showRenameBtn: showRenameBtn
         },
         data: {
             simpleData: {
@@ -97,15 +97,21 @@
             }
         },
         view: {
-            dblClickExpand: false
-        },
-        check: {
-            enable: true
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            dblClickExpand: false,
+            showTitle:false,
+            selectedMulti: false
         },
         callback: {
             onRightClick: OnRightClick,
             beforeDrag: beforeDrag,
-            beforeDrop: beforeDrop
+            beforeDrop: beforeDrop,
+            beforeEditName: beforeEditName,
+            beforeRemove: beforeRemove,
+            beforeRename: beforeRename,
+            onRemove: onRemove,
+            onRename: onRename
         }
     };
 
@@ -128,23 +134,6 @@
     ];
 
 
-//    { id:1, pId:0, name:"随意拖拽 1", open:true},
-//    { id:11, pId:1, name:"随意拖拽 1-1"},
-//    { id:12, pId:1, name:"随意拖拽 1-2", open:true},
-//    { id:121, pId:12, name:"随意拖拽 1-2-1"},
-//    { id:122, pId:12, name:"随意拖拽 1-2-2"},
-//    { id:123, pId:12, name:"随意拖拽 1-2-3"},
-//    { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
-//    { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
-//    { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
-//    { id:133, pId:13, name:"随意拖拽 1-3-3"},
-//    { id:2, pId:0, name:"随意拖拽 2", open:true},
-//    { id:21, pId:2, name:"随意拖拽 2-1"},
-//    { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
-//    { id:221, pId:22, name:"随意拖拽 2-2-1"},
-//    { id:222, pId:22, name:"随意拖拽 2-2-2"},
-//    { id:223, pId:22, name:"随意拖拽 2-2-3"},
-//    { id:23, pId:2, name:"随意拖拽 2-3"}
     function beforeDrag(treeId, treeNodes) {
         for (var i=0,l=treeNodes.length; i<l; i++) {
             if (treeNodes[i].drag === false) {
@@ -153,6 +142,7 @@
         }
         return true;
     }
+
     function beforeDrop(treeId, treeNodes, targetNode, moveType) {
         return targetNode ? targetNode.drop !== false : true;
     }
@@ -228,6 +218,88 @@
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
     }
 
+    var log, className = "dark";
+
+    function beforeEditName(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？");
+    }
+    function beforeRemove(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+    }
+    function onRemove(e, treeId, treeNode) {
+        showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+    }
+    function beforeRename(treeId, treeNode, newName, isCancel) {
+        className = (className === "dark" ? "":"dark");
+        showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+        if (newName.length == 0) {
+            alert("节点名称不能为空.");
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            setTimeout(function(){zTree.editName(treeNode)}, 10);
+            return false;
+        }
+        return true;
+    }
+    function onRename(e, treeId, treeNode, isCancel) {
+        showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+    }
+    function showRemoveBtn(treeId, treeNode) {
+        return !treeNode.isFirstNode;
+    }
+    function showRenameBtn(treeId, treeNode) {
+        return !treeNode.isLastNode;
+    }
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='"+className+"'>"+str+"</li>");
+        if(log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+    function getTime() {
+        var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+        return (h+":"+m+":"+s+ " " +ms);
+    }
+
+    var newCount = 1;
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+        if (btn) btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            //todo:show add target modal
+            $('#todo_modal').modal('show');
+
+            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            return false;
+        });
+    };
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+    function selectAll() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+    }
+
+
+
     var zTree, rMenu;
 
     $(document).ready(function () {
@@ -300,6 +372,7 @@
 
 
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $("#selectAll").bind("click", selectAll);
         zTree = $.fn.zTree.getZTreeObj("treeDemo");
         rMenu = $("#rMenu");
     });
@@ -315,6 +388,8 @@
         list-style: none outside none;
         background-color: #DFDFDF;
     }
+    .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+
 </style>
 <div class="span8">
 
@@ -322,7 +397,7 @@
         <div class="">
             <h3> 现在，你应该着手去做 </h3>
         </div>
-        <div>
+        <div  class="zTreeDemoBackground left">
             <ul id="treeDemo" class="ztree"></ul>
         </div>
     </div>
@@ -343,54 +418,47 @@
             &times;
         </button>
         <h3>
-            请对该任务进行操作:
+
         </h3>
     </div>
 
     <div class="modal-body">
-        <div class="control-group">
-            <label class="control-label" for="todo_name">任务名称</label>
+        <?php
+        $attributes = array('class' => 'form-horizontal');
+        echo form_open($action_name, $attributes);
+        ?>
+        <fieldset>
+            <legend>目标管理</legend>
+            <input type="hidden" name="idtarget" value="<?php echo isset($target_tbm) ? $target_tbm['idtarget'] : '' ?>"/>
 
-            <div class="controls">
-                <input type="text" class="input-block-level" id="todo_name" name="todo_name"
-                       placeholder="请输入待完成的任务，要简明、清晰，不超过100个汉字"
-                       required>
-                <span class="help-inline">我们通常会将一个目标分解为多个任务，通常，任务分解应尽可能细化，任务通常在5分钟到2个小时内可完成。</span>
+            <div class="control-group">
+                <label class="control-label" for="target_name">目标名称</label>
+
+                <div class="controls">
+                    <input class="span12" type="text" id="target_name" name="target_name"
+                           value="<?php echo isset($target_tbm) ? $target_tbm['target_name'] : '' ?>"
+                           placeholder="请输入目标名称"/>
+                </div>
             </div>
-        </div>
-        <input type="hidden" id="target" name="target">
-        <input type="hidden" id="start_time" name="start_time">
-        <input type="hidden" id="due_time" name="due_time">
 
-        <div class="control-group">
-            <label class="control-label" for="interest_area">所属关注域</label>
+            <div class="control-group">
+                <label class="control-label" for="due_time">完成时间</label>
 
-            <div class="controls">
-                <select id="interest_area" name="interest_area">
-
-                </select>
-                <span class="help-inline">请输入该任务所属的关注域</span>
+                <div class="controls date due_time" align="left" data-date-format="yyyy年MMdd日"
+                     data-link-field="due_time">
+                    <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+                <input type="hidden" id="due_time" name="due_time" value=""/>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="target">所属目标</label>
-
-            <div class="controls">
-                <select id="target" name="target">
-
-                </select>
-                <span class="help-inline">请输入该任务所属的目标</span>
+            <div class="control-group">
+                <div class="controls" text-align="center">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
             </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="is_appointment">定时任务</label>
-
-            <div class="controls">
-                <input type="checkbox" name="is_appointment" id="is_appointment" value="1"/>
-                <span class="help-inline">定时任务一般指约定的会议，预约的安排等</span>
-            </div>
-        </div>
+        </fieldset>
+        </form>
     </div>
 
     <div class="modal-footer">

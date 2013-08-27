@@ -10,6 +10,7 @@ class Home extends CI_Controller
         add_js(array('jquery-ui-1.10.3.custom.min.js','fullcalendar.js',
             'jquery.jcombo.js','date.js','jquery.ztree.all-3.5.js'));
         $this->load->model('target_model');
+        $this->load->helper('form');
     }
 
     function index()
@@ -21,6 +22,7 @@ class Home extends CI_Controller
             $data['username'] = $session_data['username'];
             $data['targets'] = $this->target_model->get_targets();
             $data['active_nav_item'] = 'home';
+            $data['action_name'] = 'ddd';
 
             $this->load->view('templates/header',$data);
             $this->load->view('home_view', $data);
