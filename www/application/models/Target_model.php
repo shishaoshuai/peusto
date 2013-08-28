@@ -16,42 +16,17 @@ class Target_model extends CI_Model
         $data = array(
             'owner' =>$owner,
             'target_name' => $this->input->post('target_name'),
-//            'due_time' => $this->input->post('due_time'),
-            'lft' => $this->input->post('lft')
+            'due_date' =>$this->input->post('due_date'),
+            'parent_target' => $this->input->post('parent_target')
         );
+        log_message('info','target_model->set_target() $data is: owner '.$owner. " target_name "
+            .$this->input->post('target_name'). "due_date" . $this->input->post('due_date')
+            ." parent_target" . $this->input->post('parent_target'));
+        $this->db->insert('target', $data);
 
-        $sql = array();
-        $result = array();
-
-        if($this->input->post('lft')=='0') {
-            $sql['query1'] = "LOCK TABLE target WRITE";
-            $sql['query2'] = "SELECT @myRight := MAX(rgt) FROM target WHERE owner=".$owner ;
-
-            $sql['query3'] = "UPDATE target SET rgt = rgt + 2 WHERE rgt >= @myRight AND owner=".$owner ;
-            $sql['query4'] = "INSERT INTO target(owner, target_name,lft,rgt) VALUES("
-                .$owner.",'"
-                .$this->input->post('target_name')."',@myRight, @myRight + 1)";
-            $sql['query5'] = "UNLOCK TABLES;";
-            foreach($sql as $key => $value)
-            {
-                $result[$key] = $this->db->query($value);
-            }
-        } else {
-            $sql['query1'] = "LOCK TABLE target WRITE";
-            $sql['query2'] = "SELECT @myRight := rgt FROM target WHERE lft=".$this->input->post('lft')
-                ." AND owner=".$owner;
-            $sql['query3'] = "UPDATE target SET rgt = rgt + 2 WHERE rgt >= @myRight AND owner=".$owner ;
-            $sql['query4'] = "UPDATE target SET lft = lft + 2 WHERE lft > @myRight AND owner=".$owner ;
-            $sql['query5'] = "INSERT INTO target(owner,  target_name,lft,rgt) VALUES("
-                .$owner.",'"
-                .$this->input->post('target_name')."',@myRight, @myRight + 1)";
-            $sql['query6'] = "UNLOCK TABLES;";
-            foreach($sql as $key => $value)
-            {
-                $result[$key] = $this->db->query($value);
-            }
-        }
-//        return $this->db->insert('target', $data);
+        $id = $this->db->insert_id();
+        return $id;
+//        echo json_encode(array('newAddedId' => $id));
     }
 
     public function update_target()

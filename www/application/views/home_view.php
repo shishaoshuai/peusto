@@ -8,31 +8,28 @@
     function closeDialog(dialogName) {
         $("#" + dialogName + "").modal('hide');
     }
-    function saveTask() {
 
-        title = document.getElementById('todo_name').value;
-        startTime = document.getElementById('start_time') != null ? document.getElementById('start_time').value : startTime;
-        endTime = document.getElementById('due_time') != null ? document.getElementById('due_time').value : endTime;
+    var newAddedTargetId = "";
+    var newAddedTargetName = "";
+    var newAddedTargetDueDate = "";
 
-        var todoId = document.getElementById('idtodo') != null ? document.getElementById('idtodo').value : "";
-        var isa = document.getElementById('is_appointment').value;
-        var ia = document.getElementById('interest_area').value;
-        var ta = document.getElementById('target').value;
-        var st = startTime.valueOf() / 1000;
-        var dt = endTime.valueOf() / 1000;
+    function saveTarget() {
+        var targetName = document.getElementById('target_name').value;
+        var dueDate = document.getElementById('due_date').value;
+        var parentTarget = document.getElementById('parent_target').value;
+        var targetId = document.getElementById('idtarget') != null ? document.getElementById('idtodo').value : "";
 
-        var updateFlag = document.getElementById('idtodo') != null ? true : false;
-        alert('value' + todoId + ' ' + title + +' ' + isa + ' ' + ia + ' ' + ta);
-        if (todoId == "") {
-            alert('creating...');
-
+        if (targetId == "") {
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>create_todo_from_calendar",
-                data: {todo_name: title, start_time: st, due_time: dt, is_appointment: isa, target: ta, interest_area: ia},
+                url: "<?php echo base_url(); ?>create_target",
+                async: false,
+                data: {target_name: targetName, due_date: dueDate, parent_target:parentTarget},
                 dataType: 'json',
                 success: function (data, status) {
-                    todoId = data.id;
+                    newAddedTargetId = data;
+                    alert('id=""'+data);
+                    alert("target create successful");
                 }
             });
         } else {
@@ -48,32 +45,7 @@
             });
         }
         closeDialog('todo_modal');
-        if (updateFlag) {
-            calendar.fullCalendar('removeEvents', todoId);
-            calendar.fullCalendar('renderEvent',
-                {
-                    id: todoId,
-                    title: title,
-                    start: startTime,
-                    end: endTime,
-                    allDay: allDayTime
-                },
-                true
-            );
-        } else {
-            calendar.fullCalendar('renderEvent',
-                {
-                    id: todoId,
-                    title: title,
-                    start: startTime,
-                    end: endTime,
-                    allDay: allDayTime
-                },
-                true
-            );
-        }
 
-        calendar.fullCalendar('unselect');
     }
 
     function showCreateTodoModal(targetId) {
@@ -287,6 +259,8 @@
     }
 
     var newCount = 1;
+
+
     function addHoverDom(treeId, treeNode) {
         var sObj = $("#" + treeNode.tId + "_span");
         if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
@@ -297,9 +271,11 @@
         if (btn) btn.bind("click", function(){
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
             //todo:show add target modal
+            document.getElementById('parent_target').value = treeNode.id;
             $('#todo_modal').modal('show');
 
-            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            zTree.addNodes(treeNode, {id:newAddedTargetId, pId:treeNode.id, name:newAddedTargetName
+                + (newCount++),t:"目标截止时间" + newAddedTargetDueDate});
             return false;
         });
     };
@@ -395,7 +371,17 @@
 
         });
 
-
+        $('.due_date').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            minView:'month',
+            showMeridian:false
+        });
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         $("#selectAll").bind("click", selectAll);
         zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -450,39 +436,31 @@
     </div>
 
     <div class="modal-body">
-        <?php
-        $attributes = array('class' => 'form-horizontal');
-        echo form_open($action_name, $attributes);
-        ?>
+        <form id="target_form">
         <fieldset>
             <legend>目标管理</legend>
             <input type="hidden" name="idtarget" value="<?php echo isset($target_tbm) ? $target_tbm['idtarget'] : '' ?>"/>
-
+            <input type="hidden" id="parent_target" name="parent_target" />
             <div class="control-group">
                 <label class="control-label" for="target_name">目标名称</label>
 
                 <div class="controls">
-                    <input class="span12" type="text" id="target_name" name="target_name"
+                    <input class="input-xlarge" type="text" id="target_name" name="target_name"
                            value="<?php echo isset($target_tbm) ? $target_tbm['target_name'] : '' ?>"
                            placeholder="请输入目标名称"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="due_time">完成时间</label>
+                <label class="control-label" for="due_date">完成时间</label>
 
-                <div class="controls date due_time" align="left" data-date-format="yyyy年MMdd日"
-                     data-link-field="due_time">
+                <div class="controls date due_date" align="left" data-date-format="yyyy年MMdd日"
+                     data-link-field="due_date">
                     <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
                     <span class="add-on"><i class="icon-remove"></i></span>
                     <span class="add-on"><i class="icon-th"></i></span>
                 </div>
-                <input type="hidden" id="due_time" name="due_time" value=""/>
-            </div>
-            <div class="control-group">
-                <div class="controls" text-align="center">
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
+                <input type="hidden" id="due_date" name="due_date" value=""/>
             </div>
         </fieldset>
         </form>
@@ -492,7 +470,7 @@
         <a href="#" class="btn" onclick="closeDialog('todo_modal');">
             关闭
         </a>
-        <a href="#" class="btn btn-primary" onclick="saveTask();">
+        <a href="#" class="btn btn-primary" onclick="saveTarget();">
             保存
         </a>
     </div>

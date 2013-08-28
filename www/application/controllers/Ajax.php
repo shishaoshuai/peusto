@@ -113,6 +113,15 @@ class Ajax extends CI_Controller
         return $ii;
     }
 
+    public function create_target()
+    {
+        $this->load->model('target_model');
+        $ii = $this->target_model->set_target();
+        log_message('info','$this->db->$ii():'.$ii);
+
+        return $ii;
+    }
+
     public function modify_task_from_calendar()
     {
         $this->load->model('task_model');

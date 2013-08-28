@@ -1,6 +1,6 @@
 --
 -- MySQL 5.5.8
--- Thu, 08 Aug 2013 08:35:50 +0000
+-- Wed, 28 Aug 2013 07:34:06 +0000
 --
 
 CREATE DATABASE `peusto` DEFAULT CHARSET utf8;
@@ -37,14 +37,16 @@ CREATE TABLE `interest_area` (
    `interest_area_name` varchar(20),
    `display_order` tinyint(4),
    PRIMARY KEY (`idinterest_area`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=10;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12;
 
 INSERT INTO `interest_area` (`idinterest_area`, `interest_area_name`, `display_order`) VALUES 
-('1', '个人事业', '1'),
-('3', '家庭', '2'),
-('4', '工作', '3'),
-('8', '健康', '4'),
-('9', '社会交往', '5');
+('1', '职业', '1'),
+('3', '财富', '2'),
+('4', '教育', '3'),
+('8', '家庭', '4'),
+('9', '爱好', '5'),
+('10', '社会地位', '6'),
+('11', '健康', '7');
 
 CREATE TABLE `regular_arrangement` (
    `idRegular_arrangement` int(11) not null auto_increment,
@@ -78,19 +80,41 @@ INSERT INTO `regular_arrangement_type` (`id_rat`, `rat_name`) VALUES
 CREATE TABLE `target` (
    `idtarget` int(11) not null auto_increment,
    `target_name` varchar(140),
-   `interest_area` int(11),
-   `priority` int(11),
+   `dis_order` int(11),
    `owner` int(11),
+   `due_date` date,
+   `status` int(11) default '0',
    `create_time` timestamp not null default CURRENT_TIMESTAMP,
-   `target_type` int(11),
+   `last_modified_time` datetime,
+   `parent_target` int(11),
    PRIMARY KEY (`idtarget`),
-   KEY `FK_targe_ref_interest_area_idx` (`interest_area`),
    KEY `FK_target_ref_user_idx` (`owner`),
-   KEY `fk_target_ref_user_target_type_idx` (`target_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12;
+   KEY `fk_self_ref_idx` (`parent_target`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=65;
 
-INSERT INTO `target` (`idtarget`, `target_name`, `interest_area`, `priority`, `owner`, `create_time`, `target_type`) VALUES 
-('11', '这孩子真傻', '71', '1', '31', '2013-08-08 08:12:34', '2');
+INSERT INTO `target` (`idtarget`, `target_name`, `dis_order`, `owner`, `due_date`, `status`, `create_time`, `last_modified_time`, `parent_target`) VALUES 
+('39', '1', '1', '31', '2013-12-28', '0', '2013-08-27 08:51:59', '', ''),
+('40', '2', '2', '31', '2013-12-28', '0', '2013-08-27 08:51:59', '', ''),
+('41', '3', '3', '31', '2013-12-28', '0', '2013-08-27 08:51:59', '', ''),
+('42', '4', '4', '31', '2013-12-28', '0', '2013-08-27 08:51:59', '', ''),
+('43', '5', '5', '31', '2013-12-28', '0', '2013-08-27 08:51:59', '', ''),
+('44', '11', '', '31', '', '0', '2013-08-27 08:52:48', '', '39'),
+('45', '12', '', '31', '', '0', '2013-08-27 08:52:48', '', '39'),
+('46', '13', '', '31', '', '0', '2013-08-27 08:52:48', '', '39'),
+('47', '111', '', '31', '', '0', '2013-08-27 08:52:48', '', '44'),
+('48', '131', '', '31', '', '0', '2013-08-27 08:52:48', '', '46'),
+('62', 'fasf', '', '31', '2013-08-31', '0', '2013-08-28 12:42:19', '', '48'),
+('63', 'sffff', '', '31', '2013-08-30', '0', '2013-08-28 12:46:46', '', '62'),
+('64', 'fadsf', '', '31', '2013-08-29', '0', '2013-08-28 12:48:52', '', '63');
+
+CREATE TABLE `target_tree` (
+   `child_id` int(11) not null,
+   `parent_id` int(11),
+   PRIMARY KEY (`child_id`),
+   KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- [表 `target_tree` 为空]
 
 CREATE TABLE `target_type` (
    `idtarget_type` int(11) not null auto_increment,
@@ -118,24 +142,25 @@ INSERT INTO `target_type` (`idtarget_type`, `target_type_name`) VALUES
 ('17', '20年目标'),
 ('18', '人生目标');
 
-CREATE TABLE `task` (
-   `idtask` int(11) not null auto_increment,
+CREATE TABLE `todo` (
+   `todo_id` int(11) not null auto_increment,
    `owner` int(11),
-   `task_name` varchar(140),
+   `todo_name` varchar(140),
    `expected_duration` tinyint(4),
    `start_time` datetime,
    `due_time` datetime,
    `target` int(11),
    `interest_area` int(11),
    `is_appointment` bit(1),
-   PRIMARY KEY (`idtask`),
+   PRIMARY KEY (`todo_id`),
    KEY `fk_task_ref_user_idx` (`owner`),
    KEY `fk_task_ref_target_idx` (`target`),
    KEY `fk_task_ref_interest_area_idx` (`interest_area`)
-) ENGINE=InnoDB DEFAULT CHARSET=gbk AUTO_INCREMENT=6;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=78;
 
-INSERT INTO `task` (`idtask`, `owner`, `task_name`, `expected_duration`, `start_time`, `due_time`, `target`, `interest_area`, `is_appointment`) VALUES 
-('5', '22', 'a', '30', '2013-08-07 04:25:00', '2013-08-08 09:50:00', '9', '15', '1');
+INSERT INTO `todo` (`todo_id`, `owner`, `todo_name`, `expected_duration`, `start_time`, `due_time`, `target`, `interest_area`, `is_appointment`) VALUES 
+('76', '31', '与TD讨论方案', '60', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '13', '71', '0'),
+('77', '31', '将初稿发给都英麒，征询都英麒意见', '15', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '12', '71', '0');
 
 CREATE TABLE `user_interest_area` (
    `iduser_interest_area` int(11) not null auto_increment,
