@@ -57,8 +57,8 @@
         edit: {
             enable: true,
             editNameSelectAll: true,
-            showRemoveBtn: showRemoveBtn,
-            showRenameBtn: showRenameBtn
+            showRemoveBtn: false,
+            showRenameBtn: false
         },
         data: {
             key: {
@@ -69,8 +69,9 @@
             }
         },
         view: {
-            addHoverDom: addHoverDom,
-            removeHoverDom: removeHoverDom,
+//            addHoverDom: addHoverDom,
+            addDiyDom: addDiyDom,
+//            removeHoverDom: removeHoverDom,
             dblClickExpand: false,
             showTitle:true,
             showIcon:false,
@@ -104,7 +105,7 @@
             $display_arr .= ',t:"目标完成时间：'.$target_item['due_date'] . '"';
             $display_arr .= ',open:true';
             $display_arr .= ',drag:'. ($target_item['parent_target']==null ?'false':'true');
-            $display_arr .= ",".($target_item['parent_target']==null ?"font:{'font-weight':'bold'}":'');
+            $display_arr .= ",".($target_item['parent_target']==null ?"font:{'font-weight':'bold','font-size':'150%'}":'');
             $display_arr .= '},';
         }
         $display_arr = substr($display_arr,0, strlen($display_arr)-1);
@@ -191,13 +192,7 @@
             }
         }
     }
-    function checkTreeNode(checked) {
-        var nodes = zTree.getSelectedNodes();
-        if (nodes && nodes.length>0) {
-            zTree.checkNode(nodes[0], checked, true);
-        }
-        hideRMenu();
-    }
+
     function resetTree() {
         hideRMenu();
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
@@ -236,12 +231,15 @@
     function onRename(e, treeId, treeNode, isCancel) {
         showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
     }
-    function showRemoveBtn(treeId, treeNode) {
-        return !treeNode.isFirstNode;
-    }
-    function showRenameBtn(treeId, treeNode) {
-        return !treeNode.isLastNode;
-    }
+//    function showRemoveBtn(treeId, treeNode) {
+////        return !treeNode.isFirstNode;
+//        return true;
+//    }
+//    function showRenameBtn(treeId, treeNode) {
+////        return !treeNode.isLastNode;
+//        return true;
+//    }
+
     function showLog(str) {
         if (!log) log = $("#log");
         log.append("<li class='"+className+"'>"+str+"</li>");
@@ -260,15 +258,17 @@
 
     var newCount = 1;
 
-
-    function addHoverDom(treeId, treeNode) {
+    function addDiyDom(treeId, treeNode) {
         var sObj = $("#" + treeNode.tId + "_span");
         if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-            + "' title='add node' onfocus='this.blur();'></span>";
+            + "' title='增加子目标' onfocus='this.blur();'></span>";
+        addStr += "<span class='button remove' id='removeBtn_" + treeNode.tId
+            + "' title='删除目标' onfocus='this.blur();'></span>";
         sObj.after(addStr);
-        var btn = $("#addBtn_"+treeNode.tId);
-        if (btn) btn.bind("click", function(){
+        var btnAdd = $("#addBtn_"+treeNode.tId);
+
+        if (btnAdd) btnAdd.bind("click", function(){
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
             //todo:show add target modal
             document.getElementById('parent_target').value = treeNode.id;
@@ -278,7 +278,21 @@
                 + (newCount++),t:"目标截止时间" + newAddedTargetDueDate});
             return false;
         });
+
+        var btnRemove = $("#removeBtn_"+treeNode.tId);
+        if (btnRemove) btnRemove.bind("click", function(){
+            removeTreeNode();
+//            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+//            //todo:show add target modal
+//            document.getElementById('parent_target').value = treeNode.id;
+//            $('#todo_modal').modal('show');
+//
+//            zTree.addNodes(treeNode, {id:newAddedTargetId, pId:treeNode.id, name:newAddedTargetName
+//                + (newCount++),t:"目标截止时间" + newAddedTargetDueDate});
+//            return false;
+        });
     };
+
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
     };
