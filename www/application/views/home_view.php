@@ -4,7 +4,8 @@
     var endTime = "";
     var allDayTime = "";
     var calendar;
-
+    var currentTreeNode;
+    var zTree, rMenu;
     function closeDialog(dialogName) {
         $("#" + dialogName + "").modal('hide');
     }
@@ -20,6 +21,15 @@
         var targetId = document.getElementById('idtarget') != null ? document.getElementById('idtodo').value : "";
 
         if (targetId == "") {
+
+<!--            $.post("--><?php //echo base_url(); ?><!--create_target",-->
+<!--                {target_name: targetName, due_date: dueDate, parent_target:parentTarget},-->
+<!--                function(result){-->
+<!--                    newAddedTargetId = result;-->
+<!--                    newAddedTargetName = targetName;-->
+<!--                    alert('id=""'+result + "tt");-->
+<!--                }-->
+<!--            );-->
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>create_target",
@@ -28,8 +38,13 @@
                 dataType: 'json',
                 success: function (data, status) {
                     newAddedTargetId = data;
-                    alert('id=""'+data);
+                    newAddedTargetName = targetName;
+                    alert('id='+data + "value=" + targetName);
                     alert("target create successful");
+                },
+                error:function() {
+                    alert("eoore successful");
+
                 }
             });
         } else {
@@ -44,6 +59,8 @@
                 }
             });
         }
+        zTree.addNodes(currentTreeNode, {id:newAddedTargetId, pId:currentTreeNode.id, name:newAddedTargetName,
+            t:"目标截止时间" + newAddedTargetDueDate});
         closeDialog('todo_modal');
 
     }
@@ -259,12 +276,15 @@
     var newCount = 1;
 
     function addDiyDom(treeId, treeNode) {
+        currentTreeNode = treeNode;
         var sObj = $("#" + treeNode.tId + "_span");
         if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
             + "' title='增加子目标' onfocus='this.blur();'></span>";
         addStr += "<span class='button remove' id='removeBtn_" + treeNode.tId
             + "' title='删除目标' onfocus='this.blur();'></span>";
+        addStr += "<span class='button edit' id='editBtn_" + treeNode.tId
+            + "' title='调整目标' onfocus='this.blur();'></span>";
         sObj.after(addStr);
         var btnAdd = $("#addBtn_"+treeNode.tId);
 
@@ -273,23 +293,25 @@
             //todo:show add target modal
             document.getElementById('parent_target').value = treeNode.id;
             $('#todo_modal').modal('show');
-
-            zTree.addNodes(treeNode, {id:newAddedTargetId, pId:treeNode.id, name:newAddedTargetName
-                + (newCount++),t:"目标截止时间" + newAddedTargetDueDate});
             return false;
         });
 
         var btnRemove = $("#removeBtn_"+treeNode.tId);
         if (btnRemove) btnRemove.bind("click", function(){
-            removeTreeNode();
-//            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-//            //todo:show add target modal
-//            document.getElementById('parent_target').value = treeNode.id;
-//            $('#todo_modal').modal('show');
-//
-//            zTree.addNodes(treeNode, {id:newAddedTargetId, pId:treeNode.id, name:newAddedTargetName
-//                + (newCount++),t:"目标截止时间" + newAddedTargetDueDate});
-//            return false;
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var node = treeObj.getNodeByTId(treeNode.tId);
+            if (node.children && node.children.length > 0) {
+                var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
+                if (confirm(msg)==true){
+                    zTree.removeNode(node);
+                    $.get("<?php echo base_url(); ?>delete_target/"+treeNode.id,function(data,status){
+                    })
+                }
+            } else {
+                zTree.removeNode(node);
+                $.get("<?php echo base_url(); ?>delete_target/"+treeNode.id,function(data,status){
+                })
+            }
         });
     };
 
@@ -303,7 +325,7 @@
 
 
 
-    var zTree, rMenu;
+
 
     $(document).ready(function () {
         var date = new Date();

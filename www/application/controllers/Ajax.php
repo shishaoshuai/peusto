@@ -117,9 +117,20 @@ class Ajax extends CI_Controller
     {
         $this->load->model('target_model');
         $ii = $this->target_model->set_target();
-        log_message('info','$this->db->$ii():'.$ii);
 
-        return $ii;
+        header('content-type: application/json; charset=utf-8');
+        // convert into JSON format and print
+        $response = json_encode($ii);
+        if (isset($_GET['callback'])) {
+            echo $_GET['callback'] . "(" . $response . ")";
+        } else {
+            echo $response;
+        }
+    }
+
+    public function delete_target($idtarget) {
+        $this->load->model('target_model');
+        $this->target_model->delete_target($idtarget);
     }
 
     public function modify_task_from_calendar()
