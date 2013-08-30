@@ -46,7 +46,7 @@ class Target_model extends CI_Model
     public function get_targets() {
         $session_data = $this->session->userdata('logged_in');
         $owner = $session_data['idusers'];
-        $sql = "SELECT idtarget,parent_target, target_name, due_date FROM target"
+        $sql = "SELECT idtarget,parent_target, target_name, due_date,status FROM target"
             ." WHERE owner = ?  order by parent_target, dis_order asc";
 
         $query = $this->db->query($sql, $owner);

@@ -21,15 +21,6 @@
         var targetId = document.getElementById('idtarget') != null ? document.getElementById('idtodo').value : "";
 
         if (targetId == "") {
-
-<!--            $.post("--><?php //echo base_url(); ?><!--create_target",-->
-<!--                {target_name: targetName, due_date: dueDate, parent_target:parentTarget},-->
-<!--                function(result){-->
-<!--                    newAddedTargetId = result;-->
-<!--                    newAddedTargetName = targetName;-->
-<!--                    alert('id=""'+result + "tt");-->
-<!--                }-->
-<!--            );-->
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>create_target",
@@ -39,12 +30,9 @@
                 success: function (data, status) {
                     newAddedTargetId = data;
                     newAddedTargetName = targetName;
-                    alert('id='+data + "value=" + targetName);
-                    alert("target create successful");
                 },
                 error:function() {
-                    alert("eoore successful");
-
+                    alert("保存新增目标时发生错误");
                 }
             });
         } else {
@@ -56,18 +44,20 @@
                 dataType: 'json',
                 success: function (data, status) {
                     alert('modify success.');
+                },
+                error:function() {
+                    alert("保存修改目标时发生错误");
                 }
             });
         }
         zTree.addNodes(currentTreeNode, {id:newAddedTargetId, pId:currentTreeNode.id, name:newAddedTargetName,
             t:"目标截止时间" + newAddedTargetDueDate});
-        closeDialog('todo_modal');
-
+        closeDialog('target_modal');
     }
 
     function showCreateTodoModal(targetId) {
         document.getElementById('target').value=targetId;
-        $('#todo_modal').modal('show');
+        $('#target_modal').modal('show');
     }
 
     var setting = {
@@ -119,6 +109,8 @@
             $display_arr .= 'id:'.$target_item['idtarget'];
             $display_arr .= ',pId:'.($target_item['parent_target']==null?0:$target_item['parent_target']) ;
             $display_arr .= ',name:"'.$target_item['target_name'] .'"';
+            $display_arr .= ',dueDate:"'.$target_item['due_date'] .'"';
+            $display_arr .= ',status:"'.$target_item['status'] .'"';
             $display_arr .= ',t:"目标完成时间：'.$target_item['due_date'] . '"';
             $display_arr .= ',open:true';
             $display_arr .= ',drag:'. ($target_item['parent_target']==null ?'false':'true');
@@ -248,30 +240,6 @@
     function onRename(e, treeId, treeNode, isCancel) {
         showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
     }
-//    function showRemoveBtn(treeId, treeNode) {
-////        return !treeNode.isFirstNode;
-//        return true;
-//    }
-//    function showRenameBtn(treeId, treeNode) {
-////        return !treeNode.isLastNode;
-//        return true;
-//    }
-
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
 
     var newCount = 1;
 
@@ -286,13 +254,12 @@
         addStr += "<span class='button edit' id='editBtn_" + treeNode.tId
             + "' title='调整目标' onfocus='this.blur();'></span>";
         sObj.after(addStr);
-        var btnAdd = $("#addBtn_"+treeNode.tId);
 
+        var btnAdd = $("#addBtn_"+treeNode.tId);
         if (btnAdd) btnAdd.bind("click", function(){
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            //todo:show add target modal
             document.getElementById('parent_target').value = treeNode.id;
-            $('#todo_modal').modal('show');
+            $('#target_modal').modal('show');
             return false;
         });
 
@@ -312,6 +279,25 @@
                 $.get("<?php echo base_url(); ?>delete_target/"+treeNode.id,function(data,status){
                 })
             }
+        });
+
+
+        var btnEdit = $("#editBtn_"+treeNode.tId);
+        if (btnEdit) btnEdit.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            document.getElementById('idtarget').value = treeNode.id;
+            document.getElementById('parent_target').value = treeNode.pId;
+            document.getElementById('target_name').value = treeNode.name;
+            document.getElementById('due_date').value = treeNode.dueDate;
+            document.getElementById('due_date_display').value = treeNode.dueDate;
+
+            document.getElementById('status').value = treeNode.status;
+            //todo，status为1，表明任务正在进展中
+            if(treeNode.status == "1") {
+                document.getElementById("finishBtn").style.display='inline';
+            }
+            $('#target_modal').modal('show');
+            return false;
         });
     };
 
@@ -360,7 +346,7 @@
                 allDayTime = allDay;
                 $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: '<?php echo "15" ?>' });
                 $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area" });
-                $('#todo_modal').modal('show');
+                $('#target_modal').modal('show');
             },
 
             eventClick: function (calEvent, jsEvent, view) {
@@ -380,7 +366,7 @@
                 }
                 $("#interest_area").jCombo("http://localhost/get_user_interest_areas", { selected_value: calEvent.interest_area });
                 $("#target").jCombo("http://localhost/get_targets/", { parent: "#interest_area", selected_value: calEvent.target });
-                $('#todo_modal').modal('show');
+                $('#target_modal').modal('show');
             },
             eventDrop: function (event, dayDelta, minuteDelta) {
                 var tmpStart = event.start.valueOf() / 1000;
@@ -460,23 +446,17 @@
 </div>
 
 
-<div class="modal hide fade" id="todo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal hide fade" id="target_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-            &times;
-        </button>
-        <h3>
-
-        </h3>
-    </div>
 
     <div class="modal-body">
         <form id="target_form">
         <fieldset>
             <legend>目标管理</legend>
-            <input type="hidden" name="idtarget" value="<?php echo isset($target_tbm) ? $target_tbm['idtarget'] : '' ?>"/>
+            <input type="hidden" id="idtarget" name="idtarget" />
             <input type="hidden" id="parent_target" name="parent_target" />
+            <input type="hidden" id="status" name="status" value=""/>
+
             <div class="control-group">
                 <label class="control-label" for="target_name">目标名称</label>
 
@@ -492,7 +472,7 @@
 
                 <div class="controls date due_date" align="left" data-date-format="yyyy年MMdd日"
                      data-link-field="due_date">
-                    <input size="12" type="text" value="" placeholder="请选择任务开始时间" readonly>
+                    <input size="12" id="due_date_display" type="text" value="" placeholder="请选择任务开始时间" readonly>
                     <span class="add-on"><i class="icon-remove"></i></span>
                     <span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -503,12 +483,17 @@
     </div>
 
     <div class="modal-footer">
-        <a href="#" class="btn" onclick="closeDialog('todo_modal');">
-            关闭
-        </a>
+
         <a href="#" class="btn btn-primary" onclick="saveTarget();">
             保存
         </a>
+        <a href="#" id="finishBtn" class="btn btn-success hide" onclick="saveTarget();">
+            标记为完成
+        </a>
+        <a href="#" class="btn" onclick="closeDialog('target_modal');">
+            关闭
+        </a>
+
     </div>
 </div>
 

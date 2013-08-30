@@ -38,8 +38,6 @@
                         href="<?php echo site_url('home') ?>">首页</a></li>
                 <li <?php echo $active_nav_item == 'todo' ? "class=\"active\"" : ""; ?>><a
                         href="<?php echo site_url('todo') ?>">待办任务</a></li>
-                <li <?php echo $active_nav_item == 'target' ? "class=\"active\"" : ""; ?>><a
-                        href="<?php echo site_url('target') ?>">目标管理</a></li>
                 <li <?php echo $active_nav_item == 'interest_area' ? "class=\"active\"" : ""; ?>><a
                         href="<?php echo site_url('interest_area') ?>">关注域管理</a></li>
                 <li <?php echo $active_nav_item == 'time_record' ? "class=\"active\"" : ""; ?>><a
